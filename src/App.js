@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+import home from './components/home/home';
 function App() {
   return (
     <div className="App">
@@ -9,4 +9,4 @@ function App() {
   );
 }
 
-export default App;
+export default home;
