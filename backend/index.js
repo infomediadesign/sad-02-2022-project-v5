@@ -36,7 +36,8 @@ app.get('/api/getdata', (req, res) => {
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.send(Buffer.from(items).toString('base64'))
+            if(items[0]!== undefined)
+            res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64')})
         }
     });
 });
@@ -57,7 +58,7 @@ app.post('/api/postdata', upload.single('image'), (req, res, next) => {
         else {
             // item.save();
             console.log("imgModel Created")
-            res.redirect('/');
+            res.redirect('http://localhost:3000/');
         }
     });
 });
