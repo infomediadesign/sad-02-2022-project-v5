@@ -1,0 +1,37 @@
+.sideNavEvent{
+    position: relative;
+    border-radius:5px;
+    margin-top:10px;
+    background-color:black;
+}
+.sideNavEvent::before {    
+    content: "";
+    background-image:url("../../../../public/images/coffee.gif");
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.7;
+}
+.sideNavEventFooter{
+    display:flex;
+    padding:20px 5px;
+    position: relative;
+    color:white;
+    justify-content:space-between;
+}
+.sideNavEventHeader{
+    font-size:18px;
+    color:white;
+    position: relative;
+    font-weight:bold;
+    padding:100px 5px 0px 5px;
+}
+.sideNavEventJoinButton{
+    border-color:transparent!important;
+    background-color:white!important;
+    color:black!important;
+    border-radius:20px!important;
+}
