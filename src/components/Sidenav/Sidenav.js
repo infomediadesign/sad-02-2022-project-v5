@@ -9,6 +9,7 @@ import './Sidenav.css';
 import { Avatar } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import Profile from '../Profile/Profile';
 
 
 function TabPanel(props) {
@@ -60,7 +61,7 @@ export default function BasicTabs() {
         </Tabs>
       </div>
       <TabPanel value={value} index={0}>
-       Profile
+       <Profile/>
       </TabPanel>
       <TabPanel value={value} index={1}>
        <Event/>
