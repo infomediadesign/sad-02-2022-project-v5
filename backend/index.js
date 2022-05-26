@@ -9,17 +9,21 @@ var fs = require('fs');
 var path = require('path');
 require('./routes/home')(app);
 require('dotenv/config');
-mongoose.connect(process.env.MONGO_URL,
-    { useNewUrlParser: true, useUnifiedTopology: true }, err => {
-        console.log('connected')
-    });
-app.use(cors())
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
+    console.log('connected')
+});
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    method: ["GET", "POST"],
+    credentials: true,
+}));
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Set EJS as templating engine 
 app.set("view engine", "ejs");
-  
+
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -28,17 +32,16 @@ var storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
-  
+
 var upload = multer({ storage: storage });
 app.get('/api/getdata', (req, res) => {
     imgModel.find({}, (err, items) => {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
-        }
-        else {
-            if(items[0]!== undefined)
-            res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64')})
+        } else {
+            if (items[0] !== undefined)
+                res.send({ postImgBase64: Buffer.from(items[0].img.data).toString('base64') })
         }
     });
 });
@@ -55,8 +58,7 @@ app.post('/api/postdata', upload.single('image'), (req, res, next) => {
     imgModel.create(obj, (err, item) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             // item.save();
             console.log("imgModel Created")
             res.redirect('http://localhost:3000/');
@@ -69,3 +71,5 @@ app.listen(port, err => {
         throw err
     console.log('Server listening on port', port)
 })
+
+app.use(express.json());
