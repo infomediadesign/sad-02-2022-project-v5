@@ -2,12 +2,16 @@ import './Test.css';
 import React,{useState} from "react";
 import Sidenav from '../Sidenav/Sidenav';
 import Axios from "axios";
-const Home = () => {
+const Test = () => {
     const [data,setData] = useState([]);   
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [file, setFile] = useState("");
-    Axios.get('http://localhost:5000/api/getdata').then((response)=>{
+    const [gender, setGender] = useState("");
+    const [preferredgender, setPreferredgender] = useState("");
+    const [dob, setDob] = useState("");
+    Axios.get('http://localhost:5000/api/getprofile').then((response)=>{
+            console.log(response.data)
             setData(response.data);
             });
     const handleTitle = (e) => {
@@ -19,30 +23,50 @@ const Home = () => {
     const handleFile = (e) => {
         setFile(e.target.value);
     };
-    // const addImage = (e) => {
-    //     Axios.post('http://localhost:5000/api/postdata',{}).then((response)=>{
-    //             debugger;
-    //             setdata(response.data);
-    //             console.log(data)
-    //         });
-    // };
+    const handleGender = (e) => {
+        setGender(e.target.value);
+    };
+    const handlePreferredGender = (e) => {
+        setPreferredgender(e.target.value);
+    };
+    const handleDOB = (e) => {
+        setDob(e.target.value);
+    };
   return (
     <div className="container">
         <div className="sidenav">
             <Sidenav/>
         </div>
         <div className='HomeMain'>
-        <form action="http://localhost:5000/api/postdata" method="POST" enctype="multipart/form-data">
+        <form action="http://localhost:5000/api/addprofile" method="POST" enctype="multipart/form-data">
             <div>
                 <label for="name">Image Title</label>
                 <input onChange={handleTitle} type="text" id="name" placeholder="Name" 
                        value={title} name="name" required/>
             </div>
             <div>
-                <label for="desc">Image Description</label>
-                <textarea onChange={handleDescription} id="desc" name="desc" value={description} rows="2" 
+                <label for="about">About</label>
+                <textarea onChange={handleDescription} id="about" name="about" value={description} rows="2" 
                           placeholder="Description" required>
                 </textarea>
+            </div>
+            <div>
+                <label for="gender">Gender</label>
+                
+                <input onChange={handleGender} type="gender" id="gender" placeholder="Gender" 
+                       value={gender} name="gender" required/>
+            </div>
+            <div>
+                <label for="preferredgender">Preferredgender</label>
+                
+                <input onChange={handlePreferredGender} type="preferredgender" id="preferredgender" placeholder="Preferredgender" 
+                       value={preferredgender} name="preferredgender" required/>
+            </div>
+            <div>
+                <label for="dob">DOB</label>
+                
+                <input onChange={handleDOB} type="dob" id="dob" placeholder="Date Of Birth" 
+                       value={dob} name="dob" required/>
             </div>
             <div>
                 <label for="image">Upload Image</label>
@@ -56,11 +80,11 @@ const Home = () => {
     </div>
     <h1>Uploaded Images</h1>
     <div>
-    <img class="image" alt="image" style="width:200px" src={`data:image/jpeg;base64,${data.postImgBase64}`} />
+    <img className="image" alt="Profile" src={`data:image/jpeg;base64,${data.postImgBase64}`} />
     {/* {data.map((object, i) => {return(<img alt="test" src={`data:image/jpeg;base64,${Buffer.from(object[0].img.data).toString('base64')}`} />)})} */}
     </div>
     </div>
   )
 }
 
-export default Home
+export default Test
