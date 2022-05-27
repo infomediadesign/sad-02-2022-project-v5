@@ -4,9 +4,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var imgModel = require('./models/model');
 var multer = require('multer');
-var cors = require('cors')
+var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
+require('./routes/home')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL,
     { useNewUrlParser: true, useUnifiedTopology: true }, err => {
