@@ -16,9 +16,15 @@ export default function Register(){
 const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-        const {data} = await axios.post("http://localhost:3000/register",{
+        const {data} = await axios.post("http://localhost:5000/register",{
         ...values, //destructure the values over so email and password will be sent to the database
     });
+    console.log(data);
+    if(data){
+        if(data.erros){
+            }else{
+            }
+    }
     } catch(err){
         console.log(err);
     }

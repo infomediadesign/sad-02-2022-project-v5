@@ -1,5 +1,5 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var imgModel = require('./models/model');
@@ -8,6 +8,8 @@ var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
 const authroutes = require("./routes/authroutes");
+const cookieParser = require("cookie-parser");
+
 require('./routes/home')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
@@ -73,5 +75,6 @@ app.listen(port, err => {
     console.log('Server listening on port', port)
 })
 
+app.use(cookieParser());
 app.use(express.json());
 app.use("/", authroutes);

@@ -1,6 +1,6 @@
 const { register, signin } = require("../controllers/authcontrollers");
 
-const routes = require("express").Router(); //calling router function
+const router = require("express").Router(); //calling router function
 
 router.post("/"); //we will have checkuser middlewares 
 router.post("/register", register);
