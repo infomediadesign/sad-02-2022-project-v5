@@ -7,6 +7,7 @@ var multer = require('multer');
 var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
+const authroutes = require("./routes/authroutes");
 require('./routes/home')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
@@ -73,3 +74,4 @@ app.listen(port, err => {
 })
 
 app.use(express.json());
+app.use("/", authroutes);
