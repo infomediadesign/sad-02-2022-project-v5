@@ -9,4 +9,4 @@ function App() {
   );
 }
 
-export default Suggestions;
+export default App;
