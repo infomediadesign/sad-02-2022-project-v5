@@ -18,6 +18,9 @@ const handleSubmit = async(e) => {
     try{
         const {data} = await axios.post("http://localhost:5000/register",{
         ...values, //destructure the values over so email and password will be sent to the database
+    },
+    {
+        withCredentials: true,
     });
     console.log(data);
     if(data){
