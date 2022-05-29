@@ -141,6 +141,11 @@ img{
 
 .Profile form input[type="submit"]:active{
     background-color:rgb(226,115,155);
+    
+}
+.Profile form input[type="submit"]{
+    margin-top: 20px;
+  
 }
 .Profile form input[type="file"]{
     border: none;

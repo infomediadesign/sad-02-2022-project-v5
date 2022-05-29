@@ -2,9 +2,7 @@ import { width } from "@mui/system";
 import react, { useState } from "react";
 import "./Profile.css";
 const Profile = () => {
-  // const[name, setName] = useState('Pranav')
-  // const[job, setJob] = useState('Software Developer')
-  // const[about, setABout] = useState('I will add other data depending on the registration form')
+  
   const [selected, setSelected] = useState("yes");
   const handleSubmit = () => {
     console.log("submitted");
@@ -154,11 +152,7 @@ const Profile = () => {
           <input type="submit" />
         </section>
 
-        {/* <section>
-        <label htmlFor="about">Profile Photo</label>
-        <input type="url" name="url" onChange={handleChange} required={true} />
-        <div className="photo-container"></div>
-        </section> */}
+       
       </form>
     </div>
   );
