@@ -46,5 +46,24 @@ module.exports.register = async(req, res, next) => {
     }
 };
 module.exports.signin = async(req, res, next) => {
+    try {
+        console.log("inside register backend")
+        console.log(req);
+        const { email, password } = req.body;
+        const user = await usermodel.signin({ email, password });
+        //after user is created
+        const token = createToken(user._id);
+        res.cookie("jwt", token, {
+            withCredentials: true,
+            httpOnly: false, //will be passed from another domain or port
+            maxAge: maxAge * 1000,
+        });
+        res.status(200).json({ user: user._id, created: true });
+    } catch (err) {
+        console.log(err);
+        const errors = handleErrors(err);
+        res.json({ errors, created: false });
+    }
+};
 
 };
