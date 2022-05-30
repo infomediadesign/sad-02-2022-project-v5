@@ -9,9 +9,26 @@ const createToken = (id) => {
     });
 };
 
+const handleErrors = (err) => {
+    let errors = { email: "", password: "" };
+
+    if (err.code === 11000) {
+        errors.email = "Email is already registered";
+        return errors;
+    }
+
+    if (err.message.includes("User validation failed")) {
+        Object.values(err.erros).forEach(({ properties }) => {
+            errors[properties.path] = properties.message;
+        });
+    }
+    return errors;
+};
+
 module.exports.register = async(req, res, next) => {
     try {
         console.log("inside register backend")
+        console.log(req);
         const { email, password } = req.body;
         const user = await usermodel.create({ email, password });
         //after user is created
@@ -24,7 +41,8 @@ module.exports.register = async(req, res, next) => {
         res.status(201).json({ user: user._id, created: true });
     } catch (err) {
         console.log(err);
-
+        const errors = handleErrors(err);
+        res.json({ errors, created: false });
     }
 };
 module.exports.signin = async(req, res, next) => {

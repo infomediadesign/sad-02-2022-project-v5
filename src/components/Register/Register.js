@@ -10,6 +10,12 @@ export default function Register(){
         password:"",
     });
 
+
+//handle errors
+const generateError = (err) => toast.error(err, {
+    position: "bottom-right",
+});
+
 //prevent form submission
 //calling API : try/catch
 //{data} : will be destructured from the axios response
@@ -18,13 +24,13 @@ const handleSubmit = async(e) => {
     try{
         const {data} = await axios.post("http://localhost:5000/register",{
         ...values, //destructure the values over so email and password will be sent to the database
-    },
-    {
-        withCredentials: true,
     });
-    console.log(data);
+    
     if(data){
-        if(data.erros){
+        if(data.errors){
+            const {email,password} = data.errors;
+            if(email) generateError(email);
+            else if(password) generateError(password);
             }else{
             }
     }
