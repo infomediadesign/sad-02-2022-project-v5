@@ -9,6 +9,7 @@ const Home = () => {
     const [file, setFile] = useState("");
     Axios.get('http://localhost:5000/api/getdata').then((response)=>{
             setData(response.data);
+            console.log(response.data)
             });
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -47,7 +48,7 @@ const Home = () => {
             <div>
                 <label for="image">Upload Image</label>
                 <input onChange={handleFile} type="file" id="image" 
-                       name="image" value={file} required/>
+                       name="image" value={file} required></input>
             </div>
             <div>
                 <button type="submit">Submit</button>

@@ -1,9 +1,9 @@
 import './App.css';
-import Test from './components/Test/Test';
+import Admin from './components/Admin/Admin';
 function App() {
   return (
     <div className="App">
-      <Test/>
+      <Admin/>
     </div>
   );
 }

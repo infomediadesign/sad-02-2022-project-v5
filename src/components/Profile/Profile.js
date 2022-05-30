@@ -1,5 +1,4 @@
-import { width } from "@mui/system";
-import react, { useState } from "react";
+import { useState } from "react";
 import "./Profile.css";
 const Profile = () => {
   // const[name, setName] = useState('Pranav')
@@ -27,7 +26,7 @@ const Profile = () => {
       <form onSubmit={handleSubmit}>
         <section>
          
-          <input type="file" id="image" name="image" required></input>
+          <input type="file" id="image" name="image" ></input>
           <label htmlFor="first_name"> First Name</label>
           <input
             id="first_name"
