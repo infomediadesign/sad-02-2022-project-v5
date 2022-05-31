@@ -11,7 +11,12 @@ const Home = () => {
             <Sidenav/>
         </div>
         <div className="suggestion">
-          <Suggestions/>
+          <Suggestions 
+          Username="Shubham Choudhary"
+           Age="25" 
+           Place="Mannheim, Germany"
+           Location="35" 
+           About="Hey Baby Girl" />
         </div>
        
     
