@@ -1,17 +1,12 @@
 import { useState } from "react";
 import "./Profile.css";
 const Profile = () => {
-  // const[name, setName] = useState('Pranav')
-  // const[job, setJob] = useState('Software Developer')
-  // const[about, setABout] = useState('I will add other data depending on the registration form')
+  
   const [selected, setSelected] = useState("yes");
   const handleSubmit = () => {
     console.log("submitted");
   };
 
-  // const handleChange = () => {
-  //   console.log("submitted");
-  // };
   const handleChange = (event) => {
     console.log(event.target.value);
     setSelected(event.target.value);
@@ -74,9 +69,9 @@ const Profile = () => {
               id="man-gender-identity"
               type="radio"
               name="gender_identity"
-              value="man"
+              value="men"
               onChange={handleChange}
-              checked={selected === "man"}
+              checked={selected === "men"}
             />
             <label htmlFor="man-gender-identity"> Man</label>
 
@@ -84,9 +79,9 @@ const Profile = () => {
               id="woman-gender-identity"
               type="radio"
               name="gender_identity"
-              value="woman"
+              value="women"
               onChange={handleChange}
-              checked={selected === "woman"}
+              checked={selected === "women"}
             />
             <label htmlFor="woman-gender-identity"> Woman</label>
 
@@ -153,11 +148,7 @@ const Profile = () => {
           <input type="submit" />
         </section>
 
-        {/* <section>
-        <label htmlFor="about">Profile Photo</label>
-        <input type="url" name="url" onChange={handleChange} required={true} />
-        <div className="photo-container"></div>
-        </section> */}
+       
       </form>
     </div>
   );

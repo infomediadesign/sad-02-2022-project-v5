@@ -10,7 +10,7 @@
 
 .upper-container-profile{
     height: 70px;
-    background: linear-gradient(to left,#d36690,#65326c);
+    background-color: #75abbc;
 }
 
 .image-container-profile img{
@@ -20,11 +20,9 @@
     border-radius: 50%;
     padding: 5px;
     transform: translate(155px,2px);
-}
-
-img{
     border: 2px solid #8e00b9;
 }
+
 
 .lower-container-profile{
     margin-top: 60px;
@@ -121,7 +119,7 @@ img{
     border-radius: 10px;
     transition: all 0.3s;
     margin-right: 10px;
-    height: 20px;
+    
 
 } 
 .Profile form  input[type="radio"]{
@@ -141,6 +139,11 @@ img{
 
 .Profile form input[type="submit"]:active{
     background-color:rgb(226,115,155);
+    
+}
+.Profile form input[type="submit"]{
+    margin-top: 20px;
+  
 }
 .Profile form input[type="file"]{
     border: none;
