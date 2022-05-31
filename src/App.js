@@ -1,9 +1,9 @@
 import './App.css';
-import Home from './components/Home/Home';
+import Admin from './components/Admin/Admin';
 function App() {
   return (
     <div className="App">
-      <Home/>
+      <Admin/>
     </div>
   );
 }

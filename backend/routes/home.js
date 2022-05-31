@@ -24,14 +24,38 @@ module.exports = function(app){
       
     var upload = multer({ storage: storage });
     app.get('/api/getprofile', (req, res) => {
-        userProfile.find({}, (err, items) => {
+        // userProfile.find({}, (err, items) => {
+        //     if (err) {
+        //         console.log(err);
+        //         res.status(500).send('An error occurred', err);
+        //     }
+        //     else {
+        //         if(items[0]!== undefined){
+        //             res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64'),data:items})
+        //         }
+        //     }
+        // });
+        
+        userProfile.find({
+           location:{
+               $near:{
+                $maxDistance: 50000,
+                $geometry : {
+                  type : 'Point',
+                  coordinates:[49.409380, 8.683539]
+                }
+               }
+           } 
+
+        }, (err, items) => {
             if (err) {
                 console.log(err);
                 res.status(500).send('An error occurred', err);
             }
             else {
-                if(items[0]!== undefined)
-                res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64')})
+                if(items[0]!== undefined){
+                    res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64'),data:items})
+                }
             }
         });
     });
@@ -40,6 +64,12 @@ module.exports = function(app){
         var obj = {
             name: req.body.name,
             about: req.body.about,
+            gender: req.body.gender,
+            preferredgender: req.body.preferredgender,
+            dob: req.body.dob,
+            location: {
+                type:"Point",
+                coordinates:[49.409380, 8.683539]},
             img: {
                 data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
                 contentType: 'image/png'
