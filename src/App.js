@@ -1,4 +1,5 @@
 import './App.css';
+import Landing from './components/Landing/Landing';
 import Home from './components/Home/Home';
 import Suggestions from './components/Suggestions/Suggestions';
 import Test from './components/Test/Test';
@@ -10,7 +11,9 @@ function App() {
     <div className="App">
       {/* <Questionnaire/> */}
       {/* <Test/> */}
-      <Home/>
+      {/* <ProfileDetails/>  */}
+      <Landing/>
+      {/* <Home/> */}
       {/* <ProfileDetails/>  */}
 
     </div>
