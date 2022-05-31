@@ -1,9 +1,9 @@
 import './App.css';
-import Admin from './components/Admin/Admin';
+import Chat from './components/Chat/Chat';
 function App() {
   return (
     <div className="App">
-      <Admin/>
+      <Chat/>
     </div>
   );
 }
