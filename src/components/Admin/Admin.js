@@ -1,184 +1,147 @@
-import React,{useState} from 'react'
+import React from 'react'
 import Axios from "axios";
-import './Admin.css'
+import './Admin.css';
+import Box from '@mui/material/Box';
+
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 import CRUDTable, {
   Fields,
   Field,
   Pagination,
-  CreateForm,
 //   UpdateForm,
   DeleteForm
 } from "react-crud-table";
 const Admin = () => {
-    const [tasks,setTasks] = useState([]); 
-    async function fetchData(payload){
-        await Axios.get('http://localhost:5000/api/getallusers').then((response)=>{
-                setTasks(response.data);
-                console.log("here")
-                return service.fetchItems(payload)
+    var tasks=[];
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
+    const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+    async function fetchData(){
+            await Axios.get('http://localhost:5000/api/getallusers').then((response)=>{
+                tasks=[]
+                    response.data.forEach(element => {
+                        var tempData={id:Number,email:String,isAdmin:String};
+                        tempData.id = element._id;
+                        tempData.email = element.email
+                        tempData.isAdmin = (String)(element.isAdmin)
+                        tasks.push(tempData)
                     });
-    }
-    async function fetchPagination(payload){
-        await Axios.get('http://localhost:5000/api/getallusers').then((response)=>{
-                setTasks(response.data);
-                console.log("here")
-                return service.fetchTotal(payload)
-                    });
-    }
-
-const SORTERS = {
-  NUMBER_ASCENDING: mapper => (a, b) => mapper(a) - mapper(b),
-  NUMBER_DESCENDING: mapper => (a, b) => mapper(b) - mapper(a),
-  STRING_ASCENDING: mapper => (a, b) => mapper(a).localeCompare(mapper(b)),
-  STRING_DESCENDING: mapper => (a, b) => mapper(b).localeCompare(mapper(a))
-};
-
-const getSorter = data => {
-  const mapper = x => x[data.field];
-  let sorter = SORTERS.STRING_ASCENDING(mapper);
-    sorter =
-    data.direction === "ascending"
-    ? SORTERS.STRING_ASCENDING(mapper)
-    : SORTERS.STRING_DESCENDING(mapper);
-
-  return sorter;
-};
-
-const service = {
-    fetchTotal: payload => {
-        console.log(tasks.length)
-    return Promise.resolve(tasks.length);
-    },
-    fetchItems: payload => {
+                            });
+            }
+      
+      const SORTERS = {
+        NUMBER_ASCENDING: mapper => (a, b) => mapper(a) - mapper(b),
+        NUMBER_DESCENDING: mapper => (a, b) => mapper(b) - mapper(a),
+        STRING_ASCENDING: mapper => (a, b) => mapper(a).localeCompare(mapper(b)),
+        STRING_DESCENDING: mapper => (a, b) => mapper(b).localeCompare(mapper(a)),
+      };
+      
+      const getSorter = (data) => {
+        const mapper = x => x[data.field];
+        let sorter = SORTERS.STRING_ASCENDING(mapper);
+        sorter = data.direction === 'ascending' ?
+        SORTERS.STRING_ASCENDING(mapper) : SORTERS.STRING_DESCENDING(mapper);
+      
+        return sorter;
+      };
+      
+      async function fetchItems(payload){
+        await fetchData()
         const { activePage, itemsPerPage } = payload.pagination;
         const start = (activePage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         let result = Array.from(tasks);
         result = result.sort(getSorter(payload.sort));
         return Promise.resolve(result.slice(start, end));
-    },
-//   update: data => {
-//     const task = tasks.find(t => t.id === data.id);
-//     task.title = data.title;
-//     task.description = data.description;
-//     return Promise.resolve(task);
-//   },
-  delete: data => {
-    const task = tasks.find(t => t.id === data.id);
-    setTasks(tasks.filter(t => t.id !== task.id));
-    return Promise.resolve(task);
-  }
-};
-
-const styles = {
-  container: { margin: "auto", width: "fit-content" }
-};
-const createAdmin = async(e) => {
-    debugger;
-    console.log(e.email)
-    await Axios.post('http://localhost:5000/api/addadmin',{email:e.email,password:e.password,isAdmin:e.admin}).then((response)=>{
-        
-            console.log("post Start")
-            console.log(response.data)
-            console.log("post End")
-                });
-                //try returning from post itself using return and the object
-    // await Axios.get('http://localhost:5000/api/getallusers').then((response)=>{
-        
-    //         console.log("get Start2")
-    //         setTasks(response.data);
-    //         console.log(response.data)
-    //         console.log("get Start2")
-    //             });
-};
-const deleteUser = async(e) => {
-    await Axios.post('http://localhost:5000/api/deleteuser',{email:e.email,password:e.password,isAdmin:e.admin}).then((response)=>{
-        
-            console.log("post delete Start")
-            console.log(response.data)
-            console.log("post delete End")
-                });
-};
-  return (
+    };
+    async function fetchTotal(payload){
+        await fetchData()
+        return Promise.resolve(tasks.length);
+    }
+    async function deleteUser (data) {
+        await Axios.post('http://localhost:5000/api/deleteuser',{id:data.id,email:data.email,isAdmin:data.isAdmin});
+    };
       
+      const styles = {
+        container: { margin: 'auto', width: 'fit-content' },
+      };
+  return (
+    <div className="adminContainer">
     <div style={styles.container}>
+        <div className='addButtonDiv'>
+        <div>
+      <Button className="addAdmin" onClick={handleOpen}>Add Admin</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div>
+              Register form will come here.
+          </div>
+        </Box>
+      </Modal>
+    </div>
+        </div>
+    
     <CRUDTable
-      caption="Users List"
-      fetchItems={payload => fetchData(payload)}
+      caption="Tasks"
+      fetchItems={payload => fetchItems(payload)}
     >
       <Fields>
-        <Field name="email" label="Email" placeholder="Email" />
-        <Field name="password" label="Password" placeholder="Password" />
+        <Field
+          name="id"
+          label="Id"
+          hideInCreateForm
+          readOnly
+        />
+        <Field
+          name="email"
+          label="Title"
+          placeholder="Title"
+        />
         <Field
           name="isAdmin"
           label="Admin"
-          placeholder="True or False"
+          placeholder="Is Admin"
         />
       </Fields>
       <Pagination
         itemsPerPage={2}
-        fetchTotalOfItems={payload => fetchPagination(payload)}
+        fetchTotalOfItems={payload => fetchTotal(payload)}
       />
-      <CreateForm
-        title="Add Admin"
-        message="Create a new Admin!"
-        trigger="Add Admin"
-        onSubmit={createAdmin}
-        submitText="Create"
-        validate={values => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Please provide email ID";
-          }
-
-          if (!values.password) {
-            errors.password = "Please provide password";
-          }
-          return errors;
-        }}
-      />    
-
-      {/* <UpdateForm
-        title="Task Update Process"
-        message="Update task"
-        trigger="Update"
-        onSubmit={task => service.update(task)}
-        submitText="Update"
-        validate={values => {
-          const errors = {};
-
-          if (!values.id) {
-            errors.id = "Please, provide id";
-          }
-
-          if (!values.title) {
-            errors.title = "Please, provide task's title";
-          }
-
-          if (!values.description) {
-            errors.description = "Please, provide task's description";
-          }
-
-          return errors;
-        }}
-      /> */}
 
       <DeleteForm
-        title="Task Delete Process"
-        message="Are you sure you want to delete the task?"
+        title="Delete User"
+        message="Are you sure you want to delete the user?"
         trigger="Delete"
         onSubmit={task => deleteUser(task)}
         submitText="Delete"
-        validate={values => {
+        validate={(values) => {
           const errors = {};
           if (!values.id) {
-            errors.id = "Please, provide id";
+            errors.id = 'Please, provide id';
           }
           return errors;
         }}
       />
     </CRUDTable>
   </div>
+    </div>
   )
 }
 
