@@ -12,6 +12,12 @@ const createToken = (id) => {
 const handleErrors = (err) => {
     let errors = { email: "", password: "" };
 
+    if (err.message === "Incorrect email")
+        errors.email = "This email is not registered";
+
+    if (err.message === "Incorrect password")
+        errors.email = "This password is incorrect";
+
     if (err.code === 11000) {
         errors.email = "Email is already registered";
         return errors;
@@ -23,6 +29,8 @@ const handleErrors = (err) => {
         });
     }
     return errors;
+
+
 };
 
 module.exports.register = async(req, res, next) => {
@@ -50,7 +58,7 @@ module.exports.signin = async(req, res, next) => {
         console.log("inside register backend")
         console.log(req);
         const { email, password } = req.body;
-        const user = await usermodel.signin({ email, password });
+        const user = await usermodel.signin(email, password);
         //after user is created
         const token = createToken(user._id);
         res.cookie("jwt", token, {
@@ -64,6 +72,4 @@ module.exports.signin = async(req, res, next) => {
         const errors = handleErrors(err);
         res.json({ errors, created: false });
     }
-};
-
 };

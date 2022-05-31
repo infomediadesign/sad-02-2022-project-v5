@@ -1,7 +1,9 @@
 import './Home.css';
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import Sidenav from '../Sidenav/Sidenav';
 import Axios from "axios";
+import {useCookies} from "react-cookie";
+import {ToastContainer, toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 const Home = () => {
 const [data,setData] = useState([]);   
@@ -23,9 +25,28 @@ const [data,setData] = useState([]);
 
     const navigate = useNavigate();
 
+    const [cookies,setCookie,removeCookie] = useCookies([]);
+    useEffect(()=>{
+        const verifyUSer = async () =>{
+            if(!cookies.jwt) {
+                navigate("/signin");  
+            } else {
+                const {data} = await axios.post("http://localhost:5000",{},{withCredentials: true});
+                if(!data.status){
+                    removeCookie("jwt");
+                    navigate("/login");
+                } else toast(`HI ${data.user}`,{theme:"dark"});
+            }
+        };
+        verifyUSer();
+    },[cookies,navigate, removeCookie]);
+
     const logOut = () => {
+        removeCookie("jwt");
         navigate("/register");
     }
+
+
     // const addImage = (e) => {
     //     Axios.post('http://localhost:5000/api/postdata',{}).then((response)=>{
     //             debugger;
@@ -34,6 +55,7 @@ const [data,setData] = useState([]);
     //         });
     // };
   return (
+      <>
     <div className="container">
         <div className="sidenav">
             <Sidenav/>
@@ -45,7 +67,8 @@ const [data,setData] = useState([]);
     {/* {data.map((object, i) => {return(<img alt="test" src={`data:image/jpeg;base64,${Buffer.from(object[0].img.data).toString('base64')}`} />)})} */}
     </div>
     </div>
-    
-  )
+    <ToastContainer/>
+    </>
+  );
 }
 export default Home;
