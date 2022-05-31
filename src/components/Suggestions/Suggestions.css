@@ -40,6 +40,7 @@ body {
     flex-direction: row;
     color: white;
     height: 590px;
+    margin-left: 50px;
     
  
     
@@ -98,27 +99,34 @@ body {
 
 
 .expand {
-    width: 30rem;
+    width: 35rem;
     justify-content: center;
     text-align: left;
     word-wrap    : break-word;
 overflow-wrap: break-word;
-
+overflow-y: scroll;
 padding-left: 30px;
 padding-bottom: 30px;
 padding-top: 24px;
 height: 480px;
 
-}
 
-.expand h1 {
-    font-weight: 500  
+}
+.expand::-webkit-scrollbar {
+    display: none;
+}
+.expand h3 {
+    font-size: 25px;
+    font-weight: 400;
+    
+   
 }
 
 .expand h5 {
     font-size: 20px;
     font-weight: 300; 
     padding-top: 5px;
+    padding-bottom: 10px;
     font-style: italic;
 }
 
@@ -126,7 +134,7 @@ height: 480px;
 .button {
     position: absolute;
     margin-top: 580px;
-    margin-right: 150px;
+    margin-right: 80px;
   
   height: 80px;
   width: 80px;  
@@ -146,7 +154,7 @@ height: 480px;
 .button2 {
     position: absolute;
     margin-top: 580px;
-    margin-left: 150px;
+    margin-left: 220px;
   
   height: 80px;
   width: 80px;  
@@ -176,4 +184,15 @@ height: 480px;
     margin-top: 10px;
     
     
+   }
+
+   .details {
+       display:flex ;
+       
+       flex-wrap: wrap;
+       flex-direction: row ;
+       margin: 7px 0;
+       gap: 10px;
+       margin-right: 7px;
+       overflow: none;
    }
