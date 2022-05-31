@@ -2,13 +2,15 @@
     display:flex;
 }
 .sidenav{
-    width:400px;
+    width:30%;
     min-height:100vh;
     border-right:1px solid #80808014;
 }
 .HomeMain{
     flex:1;
 }
-.image{
-    width:200px;
+.suggestion {
+    width: 70%;
+    align-items: center;
+    
 }
