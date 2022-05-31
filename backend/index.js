@@ -4,9 +4,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var imgModel = require('./models/model');
 var multer = require('multer');
-var cors = require('cors')
+var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
+require('./routes/home')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL,
     { useNewUrlParser: true, useUnifiedTopology: true }, err => {
@@ -36,7 +37,8 @@ app.get('/api/getdata', (req, res) => {
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.send(Buffer.from(items).toString('base64'))
+            if(items[0]!== undefined)
+            res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64')})
         }
     });
 });
@@ -57,7 +59,7 @@ app.post('/api/postdata', upload.single('image'), (req, res, next) => {
         else {
             // item.save();
             console.log("imgModel Created")
-            res.redirect('/');
+            res.redirect('http://localhost:3000/');
         }
     });
 });
