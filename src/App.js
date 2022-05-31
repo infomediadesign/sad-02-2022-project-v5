@@ -6,15 +6,16 @@ import Test from './components/Test/Test';
 import Questionnaire from './components/Questionnaire/Questionnaire';
 import ProfileDetails from './components/ProfileDetails/ProfileDetails';
 import Tags from './Tags/Tags';
+import SignUp from './components/SignUp/SignUp';
 function App() {
   return (
     <div className="App">
       {/* <Questionnaire/> */}
       {/* <Test/> */}
-      {/* <ProfileDetails/>  */}
-      <Landing/>
+      {/* <Landing/> */}
       {/* <Home/> */}
       {/* <ProfileDetails/>  */}
+      <SignUp/> 
 
     </div>
   );

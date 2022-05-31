@@ -8,9 +8,6 @@ const Profile = () => {
     console.log("submitted");
   };
 
-  // const handleChange = () => {
-  //   console.log("submitted");
-  // };
   const handleChange = (event) => {
     console.log(event.target.value);
     setSelected(event.target.value);
@@ -73,9 +70,9 @@ const Profile = () => {
               id="man-gender-identity"
               type="radio"
               name="gender_identity"
-              value="man"
+              value="men"
               onChange={handleChange}
-              checked={selected === "man"}
+              checked={selected === "men"}
             />
             <label htmlFor="man-gender-identity"> Man</label>
 
@@ -83,9 +80,9 @@ const Profile = () => {
               id="woman-gender-identity"
               type="radio"
               name="gender_identity"
-              value="woman"
+              value="women"
               onChange={handleChange}
-              checked={selected === "woman"}
+              checked={selected === "women"}
             />
             <label htmlFor="woman-gender-identity"> Woman</label>
 
