@@ -1,26 +1,27 @@
-import { width } from "@mui/system";
-import react, { useState } from "react";
+import { useState } from "react";
 import "./Profile.css";
 const Profile = () => {
-  // const[name, setName] = useState('Pranav')
-  // const[job, setJob] = useState('Software Developer')
-  // const[about, setABout] = useState('I will add other data depending on the registration form')
+  
+  const [selected, setSelected] = useState("yes");
   const handleSubmit = () => {
     console.log("submitted");
   };
 
-  const handleChange = () => {
-    console.log("submitted");
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setSelected(event.target.value);
   };
   return (
     <div className="Profile">
       <div className="upper-container-profile">
-        <div className="image-container-profile">
-          {/* <img src="/images/img1.jpg" alt="" height="100px" width="100px" /> */}
-        </div>
+         <div className="image-container-profile">
+          <img src="/images/img1.jpg" alt="" />
+        </div> 
       </div>
       <form onSubmit={handleSubmit}>
         <section>
+         
+          <input type="file" id="image" name="image" ></input>
           <label htmlFor="first_name"> First Name</label>
           <input
             id="first_name"
@@ -68,9 +69,9 @@ const Profile = () => {
               id="man-gender-identity"
               type="radio"
               name="gender_identity"
-              value="man"
+              value="men"
               onChange={handleChange}
-              checked={false}
+              checked={selected === "men"}
             />
             <label htmlFor="man-gender-identity"> Man</label>
 
@@ -78,9 +79,9 @@ const Profile = () => {
               id="woman-gender-identity"
               type="radio"
               name="gender_identity"
-              value="woman"
+              value="women"
               onChange={handleChange}
-              checked={true}
+              checked={selected === "women"}
             />
             <label htmlFor="woman-gender-identity"> Woman</label>
 
@@ -88,22 +89,22 @@ const Profile = () => {
               id="more-gender-identity"
               type="radio"
               name="gender_identity"
-              value="more"
+              value="other"
               onChange={handleChange}
-              checked={false}
+              checked={selected === "other"}
             />
-            <label htmlFor="more-gender-identity">More</label>
+            <label htmlFor="more-gender-identity">Other</label>
 
             {/*........ ...........................What I wanna see ...............................*/}
           </div>
-            <label htmlFor="show-gender"> Show gender on my profile</label>
-            <input
-              id="show-gender"
-              type="checkbox"
-              name="show-gender"
-              onChange={handleChange}
-              checked={false}
-            />
+          <label htmlFor="show-gender"> Show gender on my profile</label>
+          <input
+            id="show-gender"
+            type="checkbox"
+            name="show-gender"
+            onChange={handleChange}
+            checked={false}
+          />
           <label>Show me</label>
           <div className="multiple-input-container">
             <input
@@ -112,7 +113,7 @@ const Profile = () => {
               name=""
               value="man"
               onChange={handleChange}
-              checked={false}
+              checked={selected === "man"}
             />
             <label htmlFor="man-gender-interest"> Man</label>
             <input
@@ -121,7 +122,7 @@ const Profile = () => {
               name="gender_interest"
               value="woman"
               onChange={handleChange}
-              checked={false}
+              checked={selected === "woman"}
             />
             <label htmlFor="woman-gender-interest"> woman</label>
             <input
@@ -130,7 +131,7 @@ const Profile = () => {
               name="gender_interest"
               value="everyone"
               onChange={handleChange}
-              checked={false}
+              checked={selected === "everyone"}
             />
             <label htmlFor="more-gender-interest"> everyone</label>
           </div>
@@ -144,14 +145,10 @@ const Profile = () => {
             value={""}
             onChange={handleChange}
           />
-          <input type="submit"/>
+          <input type="submit" />
         </section>
 
-        <section>
-        <label htmlFor="about">Profile Photo</label>
-        <input type="url" name="url" onChange={handleChange} required={true} />
-        <div className="photo-container"></div>
-        </section>
+       
       </form>
     </div>
   );

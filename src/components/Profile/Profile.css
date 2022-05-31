@@ -2,29 +2,27 @@
    
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 1px 10px 1px black;
+    /* box-shadow: 0px 1px 10px 1px black; */
     overflow: hidden;
     margin-top: 10px;
     /* position: relative; */
 }
 
 .upper-container-profile{
-    height: 50px;
-    background: linear-gradient(to left,#d36690,#65326c);
+    height: 70px;
+    background-color: #75abbc;
 }
 
-/* .image-container-profile img{
+.image-container-profile img{
     background: white;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     padding: 5px;
-    transform: translate(140px,45px);
-} */
-
-/* img{
+    transform: translate(155px,2px);
     border: 2px solid #8e00b9;
-} */
+}
+
 
 .lower-container-profile{
     margin-top: 60px;
@@ -80,8 +78,8 @@
  .Profile form section {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    width: 50%;
+    padding: 3%;
+    /* width: 44%; */
     text-align: start;
 } 
 
@@ -121,7 +119,7 @@
     border-radius: 10px;
     transition: all 0.3s;
     margin-right: 10px;
-    height: 20px;
+    
 
 } 
 .Profile form  input[type="radio"]{
@@ -141,6 +139,16 @@
 
 .Profile form input[type="submit"]:active{
     background-color:rgb(226,115,155);
+    
+}
+.Profile form input[type="submit"]{
+    margin-top: 20px;
+  
+}
+.Profile form input[type="file"]{
+    border: none;
+    transform: translate(155px,2px);
+    margin-top: 20px;
 }
 
 
