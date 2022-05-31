@@ -1,4 +1,4 @@
-import "./home.css";
+import "./Landing.css";
 import React from "react";
 import travel_01 from "../../assets/titlecover.jpg";
 import travel_02 from "../../assets/dating.jpg";

@@ -8,7 +8,8 @@ function App() {
     <div className="App">
       {/* <Questionnaire/> */}
       {/* <Test/> */}
-      <ProfileDetails/> */
+      {/* <ProfileDetails/>  */}
+      <Landing/>
     </div>
   );
 }
