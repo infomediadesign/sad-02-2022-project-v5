@@ -35,6 +35,7 @@ module.exports = function(app){
         //         }
         //     }
         // });
+        
         userProfile.find({
            location:{
                $near:{
