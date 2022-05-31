@@ -98,16 +98,30 @@ body {
 
 
 .expand {
-    max-width: 30rem;
+    width: 30rem;
     justify-content: center;
+    text-align: left;
     word-wrap    : break-word;
 overflow-wrap: break-word;
-overflow-y: scroll;
+
 padding-left: 30px;
 padding-bottom: 30px;
+padding-top: 24px;
 height: 480px;
 
 }
+
+.expand h1 {
+    font-weight: 500  
+}
+
+.expand h5 {
+    font-size: 20px;
+    font-weight: 300; 
+    padding-top: 5px;
+    font-style: italic;
+}
+
 
 .button {
     position: absolute;

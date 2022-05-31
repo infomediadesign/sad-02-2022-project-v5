@@ -35,28 +35,9 @@ function Suggestions () {
         animate={{ opacity: 1}}
         transition={{ duration:1}}
         className="expand">
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
-            <span>fehnbvjhbfjhbwfjsssssssssssshjafgkbkjbakjbfdsakbkbkbavbkjbdvkdvbkdvbkbvdk</span>
+            <motion.h1 layout="position">About Me</motion.h1>
+            <motion.h5 layout="position"> In the event of a zombie apocalypse…
+I’d immediately steal the Egyptian presidential yacht. Load it up with tater tots and Missy Elliot records. Take it out to the middle of the Pacific and get my tan on. Life’s short anyway, I want to go out in style.</motion.h5>
            </motion.div> 
         )}   
         </motion.div>
