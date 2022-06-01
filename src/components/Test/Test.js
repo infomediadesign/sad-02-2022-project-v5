@@ -32,10 +32,11 @@ const Test = () => {
     const handleDOB = (e) => {
         setDob(e.target.value);
     };
+    
   return (
     <div className="container">
         <div className="sidenav">
-            <Sidenav/>
+            <Sidenav />
         </div>
         <div className='HomeMain'>
         <form action="http://localhost:5000/api/addprofile" method="POST" enctype="multipart/form-data">
