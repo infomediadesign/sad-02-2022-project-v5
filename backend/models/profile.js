@@ -11,6 +11,14 @@ var userProfile = new mongoose.Schema({
         type: { type: String },
         coordinates: []
        },
+    findwithin:Number,
+    passion:[String],
+    bestdrink:String,
+    education:String,
+    foodpreferences:[String],
+    bestpets:[String],
+    smoking:String,
+    Socialmedia:String,
     gender:String,
     preferredgender:String,
     dob:String
