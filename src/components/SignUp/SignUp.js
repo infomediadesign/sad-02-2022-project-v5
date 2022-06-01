@@ -12,7 +12,7 @@ const SignUp = () => {
   var formData = {
     name: "",
     about: "",
-    img: "",
+    image: "",
     location: [],
     findwithin: "",
     passion: [],
@@ -48,13 +48,7 @@ const SignUp = () => {
   const [year, setDobYear] = useState("");
   const [about, setAbout] = useState("");
   const [distance, setDistance] = useState();
-
-  const handleFile = (e) => {
-    setFile(e.target.value);
-  };
-
  
-
   var options = {
     enableHighAccuracy: true,
 
@@ -69,7 +63,9 @@ const SignUp = () => {
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
+
   navigator.geolocation.getCurrentPosition(success, error, options);
+
   const handlePassionChange = (event) => {
     passionTemp = selectedPassions;
     if (event.target.checked) {
@@ -97,7 +93,7 @@ const SignUp = () => {
   };
 
   const handlePetChange = (event) => {
-    foodTemp = selectedPet;
+    petTemp = selectedPet;
     if (event.target.checked) {
       petTemp.push(event.target.value);
     } else {
@@ -137,9 +133,11 @@ const SignUp = () => {
   const handleDOBDate = (e) => {
     setDobDate(e.target.value);
   };
+
   const handleDOBMonth = (e) => {
     setDobMonth(e.target.value);
   };
+  
   const handleDOBYear = (e) => {
     setDobYear(e.target.value);
   };
@@ -147,12 +145,18 @@ const SignUp = () => {
   const handlePreferredGender = (e) => {
     setPreferredgender(e.target.value);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
     try {
       formData.name = fullName;
       formData.about = about;
-      formData.img = file;
+      formData.image = file;
       formData.passion = selectedPassions;
       formData.bestpets = selectedPet;
       formData.bestdrink = selectedDrink;
@@ -164,12 +168,18 @@ const SignUp = () => {
       formData.preferredgender = PreferredGender;
       formData.dob = date + "-" + month + "-" + year;
       formData.findwithin = distance;
+      
+      var form = new FormData();
+   
+          form.set('file', file);
+          form.set('data1', formData);
+      axios.post('http://localhost:5000/api/addprofile', form,config) 
 
     //   debugger;
       console.log(formData);
-      const response = await axios.post("http://localhost:5000/user", {
-        formData,
-      });
+    //   const response = await axios.post("http://localhost:5000/api/addprofile", {
+    //     formData,
+    //   },config);
 
       
     } catch (err) {
@@ -184,7 +194,9 @@ const SignUp = () => {
   const handleAbout = (event) => {
     setAbout(event.target.value);
   };
-
+ const handleFile = (e) => {
+    setFile(e.target.value);
+  };
   return (
     <div className="container">
       <div className="sidenav">
