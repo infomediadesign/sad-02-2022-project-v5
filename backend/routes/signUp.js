@@ -21,7 +21,7 @@ module.exports = function(app){
     
     app.post('/api/addprofile', upload.single('image'), (req, res, next) => {
         console.log(req.file)
-        
+        console.log(req.body)
         var obj = {
             name: req.body.name,
             about: req.body.about,

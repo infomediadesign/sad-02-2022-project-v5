@@ -1,26 +1,75 @@
 import React, { useState } from "react";
 import Profile from "../Profile/Profile";
-// import Axios from "axios";
+import axios from "axios";
+// import { useCookies } from "react-cookie";
 import Questionnaire from "../Questionnaire/Questionnaire";
 import "./SignUp.css";
 import Slider from "@mui/material/Slider";
 
 const SignUp = () => {
+  //   const [cookies, setCookie, removeCookie] = useCookies(null);
+
+  var formData = {
+    name: "",
+    about: "",
+    img: "",
+    location: [],
+    findwithin: "",
+    passion: [],
+    bestdrink: "",
+    education: "",
+    foodpreferences: [],
+    bestpets: [],
+    smoking: "",
+    Socialmedia: "",
+    gender: "",
+    preferredgender: "",
+    dob: "",
+  };
+
+  //   let navigate = useNavigate();
   var passionTemp;
   var foodTemp;
   var petTemp;
+
   const [selectedPassions, setSelectedPassions] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
   const [selectedPet, setSelectedPet] = useState([]);
-  const [selected, setSelected] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
+  const [PreferredGender, setPreferredgender] = useState("");
   const [selectedDrink, setSelectedDrink] = useState("");
   const [selectedEducation, setSelectedEducation] = useState("");
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [file, setFile] = useState("");
+  const [date, setDobDate] = useState("");
+  const [month, setDobMonth] = useState("");
+  const [year, setDobYear] = useState("");
+  const [about, setAbout] = useState("");
+  const [distance, setDistance] = useState();
 
-  
+  const handleFile = (e) => {
+    setFile(e.target.value);
+  };
 
+ 
+
+  var options = {
+    enableHighAccuracy: true,
+
+    timeout: 5000,
+
+    maximumAge: 0,
+  };
+  function success(pos) {
+    var crd = pos.coords;
+    formData.location = [`${crd.latitude}`, `${crd.longitude}`];
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  navigator.geolocation.getCurrentPosition(success, error, options);
   const handlePassionChange = (event) => {
     passionTemp = selectedPassions;
     if (event.target.checked) {
@@ -37,7 +86,7 @@ const SignUp = () => {
   const handleFoodChange = (event) => {
     foodTemp = selectedFood;
     if (event.target.checked) {
-        foodTemp.push(event.target.value);
+      foodTemp.push(event.target.value);
     } else {
       var index = foodTemp.indexOf(event.target.value);
       if (index !== -1) {
@@ -50,7 +99,7 @@ const SignUp = () => {
   const handlePetChange = (event) => {
     foodTemp = selectedPet;
     if (event.target.checked) {
-        petTemp.push(event.target.value);
+      petTemp.push(event.target.value);
     } else {
       var index = petTemp.indexOf(event.target.value);
       if (index !== -1) {
@@ -58,6 +107,11 @@ const SignUp = () => {
       }
     }
     setSelectedPet(petTemp);
+  };
+
+  const handleDistance = (event, value) => {
+    setDistance(value);
+    debugger
   };
 
   const handleGenderChange = (event) => {
@@ -80,13 +134,57 @@ const SignUp = () => {
     setSelectedSocialMedia(event.target.value);
   };
 
-  const handleSubmit = () => {
-    console.log("submitted");
+  const handleDOBDate = (e) => {
+    setDobDate(e.target.value);
+  };
+  const handleDOBMonth = (e) => {
+    setDobMonth(e.target.value);
+  };
+  const handleDOBYear = (e) => {
+    setDobYear(e.target.value);
   };
 
-  const handleChange = (event) => {
-    setSelected(event.target.value);
+  const handlePreferredGender = (e) => {
+    setPreferredgender(e.target.value);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      formData.name = fullName;
+      formData.about = about;
+      formData.img = file;
+      formData.passion = selectedPassions;
+      formData.bestpets = selectedPet;
+      formData.bestdrink = selectedDrink;
+      formData.education = selectedEducation;
+      formData.foodpreferences = selectedFood;
+      formData.smoking = selectedSmoking;
+      formData.Socialmedia = selectedSocialMedia;
+      formData.gender = selectedGender;
+      formData.preferredgender = PreferredGender;
+      formData.dob = date + "-" + month + "-" + year;
+      formData.findwithin = distance;
+
+    //   debugger;
+      console.log(formData);
+      const response = await axios.post("http://localhost:5000/user", {
+        formData,
+      });
+
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleFullName = (event) => {
+    setFullName(event.target.value);
+  };
+
+  const handleAbout = (event) => {
+    setAbout(event.target.value);
+  };
+
   return (
     <div className="container">
       <div className="sidenav">
@@ -100,17 +198,19 @@ const SignUp = () => {
                 type="file"
                 id="image"
                 name="image"
+                value={file}
+                onChange={handleFile}
                 required
               ></input>
-              <label htmlFor="first_name"> First Name</label>
+              <label htmlFor="first_name"> FullName</label>
               <input
                 id="first_name"
                 type="text"
                 name="first_name"
                 placeholder="First Name"
                 required={true}
-                value={""}
-                onChange={handleChange}
+                value={fullName}
+                onChange={handleFullName}
               />
               <label> Birthday</label>
               <div className="multiple-input-container">
@@ -120,8 +220,8 @@ const SignUp = () => {
                   name="dob_day"
                   placeholder="DD"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={date}
+                  onChange={handleDOBDate}
                 />
                 <input
                   id="dob_month"
@@ -129,8 +229,8 @@ const SignUp = () => {
                   name="dob_month"
                   placeholder="MM"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={month}
+                  onChange={handleDOBMonth}
                 />
                 <input
                   id="dob_year"
@@ -138,15 +238,10 @@ const SignUp = () => {
                   name="dob_year"
                   placeholder="YYYY"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={year}
+                  onChange={handleDOBYear}
                 />
               </div>
-              <label htmlFor="first_name">
-                {" "}
-                Click here to get current location
-              </label>
-              <button className="location">Location</button>
               <label> Gender</label>
               <div className="multiple-input-container">
                 <input
@@ -181,20 +276,14 @@ const SignUp = () => {
 
                 {/*........ ...........................What I wanna see ...............................*/}
               </div>
-              <label htmlFor="show-gender"> Show gender on my profile</label>
-              <input
-                id="show-gender"
-                type="checkbox"
-                name="show-gender"
-                onChange={handleChange}
-                checked={false}
-              />
-              <label>Show within distance</label>
 
+              <label>Show within distance</label>
               <Slider
-                defaultValue={50}
+                defaultValue={1}
                 aria-label="Default"
                 valueLabelDisplay="auto"
+                onChange={handleDistance}
+                value={distance}
               />
               <label>Show me</label>
               <div className="multiple-input-container">
@@ -203,8 +292,7 @@ const SignUp = () => {
                   type="radio"
                   name="gender_interest"
                   value="man"
-                  onChange={handleChange}
-                  checked={selected === "man"}
+                  onChange={handlePreferredGender}
                 />
 
                 <label htmlFor="man-gender-interest"> Man</label>
@@ -213,17 +301,15 @@ const SignUp = () => {
                   type="radio"
                   name="gender_interest"
                   value="woman"
-                  onChange={handleChange}
-                  checked={selected === "woman"}
+                  onChange={handlePreferredGender}
                 />
                 <label htmlFor="woman-gender-interest"> woman</label>
                 <input
                   id="everyone-gender-interest"
                   type="radio"
                   name="gender_interest"
-                  value="everyone"
-                  onChange={handleChange}
-                  checked={selected === "everyone"}
+                  value="woman"
+                  onChange={handlePreferredGender}
                 />
                 <label htmlFor="everyone-gender-interest"> everyone</label>
               </div>
@@ -234,15 +320,15 @@ const SignUp = () => {
                 type="text"
                 name="about"
                 placeholder="I like sports..."
-                value={""}
-                onChange={handleChange}
+                value={about}
+                onChange={handleAbout}
               />
               <input type="submit" />
             </section>
           </form>
         </div>
-        {/*........ ...........................Questionnaire ...............................*/}
       </div>
+      {/*........ ...........................Questionnaire ...............................*/}
       <div className="HomeMain">
         <div className="Questionnaire">
           <h2>ADD MORE DETAILS</h2>
@@ -465,7 +551,7 @@ const SignUp = () => {
                   id="food-vegetarian"
                   type="checkbox"
                   name="food"
-                  value="vegetarian"
+                  value={formData.foodpreferences}
                   onChange={handleFoodChange}
                 />
                 <label htmlFor="food-vegetarian">Vegetarian</label>
@@ -536,7 +622,7 @@ const SignUp = () => {
                   id="pet-free"
                   type="checkbox"
                   name="pet"
-                  value="free"
+                  value="pet-free"
                   onChange={handlePetChange}
                 />
                 <label htmlFor="pet-free">Pet free</label>
