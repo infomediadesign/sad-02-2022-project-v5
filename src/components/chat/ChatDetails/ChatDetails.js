@@ -2,14 +2,14 @@ import React from "react"
 import Avatar from "material-ui/Avatar";
 
 function ChatDetails({name,message,timestamp,profilePic}){
-    return<div className="ChatDetailsContainer">
+    return <div className="ChatDetailsContainer">
         <Avatar className="person_img" alt={name} src={profilePic}/>
-        <div>
+        <div className="ChatInfo">
             <h2>{name}</h2>
             <p>{message}</p>
         </div>
         <div>
-            <p>{timestamp}</p>
+            <p className="ChatTime">{timestamp}</p>
         </div>
     </div>
     
