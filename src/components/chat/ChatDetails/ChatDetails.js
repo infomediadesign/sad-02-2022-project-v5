@@ -1,9 +1,11 @@
 import React from "react"
+import './ChatDetails.css'
 import Avatar from "material-ui/Avatar";
 
 function ChatDetails({name,message,timestamp,profilePic}){
-    return <div className="ChatDetailsContainer">
-        <Avatar className="person_img" alt={name} src={profilePic}/>
+    return (
+    <div className="ChatDetailsContainer">
+        <Avatar className="person_img" src={profilePic}/>
         <div className="ChatInfo">
             <h2>{name}</h2>
             <p>{message}</p>
@@ -12,7 +14,7 @@ function ChatDetails({name,message,timestamp,profilePic}){
             <p className="ChatTime">{timestamp}</p>
         </div>
     </div>
-    
+    );  
 }
 
 export default ChatDetails;
