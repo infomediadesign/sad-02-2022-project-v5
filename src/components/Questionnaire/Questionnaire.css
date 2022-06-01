@@ -60,12 +60,18 @@ h2{
 .Questionnaire form input[type=radio] {
     display: none;
 }
+.Questionnaire form input[type=checkbox] {
+    display: none;
+}
 
 .Questionnaire form input[type=number] {
     width: 10%;
 }
 
 .Questionnaire form input[type=radio]:checked + label {
+    border: solid 2px rgb(221, 39, 22);
+}
+.Questionnaire form input[type=checkbox]:checked + label {
     border: solid 2px rgb(221, 39, 22);
 }
 
