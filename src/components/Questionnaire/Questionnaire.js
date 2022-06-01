@@ -69,7 +69,6 @@ const Questionnaire = () => {
   //     }))
   // }
   const handleChange = (event) => {
-    console.log(event.target.value);
     setSelected(event.target.value);
     // const handleChange = () => {
     // console.log("submitted");
