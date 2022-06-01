@@ -1,9 +1,10 @@
+import Home from './components/Home/Home';
 import './App.css';
-import Chat from './components/Chat/Chat';
+
 function App() {
   return (
     <div className="App">
-      <Chat/>
+          <Home/>
     </div>
   );
 }

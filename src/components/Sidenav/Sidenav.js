@@ -9,6 +9,7 @@ import { Avatar } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import Profile from '../Profile/Profile';
+import Chat from '../Chat/Chat';
 
 
 function TabPanel(props) {
@@ -66,7 +67,7 @@ export default function BasicTabs() {
        <Event/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Chat Screen
+       <Chat/>
       </TabPanel>
     </div>
   );
