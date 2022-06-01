@@ -1,22 +1,9 @@
 import './App.css';
-import Landing from './components/Landing/Landing';
-import Home from './components/Home/Home';
-import Suggestions from './components/Suggestions/Suggestions';
-import Test from './components/Test/Test';
-import Questionnaire from './components/Questionnaire/Questionnaire';
-import ProfileDetails from './components/ProfileDetails/ProfileDetails';
-import Tags from './Tags/Tags';
-import SignUp from './components/SignUp/SignUp';
+import Admin from './components/Admin/Admin';
 function App() {
   return (
     <div className="App">
-      {/* <Questionnaire/> */}
-      {/* <Test/> */}
-      {/* <Landing/> */}
-      {/* <Home/> */}
-      {/* <ProfileDetails/>  */}
-      <SignUp/> 
-
+      <Admin/>
     </div>
   );
 }

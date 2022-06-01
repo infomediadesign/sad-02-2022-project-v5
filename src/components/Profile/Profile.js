@@ -1,5 +1,4 @@
-import { width } from "@mui/system";
-import react, { useState } from "react";
+import { useState } from "react";
 import "./Profile.css";
 import Slider from '@mui/material/Slider'
 const Profile = () => {
@@ -25,6 +24,7 @@ const Profile = () => {
         </div> 
       </div>
       <form onSubmit={handleSubmit}>
+
             <section>
             <label>Choose picture</label>
               <input
@@ -90,6 +90,73 @@ const Profile = () => {
                   checked={selectedGender === "men"}
                 />
                 <label htmlFor="man-gender-identity"> Man</label>
+
+        <section>
+         
+          <input type="file" id="image" name="image" ></input>
+          <label htmlFor="first_name"> First Name</label>
+          <input
+            id="first_name"
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            required={true}
+            value={""}
+            onChange={handleChange}
+          />
+          <label> Birthday</label>
+          <div className="multiple-input-container">
+            <input
+              id="dob_day"
+              type="number"
+              name="dob_day"
+              placeholder="DD"
+              required={true}
+              value={""}
+              onChange={handleChange}
+            />
+            <input
+              id="dob_month"
+              type="number"
+              name="dob_month"
+              placeholder="MM"
+              required={true}
+              value={""}
+              onChange={handleChange}
+            />
+            <input
+              id="dob_year"
+              type="number"
+              name="dob_year"
+              placeholder="YYYY"
+              required={true}
+              value={""}
+              onChange={handleChange}
+            />
+          </div>
+
+          <label> Gender</label>
+          <div className="multiple-input-container">
+            <input
+              id="man-gender-identity"
+              type="radio"
+              name="gender_identity"
+              value="men"
+              onChange={handleChange}
+              checked={selected === "men"}
+            />
+            <label htmlFor="man-gender-identity"> Man</label>
+
+            <input
+              id="woman-gender-identity"
+              type="radio"
+              name="gender_identity"
+              value="women"
+              onChange={handleChange}
+              checked={selected === "women"}
+            />
+            <label htmlFor="woman-gender-identity"> Woman</label>
+
 
                 <input
                   id="woman-gender-identity"
