@@ -25,6 +25,10 @@ const Questionnaire = () => {
   // let navigate = useNavigate()
 
   const [selected, setSelected] = useState("yes");
+  const [selectedDrink, setSelectedDrink] = useState("");
+  const [selectedEducation, setSelectedEducation] = useState("");
+  const [selectedSmoking, setSelectedSmoking] = useState("");
+  const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
   const handleSubmit = () => {
     console.log("submitted");
 
@@ -39,6 +43,19 @@ const Questionnaire = () => {
     // } catch (err) {
     //     console.log(err)
     // }
+  };
+
+  const handleDrinkChange = (event) => {
+    setSelectedDrink(event.target.value);
+  };
+  const handleEducationChange = (event) => {
+    setSelectedEducation(event.target.value);
+  };
+  const handleSmokingChange = (event) => {
+    setSelectedSmoking(event.target.value);
+  };
+  const handleSocialMediaChange = (event) => {
+    setSelectedSocialMedia(event.target.value);
   };
 
   // const handleChange = (e) => {
@@ -67,7 +84,7 @@ const Questionnaire = () => {
                 showModal={false}
             /> */}
 
-      <div className="Questionnaire">
+<div className="Questionnaire">
         <h2>ADD MORE DETAILS</h2>
 
         <form onSubmit={handleSubmit}>
@@ -198,8 +215,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="drink-choice"
                 value="wine"
-                onChange={handleChange}
-                checked={selected === "wine"}
+                onChange={handleDrinkChange}
+                checked={selectedDrink === "wine"}
               />
               <label htmlFor="drink-choice-wine">Wine</label>
               <input
@@ -207,8 +224,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="drink-choice"
                 value="all"
-                onChange={handleChange}
-                checked={selected === "all"}
+                onChange={handleDrinkChange}
+                checked={selectedDrink === "all"}
               />
               <label htmlFor="drink-choice-all">All drinks</label>
               <input
@@ -216,8 +233,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="drink-choice-beer"
                 value="beer"
-                onChange={handleChange}
-                checked={selected === "beer"}
+                onChange={handleDrinkChange}
+                checked={selectedDrink === "beer"}
               />
               <label htmlFor="drink-choice-beer">Beer</label>
             </div>
@@ -227,8 +244,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="drink-choice-sober"
                 value="sober"
-                onChange={handleChange}
-                checked={selected === "sober"}
+                onChange={handleDrinkChange}
+                checked={selectedDrink === "sober"}
               />
               <label htmlFor="drink-choice-sober">Sober</label>
               <input
@@ -236,8 +253,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="drink-choice"
                 value="cocktails"
-                onChange={handleChange}
-                checked={selected === "cocktails"}
+                onChange={handleDrinkChange}
+                checked={selectedDrink === "cocktails"}
               />
               <label htmlFor="drink-choice-cocktails">Cocktails</label>
             </div>
@@ -249,17 +266,17 @@ const Questionnaire = () => {
                 type="radio"
                 name="education"
                 value="high-school"
-                onChange={handleChange}
-                checked={selected === "high-school"}
+                onChange={handleEducationChange}
+                checked={selectedEducation === "high-school"}
               />
-              <label htmlFor="man-gender-identity">High Shool</label>
+              <label htmlFor="education-high-school">High Shool</label>
               <input
                 id="education-bachelor"
                 type="radio"
                 name="education"
                 value="bachelor"
-                onChange={handleChange}
-                checked={selected === "bachelor"}
+                onChange={handleEducationChange}
+                checked={selectedEducation === "bachelor"}
               />
               <label htmlFor="education-bachelor">Bachelor</label>
               <input
@@ -267,8 +284,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="education"
                 value="master"
-                onChange={handleChange}
-                checked={selected === "master"}
+                onChange={handleEducationChange}
+                checked={selectedEducation === "master"}
               />
               <label htmlFor="education-master">Master</label>
             </div>
@@ -278,8 +295,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="education"
                 value="phd"
-                onChange={handleChange}
-                checked={selected === "phd"}
+                onChange={handleEducationChange}
+                checked={selectedEducation === "phd"}
               />
               <label htmlFor="education-phd">PhD</label>
             </div>
@@ -393,8 +410,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="smoking"
                 value="socially"
-                onChange={handleChange}
-                checked={selected === "socially"}
+                onChange={handleSmokingChange}
+                checked={selectedSmoking === "socially"}
               />
               <label htmlFor="smoking-socially">Socially</label>
               <input
@@ -402,8 +419,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="smoking"
                 value="when-drinking"
-                onChange={handleChange}
-                checked={selected === "when-drinking"}
+                onChange={handleSmokingChange}
+                checked={selectedSmoking === "when-drinking"}
               />
               <label htmlFor="smoking-when-drinking">When drinking</label>
               <input
@@ -411,8 +428,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="smoking"
                 value="non-smoker"
-                onChange={handleChange}
-                checked={selected === "non-smoker"}
+                onChange={handleSmokingChange}
+                checked={selectedSmoking === "non-smoker"}
               />
               <label htmlFor="smoking-non-smoker">Non-smoker</label>
             </div>
@@ -423,18 +440,18 @@ const Questionnaire = () => {
                 type="radio"
                 name="social-media"
                 value="influencer"
-                onChange={handleChange}
-                checked={selected === "influencer"}
+                onChange={handleSocialMediaChange}
+                checked={selectedSocialMedia === "influencer"}
               />
 
-              <label htmlFor="man-gender-identity">Influencer</label>
+              <label htmlFor="social-media-influencer">Influencer</label>
               <input
                 id="social-media-socially"
                 type="radio"
                 name="social-media"
                 value="socially"
-                onChange={handleChange}
-                checked={selected === "socially"}
+                onChange={handleSocialMediaChange}
+                checked={selectedSocialMedia === "socially"}
               />
               <label htmlFor="social-media-socially">Socially</label>
               <input
@@ -442,8 +459,8 @@ const Questionnaire = () => {
                 type="radio"
                 name="gender_identity"
                 value="off-grid"
-                onChange={handleChange}
-                checked={selected === "off-grid"}
+                onChange={handleSocialMediaChange}
+                checked={selectedSocialMedia === "off-grid"}
               />
               <label htmlFor="social-media-off-grid">Off Grid</label>
             </div>
