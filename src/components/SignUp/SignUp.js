@@ -1,31 +1,11 @@
 import React, { useState } from "react";
-import Profile from "../Profile/Profile";
 import axios from "axios";
-// import { useCookies } from "react-cookie";
-import Questionnaire from "../Questionnaire/Questionnaire";
 import "./SignUp.css";
 import Slider from "@mui/material/Slider";
 
 const SignUp = () => {
   //   const [cookies, setCookie, removeCookie] = useCookies(null);
 
-  var formData = {
-    name: "",
-    about: "",
-    image: "",
-    location: [],
-    findwithin: "",
-    passion: [],
-    bestdrink: "",
-    education: "",
-    foodpreferences: [],
-    bestpets: [],
-    smoking: "",
-    Socialmedia: "",
-    gender: "",
-    preferredgender: "",
-    dob: "",
-  };
 
   //   let navigate = useNavigate();
   var passionTemp;
@@ -43,11 +23,13 @@ const SignUp = () => {
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
   const [fullName, setFullName] = useState("");
   const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState("");
   const [date, setDobDate] = useState("");
   const [month, setDobMonth] = useState("");
   const [year, setDobYear] = useState("");
   const [about, setAbout] = useState("");
   const [distance, setDistance] = useState();
+  const [location, setLocation] = useState([]);
  
   var options = {
     enableHighAccuracy: true,
@@ -58,7 +40,10 @@ const SignUp = () => {
   };
   function success(pos) {
     var crd = pos.coords;
-    formData.location = [`${crd.latitude}`, `${crd.longitude}`];
+    var tempLocation = []
+    tempLocation.push((Number)(crd.longitude))
+    tempLocation.push((Number)(crd.latitude))
+    setLocation(tempLocation);
   }
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -148,38 +133,27 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-    }
     try {
-      formData.name = fullName;
-      formData.about = about;
-      formData.image = file;
-      formData.passion = selectedPassions;
-      formData.bestpets = selectedPet;
-      formData.bestdrink = selectedDrink;
-      formData.education = selectedEducation;
-      formData.foodpreferences = selectedFood;
-      formData.smoking = selectedSmoking;
-      formData.Socialmedia = selectedSocialMedia;
-      formData.gender = selectedGender;
-      formData.preferredgender = PreferredGender;
-      formData.dob = date + "-" + month + "-" + year;
-      formData.findwithin = distance;
       
       var form = new FormData();
    
-          form.set('file', file);
-          form.set('data1', formData);
-      axios.post('http://localhost:5000/api/addprofile', form,config) 
-
-    //   debugger;
-      console.log(formData);
-    //   const response = await axios.post("http://localhost:5000/api/addprofile", {
-    //     formData,
-    //   },config);
+          form.append("file", file);
+          form.append("name", fullName);
+          form.append("about", about);
+          form.append("passion", selectedPassions);
+          form.append("bestpets", selectedPet);
+          form.append("bestdrink", selectedDrink);
+          form.append("education", selectedEducation);
+          form.append("foodpreferences", selectedFood);
+          form.append("smoking", selectedSmoking);
+          form.append("Socialmedia", selectedSocialMedia);
+          form.append("gender", selectedGender);
+          form.append("preferredgender", PreferredGender);
+          form.append("fileName", fileName);
+          form.append("dob", date + "-" + month + "-" + year);
+          form.append("location", location);
+          form.append("findwithin", distance);
+      await axios.post('http://localhost:5000/api/addprofile', form) 
 
       
     } catch (err) {
@@ -195,7 +169,8 @@ const SignUp = () => {
     setAbout(event.target.value);
   };
  const handleFile = (e) => {
-    setFile(e.target.value);
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   };
   return (
     <div className="container">
@@ -208,9 +183,7 @@ const SignUp = () => {
               <input
                 className="fileInput"
                 type="file"
-                id="image"
                 name="image"
-                value={file}
                 onChange={handleFile}
                 required
               ></input>
@@ -563,7 +536,7 @@ const SignUp = () => {
                   id="food-vegetarian"
                   type="checkbox"
                   name="food"
-                  value={formData.foodpreferences}
+                  value="Vegan"
                   onChange={handleFoodChange}
                 />
                 <label htmlFor="food-vegetarian">Vegetarian</label>

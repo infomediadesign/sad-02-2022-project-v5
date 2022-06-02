@@ -26,4 +26,4 @@ var userProfile = new mongoose.Schema({
 userProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema
   
-module.exports = new mongoose.model('User', userProfile);
+module.exports = new mongoose.model('UserProfile', userProfile);
