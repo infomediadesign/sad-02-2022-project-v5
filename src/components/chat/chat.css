@@ -1,0 +1,13 @@
+.chatContainer{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background-color:rgb(244, 216, 221);
+}
+
+.chatcontainer_body{
+    display: flex;
+    background-color: azure;
+    margin-top: -50px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    }

@@ -5,10 +5,11 @@ import ChatDetails from './ChatDetails/ChatDetails'
 
 function Chat (){
   return (
-    <div className='chatListContainer'>
-
+    <div className='chatContainer'>
+      <div className='chatcontainer_body'>
       <ChatList/>
       <ChatDetails/>
+      </div>
       </div>
   )
 }

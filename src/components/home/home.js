@@ -10,15 +10,7 @@ const Home = () => {
         <div className="sidenav">
             <Sidenav/>
         </div>
-        <div className="suggestion">
-          <Suggestions 
-          Username="Shubham Choudhary"
-           Age="25" 
-           Place="Mannheim, Germany"
-           Location="35" 
-           About="Hey Baby Girl" />
-        </div>
-       
+   
     
 
     </div>

@@ -1,20 +1,12 @@
-import React from "react"
+import React from 'react'
 import './ChatDetails.css'
-import Avatar from "material-ui/Avatar";
 
-function ChatDetails({name,message,timestamp,profilePic}){
-    return (
-    <div className="ChatDetailsContainer">
-        <Avatar className="person_img" src={profilePic}/>
-        <div className="ChatInfo">
-            <h2>{name}</h2>
-            <p>{message}</p>
-        </div>
-        <div>
-            <p className="ChatTime">{timestamp}</p>
-        </div>
+function ChatDetails() {
+  return (
+    <div className='chat_details'>
+        
     </div>
-    );  
+  );
 }
 
-export default ChatDetails;
+export default ChatDetails
