@@ -1,48 +1,107 @@
 import { width } from "@mui/system";
 import react, { useState } from "react";
 import "./Profile.css";
-import Slider from '@mui/material/Slider'
+import Slider from "@mui/material/Slider";
 const Profile = () => {
-  
-  const [selected, setSelected] = useState("");
+
+  const [location, setLocation] = useState([]);
+  const [file, setFile] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [date, setDobDate] = useState("");
+  const [month, setDobMonth] = useState("");
+  const [year, setDobYear] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
-  
+  const [PreferredGender, setPreferredgender] = useState("");
+  const [distance, setDistance] = useState();
+  const [fileName, setFileName] = useState("");
+  const [about, setAbout] = useState("");
+
+  var options = {
+    enableHighAccuracy: true,
+
+    timeout: 5000,
+
+    maximumAge: 0,
+  };
+  function success(pos) {
+    var crd = pos.coords;
+    var tempLocation = [];
+    tempLocation.push(Number(crd.longitude));
+    tempLocation.push(Number(crd.latitude));
+    setLocation(tempLocation);
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
+
   const handleSubmit = () => {
     console.log("submitted");
   };
 
-  const handleChange = (event) => {
-    setSelected(event.target.value);
+  
+  const handleDistance = (event, value) => {
+    setDistance(value);
   };
+
+  const handleDOBDate = (e) => {
+    setDobDate(e.target.value);
+  };
+
+  const handleDOBMonth = (e) => {
+    setDobMonth(e.target.value);
+  };
+
+  const handleDOBYear = (e) => {
+    setDobYear(e.target.value);
+  };
+
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
+  };
+
+  const handlePreferredGender = (e) => {
+    setPreferredgender(e.target.value);
+  };
+  const handleFullName = (event) => {
+    setFullName(event.target.value);
+  };
+
+  const handleAbout = (event) => {
+    setAbout(event.target.value);
+  };
+
+  const handleFile = (e) => {
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   };
   return (
     <div className="Profile">
       <div className="upper-container-profile">
-         <div className="image-container-profile">
+        <div className="image-container-profile">
           <img src="/images/img1.jpg" alt="" />
-        </div> 
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
             <section>
-            <label>Choose picture</label>
+              <label>Choose picture</label>
               <input
                 className="fileInput"
                 type="file"
-                id="image"
                 name="image"
+                onChange={handleFile}
                 required
               ></input>
-              <label htmlFor="first_name"> First Name</label>
+              <label htmlFor="first_name"> FullName</label>
               <input
                 id="first_name"
                 type="text"
                 name="first_name"
                 placeholder="First Name"
                 required={true}
-                value={""}
-                onChange={handleChange}
+                value={fullName}
+                onChange={handleFullName}
               />
               <label> Birthday</label>
               <div className="multiple-input-container">
@@ -52,8 +111,8 @@ const Profile = () => {
                   name="dob_day"
                   placeholder="DD"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={date}
+                  onChange={handleDOBDate}
                 />
                 <input
                   id="dob_month"
@@ -61,8 +120,8 @@ const Profile = () => {
                   name="dob_month"
                   placeholder="MM"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={month}
+                  onChange={handleDOBMonth}
                 />
                 <input
                   id="dob_year"
@@ -70,15 +129,10 @@ const Profile = () => {
                   name="dob_year"
                   placeholder="YYYY"
                   required={true}
-                  value={""}
-                  onChange={handleChange}
+                  value={year}
+                  onChange={handleDOBYear}
                 />
               </div>
-              <label htmlFor="first_name">
-                {" "}
-                Click here to get current location
-              </label>
-              <button className="location">Location</button>
               <label> Gender</label>
               <div className="multiple-input-container">
                 <input
@@ -110,24 +164,18 @@ const Profile = () => {
                   checked={selectedGender === "other"}
                 />
                 <label htmlFor="more-gender-identity">Other</label>
-
-                {/*........ ...........................What I wanna see ...............................*/}
               </div>
-              <label htmlFor="show-gender"> Show gender on my profile</label>
-              <input
-                id="show-gender"
-                type="checkbox"
-                name="show-gender"
-                onChange={handleChange}
-                checked={false}
-              />
+
+              {/*........ ...........................What I wanna see ...............................*/}
+
               <label>Show within distance</label>
-                
-                  <Slider
-                    defaultValue={50}
-                    aria-label="Default"
-                    valueLabelDisplay="auto"
-                  />
+              <Slider
+                defaultValue={1}
+                aria-label="Default"
+                valueLabelDisplay="auto"
+                onChange={handleDistance}
+                value={distance}
+              />
               <label>Show me</label>
               <div className="multiple-input-container">
                 <input
@@ -135,28 +183,24 @@ const Profile = () => {
                   type="radio"
                   name="gender_interest"
                   value="man"
-                  onChange={handleChange}
-                  checked={selected === "man"}
+                  onChange={handlePreferredGender}
                 />
-                
-               
+
                 <label htmlFor="man-gender-interest"> Man</label>
                 <input
                   id="woman-gender-interest"
                   type="radio"
                   name="gender_interest"
                   value="woman"
-                  onChange={handleChange}
-                  checked={selected === "woman"}
+                  onChange={handlePreferredGender}
                 />
                 <label htmlFor="woman-gender-interest"> woman</label>
                 <input
                   id="everyone-gender-interest"
                   type="radio"
                   name="gender_interest"
-                  value="everyone"
-                  onChange={handleChange}
-                  checked={selected === "everyone"}
+                  value="woman"
+                  onChange={handlePreferredGender}
                 />
                 <label htmlFor="everyone-gender-interest"> everyone</label>
               </div>
@@ -167,12 +211,12 @@ const Profile = () => {
                 type="text"
                 name="about"
                 placeholder="I like sports..."
-                value={""}
-                onChange={handleChange}
+                value={about}
+                onChange={handleAbout}
               />
               <input type="submit" />
             </section>
-          </form>
+      </form>
     </div>
   );
 };
