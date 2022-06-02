@@ -19,32 +19,45 @@ module.exports = function(app){
       
     var upload = multer({ storage: storage });
     
-    app.post('/api/addprofile', upload.single('image'), (req, res, next) => {
-        console.log(req.file)
-        console.log(req.body)
-        var obj = {
-            name: req.body.name,
-            about: req.body.about,
-            gender: req.body.gender,
-            preferredgender: req.body.preferredgender,
-            dob: req.body.dob,
-            location: {
-                type:"Point",
-                coordinates:[49.409380, 8.683539]},
-            img: {
-                data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
-                contentType: 'image/png'
-            }
+    app.post('/api/addprofile', upload.single('file'), (req, res) => {
+        if (!req.file) {
+            console.log("No file uploaded");
         }
-        userProfile.create(obj, (err, item) => {
-            if (err) {
-                console.log(err);
+        else{
+            var locationData = req.body.location.split(',');
+            var obj = {
+                name: req.body.name,
+                about: req.body.about,
+                location: {
+                    type:"Point",
+                    coordinates: [(Number)(locationData[1]),(Number)(locationData[0])]
+                },
+                findwithin:req.body.findwithin,
+                passion:req.body.passion.split(','),
+                bestdrink:req.body.bestdrink,
+                education:req.body.education,
+                foodpreferences:req.body.foodpreferences.split(','),
+                bestpets:req.body.bestpets.split(','),
+                smoking:req.body.smoking,
+                Socialmedia:req.body.Socialmedia,
+                gender:req.body.gender,
+                preferredgender:req.body.preferredgender,
+                dob:req.body.dob,
+                img: {
+                    data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
+                    contentType: 'image/png'
+                }
             }
-            else {
-                //userProfile.save();
-                console.log("User Created")
-                res.redirect('http://localhost:3000/');
-            }
-        });
+            userProfile.create(obj, (err, item) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    //userProfile.save();
+                    console.log("User Created")
+                    res.redirect('http://localhost:3000/');
+                }
+            });
+        }
     });
 }
