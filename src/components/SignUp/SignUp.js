@@ -5,32 +5,31 @@ import Slider from "@mui/material/Slider";
 
 const SignUp = () => {
   //   const [cookies, setCookie, removeCookie] = useCookies(null);
-
-
   //   let navigate = useNavigate();
+
   var passionTemp;
-  var foodTemp;
   var petTemp;
 
   const [selectedPassions, setSelectedPassions] = useState([]);
-  const [selectedFood, setSelectedFood] = useState([]);
-  const [selectedPet, setSelectedPet] = useState([]);
-  const [selectedGender, setSelectedGender] = useState("");
-  const [PreferredGender, setPreferredgender] = useState("");
   const [selectedDrink, setSelectedDrink] = useState("");
   const [selectedEducation, setSelectedEducation] = useState("");
+  const [selectedFood, setSelectedFood] = useState([]);
+  const [selectedPet, setSelectedPet] = useState([]);
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
-  const [fullName, setFullName] = useState("");
+
+  const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
-  const [fileName, setFileName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [date, setDobDate] = useState("");
   const [month, setDobMonth] = useState("");
   const [year, setDobYear] = useState("");
-  const [about, setAbout] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
+  const [PreferredGender, setPreferredgender] = useState("");
   const [distance, setDistance] = useState();
-  const [location, setLocation] = useState([]);
- 
+  const [fileName, setFileName] = useState("");
+  const [about, setAbout] = useState("");
+
   var options = {
     enableHighAccuracy: true,
 
@@ -40,9 +39,9 @@ const SignUp = () => {
   };
   function success(pos) {
     var crd = pos.coords;
-    var tempLocation = []
-    tempLocation.push((Number)(crd.longitude))
-    tempLocation.push((Number)(crd.latitude))
+    var tempLocation = [];
+    tempLocation.push(Number(crd.longitude));
+    tempLocation.push(Number(crd.latitude));
     setLocation(tempLocation);
   }
   function error(err) {
@@ -64,19 +63,6 @@ const SignUp = () => {
     setSelectedPassions(passionTemp);
   };
 
-  const handleFoodChange = (event) => {
-    foodTemp = selectedFood;
-    if (event.target.checked) {
-      foodTemp.push(event.target.value);
-    } else {
-      var index = foodTemp.indexOf(event.target.value);
-      if (index !== -1) {
-        foodTemp.splice(index, 1);
-      }
-    }
-    setSelectedFood(foodTemp);
-  };
-
   const handlePetChange = (event) => {
     petTemp = selectedPet;
     if (event.target.checked) {
@@ -90,13 +76,8 @@ const SignUp = () => {
     setSelectedPet(petTemp);
   };
 
-  const handleDistance = (event, value) => {
-    setDistance(value);
-    debugger
-  };
-
-  const handleGenderChange = (event) => {
-    setSelectedGender(event.target.value);
+  const handleFoodChange = (event) => {
+    setSelectedFood(event.target.value);
   };
 
   const handleDrinkChange = (event) => {
@@ -115,6 +96,10 @@ const SignUp = () => {
     setSelectedSocialMedia(event.target.value);
   };
 
+  const handleDistance = (event, value) => {
+    setDistance(value);
+  };
+
   const handleDOBDate = (e) => {
     setDobDate(e.target.value);
   };
@@ -122,45 +107,19 @@ const SignUp = () => {
   const handleDOBMonth = (e) => {
     setDobMonth(e.target.value);
   };
-  
+
   const handleDOBYear = (e) => {
     setDobYear(e.target.value);
+  };
+
+  const handleGenderChange = (event) => {
+    setSelectedGender(event.target.value);
   };
 
   const handlePreferredGender = (e) => {
     setPreferredgender(e.target.value);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      
-      var form = new FormData();
-   
-          form.append("file", file);
-          form.append("name", fullName);
-          form.append("about", about);
-          form.append("passion", selectedPassions);
-          form.append("bestpets", selectedPet);
-          form.append("bestdrink", selectedDrink);
-          form.append("education", selectedEducation);
-          form.append("foodpreferences", selectedFood);
-          form.append("smoking", selectedSmoking);
-          form.append("Socialmedia", selectedSocialMedia);
-          form.append("gender", selectedGender);
-          form.append("preferredgender", PreferredGender);
-          form.append("fileName", fileName);
-          form.append("dob", date + "-" + month + "-" + year);
-          form.append("location", location);
-          form.append("findwithin", distance);
-      await axios.post('http://localhost:5000/api/addprofile', form) 
-
-      
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  
   const handleFullName = (event) => {
     setFullName(event.target.value);
   };
@@ -168,10 +127,40 @@ const SignUp = () => {
   const handleAbout = (event) => {
     setAbout(event.target.value);
   };
- const handleFile = (e) => {
+
+  const handleFile = (e) => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      var form = new FormData();
+
+      form.append("file", file);
+      form.append("name", fullName);
+      form.append("about", about);
+      form.append("passion", selectedPassions);
+      form.append("bestpets", selectedPet);
+      form.append("bestdrink", selectedDrink);
+      form.append("education", selectedEducation);
+      form.append("foodpreferences", selectedFood);
+      form.append("smoking", selectedSmoking);
+      form.append("Socialmedia", selectedSocialMedia);
+      form.append("gender", selectedGender);
+      form.append("preferredgender", PreferredGender);
+      form.append("fileName", fileName);
+      form.append("dob", date + "-" + month + "-" + year);
+      form.append("location", location);
+      form.append("findwithin", distance);
+      await axios.post("http://localhost:5000/api/addprofile", form);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  
+
   return (
     <div className="container">
       <div className="sidenav">
@@ -258,9 +247,9 @@ const SignUp = () => {
                   checked={selectedGender === "other"}
                 />
                 <label htmlFor="more-gender-identity">Other</label>
-
-                {/*........ ...........................What I wanna see ...............................*/}
               </div>
+
+              {/*........ ...........................What I wanna see ...............................*/}
 
               <label>Show within distance</label>
               <Slider
@@ -526,7 +515,7 @@ const SignUp = () => {
               <div className="multiple-input-container">
                 <input
                   id="food-vegan"
-                  type="checkbox"
+                  type="radio"
                   name="food"
                   value="vegan"
                   onChange={handleFoodChange}
@@ -534,15 +523,15 @@ const SignUp = () => {
                 <label htmlFor="food-vegan">Vegan</label>
                 <input
                   id="food-vegetarian"
-                  type="checkbox"
+                  type="radio"
                   name="food"
-                  value="Vegan"
+                  value="Vegetarian"
                   onChange={handleFoodChange}
                 />
                 <label htmlFor="food-vegetarian">Vegetarian</label>
                 <input
                   id="food-halal"
-                  type="checkbox"
+                  type="radio"
                   name="food"
                   value="halal"
                   onChange={handleFoodChange}
@@ -552,7 +541,7 @@ const SignUp = () => {
               <div className="multiple-input-container">
                 <input
                   id="food-carnivore"
-                  type="checkbox"
+                  type="radio"
                   name="food"
                   value="carnivore"
                   onChange={handleFoodChange}
@@ -560,7 +549,7 @@ const SignUp = () => {
                 <label htmlFor="food-carnivore">Carnivore</label>
                 <input
                   id="food-omnivore"
-                  type="checkbox"
+                  type="radio"
                   name="food"
                   value="omnivore"
                   onChange={handleFoodChange}
@@ -571,7 +560,7 @@ const SignUp = () => {
               <div className="multiple-input-container">
                 <input
                   id="pet-dog"
-                  type="checkbox"
+                  type="radio"
                   name="pet"
                   value="dog"
                   onChange={handlePetChange}
@@ -579,7 +568,7 @@ const SignUp = () => {
                 <label htmlFor="pet-dog">Dog</label>
                 <input
                   id="pet-fish"
-                  type="checkbox"
+                  type="radio"
                   name="pet"
                   value="fish"
                   onChange={handlePetChange}
@@ -587,7 +576,7 @@ const SignUp = () => {
                 <label htmlFor="pet-fish">Fish</label>
                 <input
                   id="pet-cat"
-                  type="checkbox"
+                  type="radio"
                   name="pet"
                   value="cat"
                   onChange={handlePetChange}
