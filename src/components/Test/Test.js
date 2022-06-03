@@ -8,14 +8,14 @@ const Test = () => {
         myid:"amadou@gmail.com",
         profileid:"pranav@gmail.com"
     }
-    // Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
-    //         console.log(response)
+    Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
+            console.log(response)
 
-    //         });
-    Axios.get('http://localhost:5000/api/getuserprofile/',{ params: data}).then((response)=>{
-    console.log(response.data)
+            });
+    // Axios.get('http://localhost:5000/api/getuserprofile/',{ params: data}).then((response)=>{
+    // console.log(response.data)
 
-    });
+    // });
             
     // const [data,setData] = useState([]);   
     // const [title, setTitle] = useState("");
