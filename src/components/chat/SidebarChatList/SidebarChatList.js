@@ -1,6 +1,6 @@
-import { Avatar } from 'material-ui'
 import React from 'react'
 import './SidebarChatList.css'
+import {Avatar} from '@material-ui/core'
 
 function SidebarChatList() {
   return (
