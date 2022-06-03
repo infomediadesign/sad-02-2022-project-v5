@@ -1,26 +1,24 @@
 var mongoose = require('mongoose');
-const GeoSchema = mongoose.Schema({
-    type: {
-      type: String,
-      default: "Point",
-    },
-    coordinates: {
-      type: [Number],
-      index: "2dsphere"
-    }
-  })
 var userProfile = new mongoose.Schema({
     name: String,
     about: String,
-    img:
-    {
-        data: Buffer,
-        contentType: String
-    },
+    // img:
+    // {
+    //     data: Buffer,
+    //     contentType: String
+    // },
     location: {
         type: { type: String },
         coordinates: []
        },
+    findwithin:Number,
+    passion:[String],
+    bestdrink:String,
+    education:String,
+    foodpreferences:[String],
+    bestpets:[String],
+    smoking:String,
+    Socialmedia:String,
     gender:String,
     preferredgender:String,
     dob:String
@@ -28,4 +26,4 @@ var userProfile = new mongoose.Schema({
 userProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema
   
-module.exports = new mongoose.model('User', userProfile);
+module.exports = new mongoose.model('UserProfile', userProfile);

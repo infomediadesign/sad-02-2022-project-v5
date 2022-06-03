@@ -10,7 +10,9 @@ const Suggestions = () => {
     const [data,setData] = useState([]);  
     const [isOpen, setIsOpen] = useState(false);
     const [isToggled, setIsToggled] = useState(true);
-
+    const [age, setAge] = useState("");
+      
+  
        setTimeout(() => {
             setIsToggled(false);
         }, 1000);
@@ -21,30 +23,54 @@ const Suggestions = () => {
              setIsToggled2(false);
          }, 1000);
  
-         Axios.get('http://localhost:5000/api/getuserprofile').then((response)=>{
+      
 
-            setData(response.data);
+            useEffect(() => {
+                
+                Axios.get('http://localhost:5000/api/getuserprofile').then((response)=>{
+                
+                    setData(response.data.data[1]);
+                    setAge(getAge(response.data.data[1].dob))
+                    console.log(response.data.data[1].dob)
+                    console.log(age)
+                    })
+              });
+     
 
-            });
-         
 
+            function getAge(dateString) {
+                var birthString = dateString.split("-").reverse().join("-")
+                var today = new Date();
+                var birthDate = new Date(birthString);
+                var userage = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    userage--;
+
+                    
+                }
+                return userage;
+            }
+                
+           
+
+            
     return (
+
+        
         <div className="Suggestions">
+        
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
                     <img layout="position" className="profilephoto" src={require('./profile4.jpg')} />
                     <motion.div className="names">
                         <motion.h1 layout="position">{data.name}</motion.h1>
-                        <motion.h3 layout="position">{data.age}</motion.h3>
+                        
+                        <motion.h3 layout="position">{age} </motion.h3>
                     </motion.div>
+                   
                     <motion.div className="names">
-
-                        <motion.h5 layout="position"> Lives in:</motion.h5>
-                        <motion.h4 layout="position"> &nbsp; {data.location}</motion.h4>
-
-                    </motion.div>
-                    <motion.div className="names">
-                        <motion.h5 layout="position"> {Location} &nbsp;</motion.h5>
+                        <motion.h5 layout="position">  &nbsp;</motion.h5>
                         <motion.h5 layout="position"> Kms far from you</motion.h5>
                     </motion.div>
                 </motion.div>
@@ -63,24 +89,19 @@ const Suggestions = () => {
 
                         <motion.h3 layout="position">My Food Preverence</motion.h3>
                         <motion.div className="details">
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
+                        {data.foodpreferences.map((object) => <Tags Tagname= {object}/>)}
                         </motion.div>
 
                         <motion.h3 layout="position">My Drink of Choice</motion.h3>
                         <motion.div className="details">
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-
+                        
+                        <Tags Tagname={data.bestdrink} />
 
 
                         </motion.div>
                         <motion.h3 layout="position">Smoking ?</motion.h3>
                         <motion.div className="details">
-                            <Tags Tagname="shubham" />
+                            <Tags Tagname={data.smoking} />
 
 
 
@@ -89,10 +110,7 @@ const Suggestions = () => {
                         </motion.div>
                         <motion.h3 layout="position">Pets that I like</motion.h3>
                         <motion.div className="details">
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
-                            <Tags Tagname="shubham" />
+                        {data.bestpets.map((object) => <Tags Tagname= {object}/>)}
 
 
 
