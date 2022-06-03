@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var userProfile = new mongoose.Schema({
     name: String,
     about: String,
-    // img:
-    // {
-    //     data: Buffer,
-    //     contentType: String
-    // },
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    },
     location: {
         type: { type: String },
         coordinates: []
@@ -18,10 +18,14 @@ var userProfile = new mongoose.Schema({
     foodpreferences:[String],
     bestpets:[String],
     smoking:String,
-    Socialmedia:String,
+    socialmedia:String,
     gender:String,
     preferredgender:String,
-    dob:String
+    dob:String,
+    liked:[],
+    matches:[],
+    disliked:[],
+    userid:String
 });
 userProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema

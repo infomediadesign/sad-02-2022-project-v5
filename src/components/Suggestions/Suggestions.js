@@ -8,10 +8,22 @@ import Axios from "axios";
 
 const Suggestions = () => {
     const [data,setData] = useState([]);  
+    const [allData,setAllData] = useState([]);  
     const [isOpen, setIsOpen] = useState(false);
     const [isToggled, setIsToggled] = useState(true);
     const [age, setAge] = useState("");
-      
+    const [distancefromme, setDistancefromme] = useState("");
+    const [myloc,setMyloc] = useState(""); 
+    const [doubleCount, setDoubleCount] = useState(oncount * 2);
+    var mylocat;
+    var firstData;
+    var oncount = 0;
+
+
+    var mydata = {
+        myid:"shubham@gmail.com"
+        
+    }
   
        setTimeout(() => {
             setIsToggled(false);
@@ -27,19 +39,45 @@ const Suggestions = () => {
 
             useEffect(() => {
                 
-                Axios.get('http://localhost:5000/api/getuserprofile').then((response)=>{
-                
-                    setData(response.data.data[1]);
-                    setAge(getAge(response.data.data[1].dob))
-                    // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
-                    console.log(response.data.data[1].dob)
-                    console.log(age)
+                Axios.get('http://localhost:5000/api/getuserprofile',{ params: mydata}).then((response)=>{
+                    debugger
+                    firstData = response.data.data;
+                    setAllData(response.data.data)
+                    setMyloc(response.data.mylocation.coordinates)
+                    mylocat = response.data.mylocation.coordinates;
+                    showfirstprofile();
+                    // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
+                   
                     })
-              });
+              },[]);
      
             
-              console.log(getDistanceFromLatLonInKm(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
+            //   console.log(getDistanceFromLatLonInKm(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
               
+            function showfirstprofile () {
+                if(oncount < firstData.length)
+                setData(firstData[oncount])
+                setAge(getAge(firstData[oncount].dob))
+                debugger
+                setDistancefromme(getDistanceFromLatLonInKm(firstData[oncount].location.coordinates[0],firstData[oncount].location.coordinates[1],mylocat[0],mylocat[1]).toFixed(1))
+                // console.log(myloc)
+                        
+                        
+                    }
+                    function  showprofile () {
+
+                        debugger
+                        if(oncount < allData.length)
+                        setData(allData[oncount])
+                        setAge(getAge(data.dob))
+                        var dist = getDistanceFromLatLonInKm(allData[oncount].location.coordinates[0],allData[oncount].location.coordinates[1],myloc[0],myloc[1]).toFixed(1)
+                        console.log(dist)
+                        setDistancefromme(dist)
+                        // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))
+                     
+                    }
+
+
 
 
                 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
@@ -62,6 +100,7 @@ const Suggestions = () => {
 
 
 
+
             function getAge(dateString) {
                 var birthString = dateString.split("-").reverse().join("-")
                 var today = new Date();
@@ -75,9 +114,19 @@ const Suggestions = () => {
                 }
                 return userage;
             }
-                
-           
+            
+            
 
+            const handlelikebutton = () => {
+                setIsToggled(!isToggled)
+                oncount = oncount + 1
+                showprofile()
+              }; 
+              
+   
+    
+
+             
             
     return (
 
@@ -94,8 +143,10 @@ const Suggestions = () => {
                     </motion.div>
                    
                     <motion.div className="names">
-                        <motion.h5 layout="position">  &nbsp;</motion.h5>
+                        <motion.h5 layout="position"> {distancefromme} &nbsp;</motion.h5>
+                    
                         <motion.h5 layout="position"> Kms far from you</motion.h5>
+                        
                     </motion.div>
                 </motion.div>
                 {isOpen && (
@@ -142,7 +193,7 @@ const Suggestions = () => {
                     </motion.div>
                 )}
             </motion.div>
-            <button className="button" onClick={() => setIsToggled(!isToggled)}>
+            <button className="button" onClick={handlelikebutton}>
                   < img className="icons" src={require('./like.png')} />
             </button>
             {isToggled && <img

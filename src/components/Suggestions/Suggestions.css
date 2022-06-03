@@ -152,6 +152,28 @@ height: 480px;
 
 }
 
+
+.button:hover {
+    position: absolute;
+    margin-top: 580px;
+    margin-right: 80px;
+  
+  height: 100px;
+  width: 100px;  
+  
+  border-radius: 50%;
+ 
+  color: white;
+    align-items: center;
+  cursor: pointer;
+  border-style: hidden;
+  
+ 
+  box-shadow: 0px 10px 30px rgba(0, 0, 5, .5);
+  
+
+}
+
 .button2 {
     position: absolute;
     margin-top: 580px;
@@ -172,12 +194,37 @@ height: 480px;
   
 }
 
+.button2:hover {
+    position: absolute;
+    margin-top: 580px;
+    margin-left: 220px;
+  
+  height: 100px;
+  width: 100px;  
+  
+  border-radius: 50%;
+ 
+  color: white;
+    align-items: center;
+  cursor: pointer;
+  border-style: hidden;
+  
+ 
+  box-shadow: 0px 10px 30px rgba(0, 0, 5, .5);
+  
+
+}
+
+
+
 .icons {
     width: 50%;
     height: 50%;
     
     
    }
+
+   
 
    .icons2 {
     width: 50%;
