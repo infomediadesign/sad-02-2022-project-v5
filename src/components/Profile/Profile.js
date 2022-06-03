@@ -2,13 +2,12 @@
 import React, { useState} from "react";
 import "./Profile.css";
 import Slider from "@mui/material/Slider";
-import axios from "axios";
+// import axios from "axios";
 // import React from "react";
 
-const Profile = () => {
+const Profile = (props) => {
 
-  // const {userProfile} = props;
-  
+  console.log("is passed", props.userProfile);
 
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
@@ -22,25 +21,7 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
 
-  // var options = {
-  //   enableHighAccuracy: true,
-
-  //   timeout: 5000,
-
-  //   maximumAge: 0,
-  // };
-  // function success(pos) {
-  //   var crd = pos.coords;
-  //   var tempLocation = [];
-  //   tempLocation.push(Number(crd.longitude));
-  //   tempLocation.push(Number(crd.latitude));
-  //   setLocation(tempLocation);
-  // }
-  // function error(err) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`);
-  // }
-
-  // navigator.geolocation.getCurrentPosition(success, error, options);
+  
 
   const handleSubmit = () => {
     console.log("submitted");
@@ -82,6 +63,8 @@ const Profile = () => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
   };
+
+  
 
   return (
     <div className="Profile">
