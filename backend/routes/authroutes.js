@@ -1,4 +1,5 @@
 const { register, signin } = require("../controllers/authcontrollers");
+const { checkUser } = require("../middlewares/authmiddlewares");
 
 const router = require("express").Router(); //calling router function
 

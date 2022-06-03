@@ -2,7 +2,8 @@ const User = require("../models/usermodel");
 
 const jwt = require("jsonwebtoken");
 
-module.exports.checkuser = (req, res, next) => {
+
+module.exports.checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(token, "smrutipuranikkey", async(err, decodedToken) => {
@@ -16,7 +17,7 @@ module.exports.checkuser = (req, res, next) => {
                 next();
 
             }
-        })
+        });
     } else {
         res.json({ status: false });
         next();

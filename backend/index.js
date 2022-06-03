@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express();
+const app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var imgModel = require('./models/model');
@@ -7,19 +7,21 @@ var multer = require('multer');
 var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
+
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    method: ["GET", "POST"],
+    credentials: true,
+}));
 const authroutes = require("./routes/authroutes");
 const cookieParser = require("cookie-parser");
 
 require('./routes/home')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
-    console.log('connected')
+    console.log('DB connected')
 });
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    method: ["GET", "POST"],
-    credentials: true,
-}));
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

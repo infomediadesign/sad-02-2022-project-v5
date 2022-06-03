@@ -23,20 +23,17 @@ const handleErrors = (err) => {
         return errors;
     }
 
-    if (err.message.includes("User validation failed")) {
-        Object.values(err.erros).forEach(({ properties }) => {
+    if (err.message.includes("Users validation failed")) {
+        Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
     }
     return errors;
-
-
 };
 
 module.exports.register = async(req, res, next) => {
     try {
-        console.log("inside register backend")
-        console.log(req);
+        console.log("inside register")
         const { email, password } = req.body;
         const user = await usermodel.create({ email, password });
         //after user is created
@@ -53,10 +50,9 @@ module.exports.register = async(req, res, next) => {
         res.json({ errors, created: false });
     }
 };
-module.exports.signin = async(req, res, next) => {
+module.exports.signin = async(req, res) => {
     try {
-        console.log("inside register backend")
-        console.log(req);
+        console.log("inside signin backend")
         const { email, password } = req.body;
         const user = await usermodel.signin(email, password);
         //after user is created

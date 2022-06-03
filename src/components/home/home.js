@@ -1,21 +1,22 @@
 import './Home.css';
 import React,{useState, useEffect} from "react";
 import Sidenav from '../Sidenav/Sidenav';
-import Axios from "axios";
+import axios from "axios";
 import {useCookies} from "react-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
+ 
 const Home = () => {
 const [data,setData] = useState([]);   
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [file, setFile] = useState("");
-    Axios.get('http://localhost:5000/api/getdata').then((response)=>{
+    axios.get('http://localhost:5000/api/getdata').then((response)=>{
             setData(response.data);
             });
     const handleTitle = (e) => {
         setTitle(e.target.value);
-    };
+    }; 
     const handleDescription = (e) => {
         setDescription(e.target.value);
     };
@@ -27,23 +28,23 @@ const [data,setData] = useState([]);
 
     const [cookies,setCookie,removeCookie] = useCookies([]);
     useEffect(()=>{
-        const verifyUSer = async () =>{
+        const verifyUser = async () =>{
             if(!cookies.jwt) {
                 navigate("/signin");  
             } else {
                 const {data} = await axios.post("http://localhost:5000",{},{withCredentials: true});
                 if(!data.status){
                     removeCookie("jwt");
-                    navigate("/login");
-                } else toast(`HI ${data.user}`,{theme:"dark"});
+                    navigate("/signin");
+                } else toast(`Hello ${data.user}`,{theme:"dark"});
             }
         };
-        verifyUSer();
+        verifyUser();
     },[cookies,navigate, removeCookie]);
 
     const logOut = () => {
         removeCookie("jwt");
-        navigate("/register");
+        navigate("/signin");
     }
 
 
