@@ -1,8 +1,7 @@
 .chatContainer{
     display: grid;
     place-items: center;
-    height: 100vh;
-    background-color:rgb(244, 216, 221);
+    margin-top: 50px;
 }
 
 .chatcontainer_body{
