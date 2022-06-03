@@ -18,10 +18,14 @@ var userProfile = new mongoose.Schema({
     foodpreferences:[String],
     bestpets:[String],
     smoking:String,
-    Socialmedia:String,
+    socialmedia:String,
     gender:String,
     preferredgender:String,
-    dob:String
+    dob:String,
+    liked:[],
+    matches:[],
+    disliked:[],
+    userid:String
 });
 userProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema
