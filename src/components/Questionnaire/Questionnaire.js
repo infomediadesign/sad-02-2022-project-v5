@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 // import axios from 'axios'
 import "./Questionnaire.css";
 
-const Questionnaire = () => {
+const Questionnaire = (props) => {
 
+  const {userProfile} = props;
   var passionTemp;
   var petTemp;
 

@@ -2,11 +2,13 @@ var bodyParser = require('body-parser');
 var userProfile = require('../models/profile');
 var multer = require('multer');
 var fs = require('fs');
+var cors = require('cors');
 var path = require('path');
 require('dotenv/config');
 module.exports = function(app){
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
+    app.use(cors())
     
     // Set EJS as templating engine 
     app.set("view engine", "ejs");
@@ -52,7 +54,7 @@ module.exports = function(app){
             }
             else {
                 if(items[0]!== undefined){
-                    res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64'),data:items})
+                    res.send({data:items})
                 }
             }
         });

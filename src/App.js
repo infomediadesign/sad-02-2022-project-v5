@@ -7,7 +7,8 @@ import ProfileDetails from './components/ProfileDetails/ProfileDetails';
 function App() {
   return (
     <div className="App">
-      <SignUp/>
+      {/* <SignUp/> */}
+      <ProfileDetails/>
     </div>
   );
 }
