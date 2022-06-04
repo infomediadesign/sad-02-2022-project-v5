@@ -4,19 +4,50 @@ import Sidenav from '../Sidenav/Sidenav';
 import Axios from "axios";
 const Test = () => {
     // const [data,setData] = useState([]);
-    var data = {
-        myid:"amadou@gmail.com",
-        profileid:"pranav@gmail.com"
-    }
-    Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
-            console.log(response)
 
-            });
+
+    // like a profile
+    // var data = {
+    //     myid:"pranav@gmail.com",
+    //     profileid:"amadou@gmail.com"
+    // }
+    // Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
+    //         console.log(response)
+    // });
+    
+
+    //get my profile
+    // var data = {
+    //     myid:"pranav@gmail.com",
+    // }
     // Axios.get('http://localhost:5000/api/getuserprofile/',{ params: data}).then((response)=>{
+    // console.log(response.data)
+    // });
+    
+
+    // get all my messages
+    // var data = {
+    //     myid:"pranav@gmail.com",
+    // }
+    // Axios.get('http://localhost:5000/api/getmymessages/',{ params: data}).then((response)=>{
     // console.log(response.data)
 
     // });
-            
+        
+
+    // sending text to a user
+    // var data = {
+    //     myid:"amadou@gmail.com",
+    //     profileid:"pranav@gmail.com",
+    //     text:"How are you"
+    // }
+    
+    // Axios.post('http://localhost:5000/api/sendmessage',{data}).then((response)=>{
+    //         console.log(response)
+    // });
+
+
+
     // const [data,setData] = useState([]);   
     // const [title, setTitle] = useState("");
     // const [description, setDescription] = useState("");
