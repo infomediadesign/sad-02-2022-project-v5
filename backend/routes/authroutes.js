@@ -30,7 +30,7 @@ const handleErrors = (err) => {
     return errors;
 };
     app.post('/api/register', async(req, res) => {
-        console.log(req.body)
+        
         try {
         console.log(req.body.userData.email)
         const { email, password } = req.body.userData;
@@ -52,7 +52,7 @@ const handleErrors = (err) => {
     });
     app.post('/api/signin', async(req, res) => {
         try {
-            console.log("inside signin backend")
+            
             const { email, password } = req.body.userData;
             const user = await usermodel.signin(email, password);
             //after user is created
