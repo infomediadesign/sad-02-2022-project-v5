@@ -5,6 +5,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Tags from "../../Tags/Tags";
 import { TimedImage } from "react-timed-image"
 import Axios from "axios";
+import TinderCard from 'react-tinder-card';
 
 const Suggestions = () => {
     const [data,setData] = useState([]);  
@@ -109,34 +110,58 @@ const Suggestions = () => {
             }
             return userage;
         }
+        const onSwipe = (direction) => {
+            console.log('You swiped: ' + direction)
+            setIsToggled(!isToggled)
+            showprofile()
+            setOncount(oncount + 1);
+           
+            console.log(oncount)
+          }
+
         const handlelikebutton = () => {
             setIsToggled(!isToggled)
             showprofile()
             setOncount(oncount + 1);
-            
             console.log(oncount)
-        };         
+        };    
+        
+    
         const handlelikebutton2 = () => {
         setIsToggled2(!isToggled2)
         showprofile()
         setOncount(oncount + 1);
         }; 
+
+       
+          
+          const onCardLeftScreen = (myIdentifier) => {
+            console.log(myIdentifier + ' left the screen')
+          }
+          
+          
+
     return (
 
         
         <div className="Suggestions">
-        
+        <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
                     <img layout="position" className="profilephoto" src={require('./profile4.jpg')} />
                     <motion.div className="names">
+
+
                         <motion.h1 layout="position">{data.name}</motion.h1>
                         
-                        <motion.h3 layout="position">{age} </motion.h3>
+                        
                     </motion.div>
-                   
                     <motion.div className="names">
-                        <motion.h5 layout="position"> {distancefromme} &nbsp;</motion.h5>
+                    <motion.h3 className="distance" layout="position">{age} &nbsp; </motion.h3>
+                    <motion.h5 layout="position"> Years old</motion.h5>
+                    </motion.div>
+                    <motion.div className="names">
+                        <motion.h3 className="distance" layout="position"> {distancefromme} &nbsp;</motion.h3>
                     
                         <motion.h5 layout="position"> Kms far from you</motion.h5>
                         
@@ -186,6 +211,7 @@ const Suggestions = () => {
                     </motion.div>
                 )}
             </motion.div>
+            </TinderCard>
             <button className="button" onClick={handlelikebutton}>
                   < img className="icons" src={require('./like.png')} />
             </button>

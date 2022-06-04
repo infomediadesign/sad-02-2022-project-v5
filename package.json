@@ -23,9 +23,10 @@
     "react-intersection-observer": "^9.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-table": "^7.8.0",
     "react-slick": "^0.29.0",
+    "react-table": "^7.8.0",
     "react-timed-image": "^1.0.8",
+    "react-tinder-card": "^1.4.5",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
