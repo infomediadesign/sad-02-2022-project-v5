@@ -13,11 +13,12 @@ const Suggestions = () => {
     const [isToggled, setIsToggled] = useState(true);
     const [age, setAge] = useState("");
     const [distancefromme, setDistancefromme] = useState("");
-    const [myloc,setMyloc] = useState(""); 
-    const [doubleCount, setDoubleCount] = useState(oncount * 2);
+    const [myloc,setMyloc] = useState("");
+    const [oncount, setOncount] = useState(0); 
+ 
     var mylocat;
     var firstData;
-    var oncount = 0;
+
 
 
     var mydata = {
@@ -40,12 +41,13 @@ const Suggestions = () => {
             useEffect(() => {
                 
                 Axios.get('http://localhost:5000/api/getuserprofile',{ params: mydata}).then((response)=>{
-                    debugger
+            
                     firstData = response.data.data;
                     setAllData(response.data.data)
                     setMyloc(response.data.mylocation.coordinates)
                     mylocat = response.data.mylocation.coordinates;
                     showfirstprofile();
+                    
                     // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
                    
                     })
@@ -55,79 +57,70 @@ const Suggestions = () => {
             //   console.log(getDistanceFromLatLonInKm(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
               
             function showfirstprofile () {
-                if(oncount < firstData.length)
-                setData(firstData[oncount])
-                setAge(getAge(firstData[oncount].dob))
-                debugger
-                setDistancefromme(getDistanceFromLatLonInKm(firstData[oncount].location.coordinates[0],firstData[oncount].location.coordinates[1],mylocat[0],mylocat[1]).toFixed(1))
-                // console.log(myloc)
-                        
-                        
-                    }
-                    function  showprofile () {
-
-                        debugger
-                        if(oncount < allData.length)
-                        setData(allData[oncount])
-                        setAge(getAge(data.dob))
-                        var dist = getDistanceFromLatLonInKm(allData[oncount].location.coordinates[0],allData[oncount].location.coordinates[1],myloc[0],myloc[1]).toFixed(1)
-                        console.log(dist)
-                        setDistancefromme(dist)
-                        // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))
-                     
-                    }
-
-
-
-
-                function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-                var R = 6371; // Radius of the earth in km
-                var dLat = deg2rad(lat2-lat1);  // deg2rad below
-                var dLon = deg2rad(lon2-lon1); 
-                var a = 
-                    Math.sin(dLat/2) * Math.sin(dLat/2) +
-                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-                    Math.sin(dLon/2) * Math.sin(dLon/2)
-                    ; 
-                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                var d = R * c; // Distance in km
-                return d;
-                }
-
-                function deg2rad(deg) {
-                return deg * (Math.PI/180)
-                }
-
-
-
-
-            function getAge(dateString) {
-                var birthString = dateString.split("-").reverse().join("-")
-                var today = new Date();
-                var birthDate = new Date(birthString);
-                var userage = today.getFullYear() - birthDate.getFullYear();
-                var m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    userage--;
-
-                    
-                }
-                return userage;
+                if(oncount < firstData.length){
+                    setOncount(oncount + 1);  
+                    setData(firstData[oncount])
+                    setAge(getAge(firstData[oncount].dob))
+                    setDistancefromme(getDistanceFromLatLonInKm(firstData[oncount].location.coordinates[0],firstData[oncount].location.coordinates[1],mylocat[0],mylocat[1]).toFixed(1))
+                    console.log(oncount)
+                }   
             }
-            
-            
+            function  showprofile () {
+                if(oncount < allData.length)
+                {
+                    setData(allData[oncount])
+                    setAge(getAge(allData[oncount].dob))
+                    var dist = getDistanceFromLatLonInKm(allData[oncount].location.coordinates[0],allData[oncount].location.coordinates[1],myloc[0],myloc[1]).toFixed(1)
+                    
+                    setDistancefromme(dist)
+                }
+                else{
+                    // setData(null)
+                }
+                // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))  
+            }
+            function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2-lat1);  // deg2rad below
+            var dLon = deg2rad(lon2-lon1); 
+            var a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ; 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c; // Distance in km
+            return d;
+            }
 
-            const handlelikebutton = () => {
-                setIsToggled(!isToggled)
-                oncount = oncount + 1
-                showprofile()
-              }; 
-              
-   
-    
+            function deg2rad(deg) {
+            return deg * (Math.PI/180)
+            }
+        function getAge(dateString) {
+            var birthString = dateString.split("-").reverse().join("-")
+            var today = new Date();
+            var birthDate = new Date(birthString);
+            var userage = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                userage--;
 
-             
+                
+            }
+            return userage;
+        }
+        const handlelikebutton = () => {
+            setIsToggled(!isToggled)
+            showprofile()
+            setOncount(oncount + 1);
             
+            console.log(oncount)
+        };         
+        const handlelikebutton2 = () => {
+        setIsToggled2(!isToggled2)
+        showprofile()
+        setOncount(oncount + 1);
+        }; 
     return (
 
         
@@ -198,7 +191,7 @@ const Suggestions = () => {
             </button>
             {isToggled && <img
                 src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
-            <button className="button2"  onClick={() => { setIsToggled2(!isToggled2)}}><img className="icons2" src={require('./thumb-down.png')} /></button>
+            <button className="button2"  onClick={handlelikebutton2}><img className="icons2" src={require('./thumb-down.png')} /></button>
             {isToggled2 && <img
                 src="https://i.imgur.com/XqQZ4KR.png" alt="new" className="animation_like" />}
         </div>
