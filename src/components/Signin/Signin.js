@@ -28,13 +28,13 @@ export default function Signin(){
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            const {data} = await axios.post("http://localhost:5000/signin",{
-            ...values, //destructure the values over so email and password will be sent to the database
-            },{
-                withCredentials: true
+            var userData ={
+                email:values.email,
+                password:values.password
             }
-            );
-    
+            const {data} = await axios.post("http://localhost:5000/api/signin",{ userData},{
+                withCredentials: true
+            })
         if(data){
             if(data.errors){
                 const {email,password} = data.errors;

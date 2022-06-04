@@ -28,11 +28,13 @@ export default function Register(){
 const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-        const {data} = await axios.post("http://localhost:5000/register",{
-        ...values, //destructure the values over so email and password will be sent to the database
-        },{
-            withCredentials: true,
-        });
+        var userData ={
+            email:values.email,
+            password:values.password
+        }
+        const {data} = await axios.post("http://localhost:5000/api/register",{ userData},{
+            withCredentials: true
+        })
     
         if(data){
             if(data.errors){

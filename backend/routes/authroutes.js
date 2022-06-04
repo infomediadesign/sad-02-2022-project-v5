@@ -1,10 +1,93 @@
-const { register, signin } = require("../controllers/authcontrollers");
-const { checkUser } = require("../middlewares/authmiddlewares");
+const usermodel = require("../models/usermodel");
 
-const router = require("express").Router(); //calling router function
+module.exports = function(app) {
+    const maxAge = 3 * 24 * 60 * 60;
+    const jwt = require("jsonwebtoken");
+    const createToken = (id) => {
+    return jwt.sign({ id }, "smrutipuranikkey", {
+        expiresIn: maxAge,
+    });
+};
+const handleErrors = (err) => {
+    let errors = { email: "", password: "" };
 
-router.post("/", checkUser); //we will have checkuser middlewares 
-router.post("/register", register);
-router.post("/signin", signin);
+    if (err.message === "Incorrect email")
+        errors.email = "This email is not registered";
 
-module.exports = router;
+    if (err.message === "Incorrect password")
+        errors.email = "This password is incorrect";
+
+    if (err.code === 11000) {
+        errors.email = "Email is already registered";
+        return errors;
+    }
+
+    if (err.message.includes("Users validation failed")) {
+        Object.values(err.errors).forEach(({ properties }) => {
+            errors[properties.path] = properties.message;
+        });
+    }
+    return errors;
+};
+    app.post('/api/register', async(req, res) => {
+        console.log(req.body)
+        try {
+        console.log(req.body.userData.email)
+        const { email, password } = req.body.userData;
+        const user = await usermodel.create({ email, password });
+        //after user is created
+        const token = createToken(user._id);
+        res.cookie("jwt", token, {
+            withCredentials: true,
+            httpOnly: false, //will be passed from another domain or port
+            maxAge: maxAge * 1000,
+        });
+        res.status(201).json({ user: user._id, created: true });
+        console.log("All working")
+            } catch (err) {
+                console.log(err);
+                const errors = handleErrors(err);
+                res.json({ errors, created: false });
+            }
+    });
+    app.post('/api/signin', async(req, res) => {
+        try {
+            console.log("inside signin backend")
+            const { email, password } = req.body.userData;
+            const user = await usermodel.signin(email, password);
+            //after user is created
+            const token = createToken(user._id);
+            res.cookie("jwt", token, {
+                withCredentials: true,
+                httpOnly: false, //will be passed from another domain or port
+                maxAge: maxAge * 1000,
+            });
+            res.status(200).json({ user: user._id, created: true });
+        } catch (err) {
+            console.log(err);
+            const errors = handleErrors(err);
+            res.json({ errors, created: false });
+        }
+    });
+    app.post('/', async(req, res) => {
+        const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, "smrutipuranikkey", async(err, decodedToken) => {
+            if (err) {
+                res.json({ status: false });
+                next();
+            } else {
+                const user = await User.findById(decodedToken.id);
+                if (user) res.json({ status: true, user: user.email });
+                else res.json({ status: false });
+                next();
+
+            }
+        });
+    } else {
+        res.json({ status: false });
+        next();
+    }
+    });
+};
+

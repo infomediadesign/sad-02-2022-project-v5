@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
 module.exports = function(app) {
-    app.use(cors())
+
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
 
