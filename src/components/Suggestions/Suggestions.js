@@ -131,11 +131,10 @@ const Suggestions = () => {
             setOncount(oncount + 1);
             console.log(oncount)
             var likedData = {
-                    myid: mydata.myid,
+                    myid: "shubham@gmail.com",
                     profileid: data.userid
                 }
-                console.log(data.userid)
-                console.log(mydata.myid)
+                console.log(likedData)
             Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
                 console.log(response)
                 
@@ -147,6 +146,16 @@ const Suggestions = () => {
         setIsToggled2(!isToggled2)
         showprofile()
         setOncount(oncount + 1);
+        var dislikedData = {
+            myid: "shubham@gmail.com",
+            profileid: data.userid
+        }
+        console.log(dislikedData)
+    Axios.post('http://localhost:5000/api/postuserdisliked',{dislikedData}).then((response)=>{
+        console.log(response)
+        
+});
+
         }; 
 
        
