@@ -8,6 +8,8 @@ var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
 require('./routes/home')(app);
+require('./routes/profile')(app);
+require('./routes/chat')(app);
 require('./routes/admin')(app);
 require('./routes/signUp')(app);
 require('dotenv/config');
