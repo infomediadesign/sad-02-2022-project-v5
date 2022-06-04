@@ -42,6 +42,7 @@ const handleErrors = (err) => {
             httpOnly: false, //will be passed from another domain or port
             maxAge: maxAge * 1000,
         });
+        res.cookie("userid", email);
         res.status(201).json({ user: user._id, created: true });
         console.log("All working")
             } catch (err) {
@@ -62,6 +63,7 @@ const handleErrors = (err) => {
                 httpOnly: false, //will be passed from another domain or port
                 maxAge: maxAge * 1000,
             });
+            res.cookie("userid", email);
             res.status(200).json({ user: user._id, created: true });
         } catch (err) {
             console.log(err);
@@ -70,18 +72,15 @@ const handleErrors = (err) => {
         }
     });
     app.post('/', async(req, res) => {
-        const token = req.cookies.jwt;
+        const token = req.body.cookies.jwt;
     if (token) {
         jwt.verify(token, "smrutipuranikkey", async(err, decodedToken) => {
             if (err) {
                 res.json({ status: false });
-                next();
             } else {
-                const user = await User.findById(decodedToken.id);
+                const user = await usermodel.findById(decodedToken.id);
                 if (user) res.json({ status: true, user: user.email });
                 else res.json({ status: false });
-                next();
-
             }
         });
     } else {
