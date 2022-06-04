@@ -52,8 +52,13 @@ const Suggestions = () => {
                     // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
                    
                     })
+
+                    
               },[]);
-     
+
+
+
+
             
             //   console.log(getDistanceFromLatLonInKm(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
               
@@ -76,7 +81,7 @@ const Suggestions = () => {
                     setDistancefromme(dist)
                 }
                 else{
-                    // setData(null)
+                
                 }
                 // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))  
             }
@@ -119,14 +124,25 @@ const Suggestions = () => {
             console.log(oncount)
           }
 
+
         const handlelikebutton = () => {
             setIsToggled(!isToggled)
             showprofile()
             setOncount(oncount + 1);
             console.log(oncount)
+            var likedData = {
+                    myid: mydata.myid,
+                    profileid: data.userid
+                }
+                console.log(data.userid)
+                console.log(mydata.myid)
+            Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
+                console.log(response)
+                
+        });
         };    
         
-    
+
         const handlelikebutton2 = () => {
         setIsToggled2(!isToggled2)
         showprofile()
