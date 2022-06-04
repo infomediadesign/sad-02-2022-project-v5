@@ -11,11 +11,23 @@ var userProfile = new mongoose.Schema({
         type: { type: String },
         coordinates: []
        },
+    findwithin:Number,
+    passion:[String],
+    bestdrink:String,
+    education:String,
+    foodpreferences:[String],
+    bestpets:[String],
+    smoking:String,
+    socialmedia:String,
     gender:String,
     preferredgender:String,
-    dob:String
+    dob:String,
+    liked:[],
+    matches:[],
+    disliked:[],
+    userid:String
 });
 userProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema
   
-module.exports = new mongoose.model('User', userProfile);
+module.exports = new mongoose.model('UserProfile', userProfile);
