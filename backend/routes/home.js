@@ -1,11 +1,13 @@
 var bodyParser = require('body-parser');
 var userProfile = require('../models/profile');
+var conversation = require('../models/chat');
 var cors = require('cors');
 require('dotenv/config');
 module.exports = function(app){
     app.use(cors())
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
+    
     var likedUserData;
     app.post('/api/postuserliked', async(req, res)=>{
         var myData;
@@ -18,7 +20,19 @@ module.exports = function(app){
             await userProfile.findOneAndUpdate({$and:[{userid:req.body.data.profileid},{matches:{$ne:req.body.data.myid }}]},likedUserData).clone()
             myData.liked.push(req.body.data.profileid);
             await userProfile.findOneAndUpdate({$and:[{userid: req.body.data.myid},{liked:{$ne:req.body.data.profileid }},{matches:{$ne:req.body.data.profileid }}]},myData).clone()
-            console.log("User matched")
+            var obj = {members:[req.body.data.myid,req.body.data.profileid],messages:[]}
+            const query = {}
+            const options = {
+            upsert: true,
+            new: true,
+            setDefaultsOnInsert: true
+            };
+            await conversation.findOneAndUpdate(query, obj, options, (error, result) => {
+                if (error) {
+                  return;
+                }
+              }).clone()
+            console.log(obj)
             res.send("User matched")
         }
         else{
