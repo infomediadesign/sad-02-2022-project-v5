@@ -1,10 +1,10 @@
 var bodyParser = require('body-parser');
 var userProfile = require('../models/profile');
 var conversation = require('../models/chat');
-var cors = require('cors');
+
 require('dotenv/config');
-module.exports = function(app){
-    app.use(cors())
+module.exports = function(app) {
+
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     

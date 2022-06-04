@@ -1,36 +1,34 @@
-const mongoose = require("mongoose"); //import mongoose
+// const mongoose = require("mongoose"); //import mongoose
 
 
 
- //user schema
+//  //user schema
 
- const userSchema = new mongoose.Schema({
+//  const userSchema = new mongoose.Schema({
 
-     email: {
+//      email: {
 
-         type: String,
+//          type: String,
 
-         required: [true, "Email is required"],
+//          required: [true, "Email is required"],
 
-         unique: true,
+//          unique: true,
 
-     },
+//      },
 
-     password: {
+//      password: {
 
-         type: String,
+//          type: String,
 
-         required: [true, "Password is required"],
+//          required: [true, "Password is required"],
 
-     },
-     isAdmin: {
+//      },
+//      isAdmin: {
 
-         type: Boolean,
-         default: false,
-     },
+//          type: Boolean,
+//          default: false,
+//      },
 
- });
+//  });
 
-
-
- module.exports = mongoose.model("Users", userSchema);
+//  module.exports = mongoose.model("Users", userSchema);
