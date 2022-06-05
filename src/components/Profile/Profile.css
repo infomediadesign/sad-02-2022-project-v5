@@ -125,11 +125,17 @@
 .Profile form  input[type="radio"]{
     display: none;
 }
+.Profile form  input[type="checkbox"]{
+    display: none;
+}
 .Profile form  input[type="number"]{
     width: 100%;
 }
 
 .Profile form input[type="radio"]:checked +label{
+    border: solid 2px rgb(221,39,22);
+}
+.Profile form input[type="checkbox"]:checked +label{
     border: solid 2px rgb(221,39,22);
 }
 
@@ -147,9 +153,9 @@
 }
 .Profile form input[type="file"]{
     border: none;
-    transform: translate(155px,2px);
-    margin-top: 20px;
 }
-
+.Profile form input[type="submit"] .location {
+    width: 20%;
+   } 
 
 

@@ -4,7 +4,7 @@ import ChatList from './ChatList/ChatList'
 import ChatDetails from './ChatDetails/ChatDetails'
 
 function Chat (){
-  return (
+   return (
     <div className='chatContainer'>
       <div className='chatcontainer_body'>
       <ChatList/>

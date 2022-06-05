@@ -26,14 +26,14 @@ body {
     height: 330px;
     border-radius: 20px;
     margin-bottom: 20px;
-    margin-left: 10px;
+   
     margin-top: 30px;
     
 }
 
 .card {
     background-color: #75abbc;
-    padding: 3rem 5rem;
+    padding: 1rem 2rem;
     border-radius: 30px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -71,6 +71,14 @@ body {
     font-weight: 400;
     padding-left: 10px;
     padding-top: 2px;
+  
+}
+
+.distance {
+    font-size: 25px;
+    font-weight: 400;
+    padding-left: 0px!important;
+    padding-top: 5px!important;
   
 }
 
@@ -148,6 +156,29 @@ height: 480px;
   
  
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+  
+
+}
+
+
+.button:hover {
+    position: absolute;
+    margin-top: 580px;
+    margin-right: 80px;
+  
+  height: 100px;
+  width: 100px;  
+  
+  border-radius: 50%;
+ 
+  color: white;
+    align-items: center;
+  cursor: pointer;
+  border-style: hidden;
+  
+ 
+  box-shadow: 0px 10px 30px rgba(0, 0, 5, .5);
+  
 
 }
 
@@ -171,12 +202,37 @@ height: 480px;
   
 }
 
+.button2:hover {
+    position: absolute;
+    margin-top: 580px;
+    margin-left: 220px;
+  
+  height: 100px;
+  width: 100px;  
+  
+  border-radius: 50%;
+ 
+  color: white;
+    align-items: center;
+  cursor: pointer;
+  border-style: hidden;
+  
+ 
+  box-shadow: 0px 10px 30px rgba(0, 0, 5, .5);
+  
+
+}
+
+
+
 .icons {
     width: 50%;
     height: 50%;
     
     
    }
+
+   
 
    .icons2 {
     width: 50%;
@@ -195,4 +251,15 @@ height: 480px;
        gap: 10px;
        margin-right: 7px;
        overflow: none;
+   }
+
+   .animation_like {
+       position: absolute;
+      height: 80px;
+      margin-left: 28px;
+      margin-top: -55px;
+      
+
+      transform: rotateZ(-35deg);
+     
    }

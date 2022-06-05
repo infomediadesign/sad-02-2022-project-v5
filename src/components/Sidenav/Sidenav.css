@@ -1,5 +1,6 @@
 .sideNavContainer{
     text-align:initial;
+    box-shadow: 2px 0px 1px 1px #dedede;
 }
 .sideNavTop{
     display:flex;
