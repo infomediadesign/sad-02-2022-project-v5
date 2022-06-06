@@ -24,7 +24,7 @@ module.exports = function(app){
         myData = await userProfile.findOne({userid:req.query.myid});
         res.send(myData)
     });
-    app.post('/api/updateprofile', upload.single('file'), async(req, res) => {
+    app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
             var locationData = req.body.location.split(',');
             var obj = {
                 name: req.body.name,
@@ -34,13 +34,6 @@ module.exports = function(app){
                     coordinates: [(Number)(locationData[1]),(Number)(locationData[0])]
                 },
                 findwithin:req.body.findwithin,
-                passion:req.body.passion.split(','),
-                bestdrink:req.body.bestdrink,
-                education:req.body.education,
-                foodpreferences:req.body.foodpreferences.split(','),
-                bestpets:req.body.bestpets.split(','),
-                smoking:req.body.smoking,
-                Socialmedia:req.body.Socialmedia,
                 gender:req.body.gender,
                 preferredgender:req.body.preferredgender,
                 dob:req.body.dob,
@@ -51,7 +44,20 @@ module.exports = function(app){
             }
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
             
-            console.log("User Created")
-            res.redirect('http://localhost:3000/');;
+            console.log("Profile Updated")
+    });
+    app.post('/api/updateprofilequestionaire',  async(req, res) => {
+            var obj = {
+                passion:req.body.passion.split(','),
+                bestdrink:req.body.bestdrink,
+                education:req.body.education,
+                foodpreferences:req.body.foodpreferences.split(','),
+                bestpets:req.body.bestpets.split(','),
+                smoking:req.body.smoking,
+                Socialmedia:req.body.Socialmedia,
+            }
+            await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
+            
+            console.log("Profile Updated")
     });
 }
