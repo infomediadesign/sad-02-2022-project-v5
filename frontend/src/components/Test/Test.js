@@ -1,7 +1,7 @@
 import './Test.css';
 import React,{useState} from "react";
 import Sidenav from '../Sidenav/Sidenav';
-import Axios from "axios";
+import axios from "axios";
 const Test = () => {
     // const [data,setData] = useState([]);
 
