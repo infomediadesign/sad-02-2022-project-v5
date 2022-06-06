@@ -1,19 +1,19 @@
 import './Test.css';
 import React,{useState} from "react";
 import Sidenav from '../Sidenav/Sidenav';
-import axios from "axios";
+import Axios from "axios";
 const Test = () => {
     // const [data,setData] = useState([]);
 
 
     // like a profile
-    // var data = {
-    //     myid:"pranav@gmail.com",
-    //     profileid:"amadou@gmail.com"
-    // }
-    // Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
-    //         console.log(response)
-    // });
+    var data = {
+        myid:"pranav@gmail.com",
+        profileid:"amadou@gmail.com"
+    }
+    Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
+            console.log(response)
+    });
     
 
     //get my profile
