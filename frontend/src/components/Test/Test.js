@@ -7,13 +7,13 @@ const Test = () => {
 
 
     // like a profile
-    // var data = {
-    //     myid:"pranav@gmail.com",
-    //     profileid:"amadou@gmail.com"
-    // }
-    // Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
-    //         console.log(response)
-    // });
+    var data = {
+        myid:"pranav@gmail.com",
+        profileid:"amadou@gmail.com"
+    }
+    Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
+            console.log(response)
+    });
     
 
     //get my profile
