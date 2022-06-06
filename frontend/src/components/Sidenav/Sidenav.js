@@ -61,6 +61,7 @@ export default function BasicTabs() {
       <div className='sideNavTop'>
         <Tabs className='Tabs' value={value} onChange={handleChange}>
           <Tab className="sideNavAvatar" icon={<Avatar  alt="User profile" src="/images/img1.jpg"/>} {...a11yProps(0)} ></Tab>
+          
           <Tab className="sideNavHeaderButtons"icon={<ManageSearchIcon fontSize="large" className="sidenavExplore"/>} {...a11yProps(1)} />
           <Tab className="sideNavHeaderButtons2"icon={<ChatOutlinedIcon fontSize="medium" className="sidenavChat"/>} {...a11yProps(2)} />
         </Tabs>

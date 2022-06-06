@@ -71,7 +71,7 @@ return (
                 placeholder="Password" 
                 onChange={(e)=>setValues({...values, [e.target.name]: e.target.value})}/>
             </div>
-            <button type="submit">Submit</button>
+            <button className="submit" type="submit">Submit</button>
             <span>
                 Already have an account? <Link to="/signin">Signin</Link>
             </span>

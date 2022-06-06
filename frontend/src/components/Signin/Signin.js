@@ -75,7 +75,7 @@ export default function Signin(){
                 onChange = { (e) => setValues({...values, [e.target.name]: e.target.value })
                 }/> 
             </div >
-            <button type = "submit" > Submit </button> 
+            <button className="submit" type = "submit" > Submit </button> 
             <span> New to this application ? <Link to = "/register" > Register </Link> </span> 
         </form>
         <ToastContainer/>
