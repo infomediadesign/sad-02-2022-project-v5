@@ -13,7 +13,7 @@ const SignUp = () => {
   const [selectedPassions, setSelectedPassions] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState("");
   const [selectedEducation, setSelectedEducation] = useState("");
-  const [selectedFood, setSelectedFood] = useState([]);
+  const [selectedFood, setSelectedFood] = useState("");
   const [selectedPet, setSelectedPet] = useState([]);
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");

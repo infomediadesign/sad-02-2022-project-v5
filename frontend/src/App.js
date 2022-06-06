@@ -19,6 +19,7 @@ export default function App(){
       <Route exact path="/signin" element={<Signin/>}/>
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/test" element={<Test/>}/>
+      <Route exact path="/profile" element={<ProfileDetails/>}/>
     </Routes>
   </BrowserRouter>
   );
