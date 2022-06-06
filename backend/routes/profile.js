@@ -25,7 +25,29 @@ module.exports = function(app){
         res.send(myData)
     });
     app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
+        console.log(req.body)
             var locationData = req.body.location.split(',');
+            if(req.file!= undefined)
+            {
+                var obj = {
+                    name: req.body.name,
+                    about: req.body.about,
+                    location: {
+                        type:"Point",
+                        coordinates: [(Number)(locationData[1]),(Number)(locationData[0])]
+                    },
+                    findwithin:req.body.findwithin,
+                    gender:req.body.gender,
+                    preferredgender:req.body.preferredgender,
+                    dob:req.body.dob,
+                    img: {
+                        data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
+                        contentType: 'image/png'
+                    }
+                }
+            }
+            else{
+
             var obj = {
                 name: req.body.name,
                 about: req.body.about,
@@ -36,28 +58,29 @@ module.exports = function(app){
                 findwithin:req.body.findwithin,
                 gender:req.body.gender,
                 preferredgender:req.body.preferredgender,
-                dob:req.body.dob,
-                img: {
-                    data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
-                    contentType: 'image/png'
-                }
+                dob:req.body.dob
             }
+            }
+            console.log(obj)
+
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
             
             console.log("Profile Updated")
+            
+
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
+        console.log(req.body)
             var obj = {
                 passion:req.body.passion.split(','),
                 bestdrink:req.body.bestdrink,
                 education:req.body.education,
-                foodpreferences:req.body.foodpreferences.split(','),
+                foodpreferences:req.body.foodpreferences,
                 bestpets:req.body.bestpets.split(','),
                 smoking:req.body.smoking,
                 Socialmedia:req.body.Socialmedia,
             }
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            
             console.log("Profile Updated")
     });
 }
