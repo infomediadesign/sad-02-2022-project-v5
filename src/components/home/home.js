@@ -10,6 +10,7 @@ const Home = () => {
     const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
+    console.log(cookies.userid)
     const verifyUser = async () => {
       if (!cookies.jwt) {
           console.log("jwt does not exist")
