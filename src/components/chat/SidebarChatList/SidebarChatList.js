@@ -2,13 +2,14 @@ import React from 'react'
 import './SidebarChatList.css'
 import {Avatar} from '@material-ui/core'
 
-function SidebarChatList() {
+
+const SidebarChatList = ({UserName}) => {
+
   return (
     <div className='sidebarchat_container'>
         <Avatar/>
         <div className='sidebarchat_info'>
-            <h2>Harshini Jadav</h2>
-            <p>Hello !!</p>
+          <h3>{UserName}</h3>  
         </div>
     </div>
   )

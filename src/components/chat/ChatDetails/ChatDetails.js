@@ -1,29 +1,54 @@
-import React,{useEffect,useState} from 'react'
+import React,{useState} from 'react'
 import './ChatDetails.css'
 import {Avatar, IconButton} from '@material-ui/core'
 import { SearchOutlined } from '@mui/icons-material';
-import { CallOutlined, Mic} from '@material-ui/icons';
+import { CallOutlined} from '@material-ui/icons';
 import { InsertEmoticonOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import ChatList from '../ChatList/ChatList';
+import SidebarChatList from '../SidebarChatList/SidebarChatList';
 
-function ChatDetails() {
-  const[getMessages,setMessages] = useState([]);
-  var senderdata = {
-    myid:"harshini@gmail.com",
-  }
+const ChatDetails = () => {
+  const [data,setData] = useState([]);
+  const [UserName,setUserName] = useState("");
+  const [input,setInput] = useState("");
+  var receivedMessages;
+  var sentMessages;
+  var tempMessages = [];
+  var mydata = {
+      myid:"pranav@gmail.com",
+  } 
 
-   
+    axios.get('http://localhost:5000/api/getmymessages/',{ params: data}).then((response)=>{
+       console.log(response.data);
+       if(response.data !== undefined)
+       {
+         for(var i=0;i<response.data.length;i++){
+          if(response.data[i].members[i] === mydata.myid){
+            receivedMessages = {
+            rmessage:response.data[i].messages[i].text
+          }
+         }
+         else
+         {
+          sentMessages = {
+            smessage:response.data[i].messages[i].text
+          }
+         }
+         tempMessages.push(receivedMessages,sentMessages);
+         }
+         setData(tempMessages);
+       } 
 
-  
+      //  const handleUserName = () => {
+      //    setUserName(e.target.value);
+      //  }
 
-  useEffect(()=>{
-    axios.get('http://localhost:5000/api/getmymessages/',{ params: senderdata}).then((response)=>{
-       getMessages = response.data.data;
-       setMessages(response.data.data);
-
+      //  const sendMessage = (e) => {
+      //     e.preventDefault();
+      //     console.log(response,input);
+      //  }
       });
-  }, []);
 
   return (
     <div className='chat_details'>
@@ -31,7 +56,7 @@ function ChatDetails() {
         <Avatar />
 
         <div className='chatdetails_headerInfo'>
-          <h3>{data.name}</h3>
+        { data.map((object, i) => <SidebarChatList UserName = {(object.name) }/>)}
           <div className='chatheader_timestamp'>
           <p>Last seen at: </p>
           <span>{new Date().toUTCString()}</span>
@@ -49,29 +74,26 @@ function ChatDetails() {
       </div>
 
       <div className='chatdetails_body'>
-        <p className='chatmessage'>
-             {data.text.map((object) => <p Tagname={object} />)}
+        <p className='chatmessage'>{receivedMessages}
         </p>
 
-        <p className='chatmessage chat_received'>Hi, morning!
+        <p className='chatmessage chat_received'>{sentMessages}
         </p>
         </div>
 
       <div className='chatdetails_footer'>
         <InsertEmoticonOutlined/>
         <form>
-          <input 
-          placeholder="Type a message"
+        <input 
+          placeholder="Type a message" onChange={(e) => setInput(e.target.value)}
           type="text"/>
-         <button 
-         type="submit">
-           Send
-           </button>
+           <button className='sendbutton' value={sentMessages}
+            type="submit">Send</button>
            </form>
-           <Mic/>
       </div>
     </div>
   );
-}
+};
+
 
 export default ChatDetails

@@ -84,3 +84,8 @@
     padding: 1px;
     color: gray;
 }
+
+.sendbutton{
+    display: flex;
+    color: gray;
+}
