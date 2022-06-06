@@ -3,6 +3,7 @@ import React,{useState,useEffect} from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import {ToastContainer, toast} from 'react-toastify';
+import Navbar from "../Navbar";
 import axios from "axios";
 
 export default function Register(){
@@ -21,6 +22,7 @@ export default function Register(){
     const generateError = (err) => toast.error(err, {
         position: "bottom-right",
     });
+
 
 //prevent form submission
 //calling API : try/catch
@@ -50,8 +52,16 @@ const handleSubmit = async(e) => {
     }
 };
 
+const navbarLinks = [
+    
+    { url: "/", title: "Home" },
+    
+  ];
+
+
 return ( 
     <div className="registerBody">
+        <Navbar navbarLinks={navbarLinks} />
     <div className="registerContainer">
         <h2>Register Account</h2>
         <form onSubmit={(e)=>handleSubmit(e)}>

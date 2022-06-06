@@ -3,6 +3,7 @@ import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from 'react-toastify';
+import Navbar from "../Navbar";
 import axios from "axios";
 
 export default function Signin(){
@@ -49,11 +50,17 @@ export default function Signin(){
             }
     };
 
-
+    const navbarLinks = [
+    
+        { url: "/", title: "Home" },
+        
+      ];
 
     return ( 
     <div>
+    <Navbar navbarLinks={navbarLinks} />
     <div className = "SignIncontainer">
+        
         <h2> Signin Account </h2> 
         <form onSubmit = { (e) => handleSubmit(e)}>
             <div>

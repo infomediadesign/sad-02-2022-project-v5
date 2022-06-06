@@ -53,10 +53,7 @@ const Home = () => {
            Place="Mannheim, Germany"
            Location="35" 
            About="Hey Baby Girl" />
-        </div>
-       
-    
-
+        </div> 
     </div>
   )
 }
