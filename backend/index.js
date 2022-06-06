@@ -10,6 +10,7 @@ var path = require('path');
 require('./routes/home')(app);
 require('./routes/admin')(app);
 require('./routes/signUp')(app);
+require('./routes/profile')(app);
 require('dotenv/config');
 mongoose.connect(process.env.MONGO_URL,
     { useNewUrlParser: true, useUnifiedTopology: true }, err => {

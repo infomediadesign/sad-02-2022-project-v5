@@ -1,13 +1,13 @@
 // import { width } from "@mui/system";
-import React, { useState} from "react";
+import React, { useState,useEffect} from "react";
 import "./Profile.css";
+import axios from "axios";
 import Slider from "@mui/material/Slider";
 // import axios from "axios";
 // import React from "react";
 
-const Profile = (props) => {
+const Profile = () => {
 
-  console.log("is passed", props.userProfile);
 
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
@@ -17,17 +17,46 @@ const Profile = (props) => {
   const [year, setDobYear] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
   const [PreferredGender, setPreferredgender] = useState("");
-  const [distance, setDistance] = useState();
+  const [distance, setDistance] = useState("");
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
+  const [userProfile, getUserProfile] = useState([]);
+  var tempData;
+  var userId = {
+    myid: "amadou@gmail.com"
+  }
+  useEffect(() => {
+    async function getProfileData(){
+      await axios
+         .get('http://localhost:5000/api/getmyprofile/',{params: userId})
+         .then((response) => {
+           getUserProfile(response.data);
+           tempData = response.data;
 
+          // console.log(userProfile)
+          // setLocation(tempData.location)
+          // setFile(userProfile.name)
+          setFullName(tempData.name)
+          setDobDate(tempData.dob.split("-")[0])
+          setDobMonth(tempData.dob.split("-")[1])
+          setDobYear(tempData.dob.split("-")[2])
+          setSelectedGender(tempData.gender)
+          setPreferredgender(tempData.preferredgender)
+          setDistance(tempData.findwithin)
+          // setFileName(userProfile.name)
+          setAbout(tempData.about)
+         })
+         .catch(() => {
+           console.log("no data has been received");
+         });
+     };
+     getProfileData();
+  },[]);
   
-
   const handleSubmit = () => {
     console.log("submitted");
   };
   
-
   const handleDistance = (event, value) => {
     setDistance(value);
   };
@@ -44,13 +73,14 @@ const Profile = (props) => {
     setDobYear(e.target.value);
   };
 
-  const handleGenderChange = (event) => {
-    setSelectedGender(event.target.value);
+  const handleGenderChange = (e) => {
+    setSelectedGender(e.target.value);
   };
 
   const handlePreferredGender = (e) => {
     setPreferredgender(e.target.value);
   };
+
   const handleFullName = (event) => {
     setFullName(event.target.value);
   };
@@ -131,7 +161,7 @@ const Profile = (props) => {
               name="gender_identity"
               value="men"
               onChange={handleGenderChange}
-              checked={selectedGender === "men"}
+              checked={selectedGender === "man"}
             />
             <label htmlFor="man-gender-identity"> Man</label>
 
@@ -141,7 +171,7 @@ const Profile = (props) => {
               name="gender_identity"
               value="women"
               onChange={handleGenderChange}
-              checked={selectedGender === "women"}
+              checked={selectedGender === "woman"}
             />
             <label htmlFor="woman-gender-identity"> Woman</label>
 
@@ -174,6 +204,7 @@ const Profile = (props) => {
               name="gender_interest"
               value="man"
               onChange={handlePreferredGender}
+              checked ={PreferredGender=== "man"}
             />
 
             <label htmlFor="man-gender-interest"> Man</label>
@@ -183,6 +214,7 @@ const Profile = (props) => {
               name="gender_interest"
               value="woman"
               onChange={handlePreferredGender}
+              checked ={PreferredGender=== "woman"}
             />
             <label htmlFor="woman-gender-interest"> woman</label>
             <input
@@ -191,6 +223,7 @@ const Profile = (props) => {
               name="gender_interest"
               value="woman"
               onChange={handlePreferredGender}
+              checked ={PreferredGender=== "everyone"}
             />
             <label htmlFor="everyone-gender-interest"> everyone</label>
           </div>
