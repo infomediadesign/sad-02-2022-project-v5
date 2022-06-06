@@ -11,7 +11,7 @@ export default function Register(){
     const navigate = useNavigate();
     useEffect(() => {
         if (cookies.jwt) {
-          navigate("/home");
+          navigate("/signup");
         }
       }, [cookies, navigate]);
     const [values,setValues] = useState({
@@ -44,7 +44,7 @@ const handleSubmit = async(e) => {
                 if(email) generateError(email);
                 else if(password) generateError(password);
             }else{
-                    navigate("/home");
+                    navigate("/signup");
                 }
         }
     } catch(err){ 
@@ -60,8 +60,13 @@ const navbarLinks = [
 
 
 return ( 
+    <div>
+    <Navbar navbarLinks={navbarLinks} />
     <div className="registerBody">
-        <Navbar navbarLinks={navbarLinks} />
+        
+        <div>
+        <img className="photo" src={require('./dating.jpg')} />
+        </div>
     <div className="registerContainer">
         <h2>Register Account</h2>
         <form onSubmit={(e)=>handleSubmit(e)}>
@@ -88,6 +93,7 @@ return (
         </form>
         <ToastContainer/>
     </div> 
+    </div>
     </div>
     );
 }

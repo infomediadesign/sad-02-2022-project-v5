@@ -57,8 +57,13 @@ export default function Signin(){
       ];
 
     return ( 
+        <div>
+        <Navbar navbarLinks={navbarLinks} />
+    <div className="SignInBody">
     <div>
-    <Navbar navbarLinks={navbarLinks} />
+        <img className="photo" src={require('./dating3.jpg')} />
+        </div>
+    
     <div className = "SignIncontainer">
         
         <h2> Signin Account </h2> 
@@ -84,9 +89,10 @@ export default function Signin(){
             </div >
             <button type = "submit" > Submit </button> 
             <span> New to this application ? <Link to = "/register" > Register </Link> </span> 
-        </form>
+        </form> 
         <ToastContainer/>
     </div> 
+    </div>
     </div >
     );
 }
