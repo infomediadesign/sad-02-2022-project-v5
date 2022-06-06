@@ -4,9 +4,9 @@
     box-sizing: border-box;
 }
 
-sigInBody {
-    height: 100vh;
-    width: 100vw;
+.sigInBody {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,13 +16,16 @@ sigInBody {
 }
 
 .SignIncontainer {
-    background-color: white;
+    background-color: lightgray;
     display: flex;
     flex-direction: column;
     padding: 1rem 3rem;
     padding-bottom: 2rem;
     border-radius: 0.5rem;
     border-top: rgb(80, 98, 255) 0.5rem solid;
+    width: 400px;
+    margin-left: 570px;
+    margin-top: 200px;
 }
 
 h2 {

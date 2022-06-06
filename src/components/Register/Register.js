@@ -10,7 +10,7 @@ export default function Register(){
     const navigate = useNavigate();
     useEffect(() => {
         if (cookies.jwt) {
-          navigate("/");
+          navigate("/home");
         }
       }, [cookies, navigate]);
     const [values,setValues] = useState({
@@ -42,7 +42,7 @@ const handleSubmit = async(e) => {
                 if(email) generateError(email);
                 else if(password) generateError(password);
             }else{
-                    navigate("/");
+                    navigate("/home");
                 }
         }
     } catch(err){ 

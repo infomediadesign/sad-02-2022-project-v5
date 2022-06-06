@@ -11,7 +11,7 @@ export default function Signin(){
     const navigate = useNavigate();
     useEffect(() => {
         if (cookies.jwt) {
-          navigate("/");
+          navigate("/home");
         }
       }, [cookies, navigate]);
     const [values,setValues] = useState({
@@ -41,7 +41,7 @@ export default function Signin(){
                 if(email) generateError(email);
                 else if(password) generateError(password);
             }else{
-                navigate("/");
+                navigate("/home");
             }
         }
             } catch(err){
@@ -52,7 +52,7 @@ export default function Signin(){
 
 
     return ( 
-    <div className = "sigInBody">
+    <div>
     <div className = "SignIncontainer">
         <h2> Signin Account </h2> 
         <form onSubmit = { (e) => handleSubmit(e)}>

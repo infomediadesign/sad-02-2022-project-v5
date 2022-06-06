@@ -1,4 +1,5 @@
 import './App.css';
+import Landing from './components/Landing/Landing'
 import Admin from './components/Admin/Admin';
 import SignUp from './components/SignUp/SignUp';
 import Profile from './components/Profile/Profile';
@@ -15,11 +16,13 @@ export default function App(){
   return(
   <BrowserRouter>
     <Routes>
+      <Route exact path="/" element={<Landing/>}/>
       <Route exact path="/register" element={<Register/>}/>
       <Route exact path="/signin" element={<Signin/>}/>
-      <Route exact path="/" element={<Home/>}/>
+      <Route exact path="/home" element={<Home/>}/>
       <Route exact path="/test" element={<Test/>}/>
     </Routes>
   </BrowserRouter>
   );
 }
+
