@@ -58,6 +58,7 @@ module.exports = function(app) {
         var myData;
         var myId = req.query.myid;
         var genderPrefference
+        console.log(req.query.myid)
     myData = await userProfile.findOne({userid:req.query.myid}).select({"disliked": 1, "liked": 1,"findwithin":1,"preferredgender":1,"location":1}).clone();
         if(myData.preferredgender === 'everyone'){
             genderPrefference = ['man','everyone','woman']
