@@ -94,8 +94,26 @@
       setSelectedSocialMedia(e.target.value);
     };
 
-    const handleSubmit = () => {
-      console.log("submitted");
+    // const handleSubmit = () => {
+    //   console.log("submitted");
+    // };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      debugger
+      console.log('i am clicked',e.value);
+      try {
+        var form = new FormData();
+        form.append("passion", selectedPassions);
+        form.append("bestpets", selectedPet);
+        form.append("bestdrink", selectedDrink);
+        form.append("education", selectedEducation);
+        form.append("foodpreferences", selectedFood);
+        form.append("smoking", selectedSmoking);
+        form.append("Socialmedia", selectedSocialMedia);
+        await axios.post("http://localhost:5000/api/updateprofile", form);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     function getpassiondefaultchecks(value) {
@@ -498,7 +516,11 @@
               />
               <label htmlFor="social-media-off-grid">Off Grid</label>
             </div>
+            <input type="submit" value="Update Details" className="details-btn" />
           </section>
+          <div>
+
+          </div>
         </form>
       </div>
     );
