@@ -32,9 +32,7 @@ h2{
     border: solid 2px rgb(219, 219, 219);
     border-radius: 10px;
 }
-.Questionnaire form input .details-btn {
-   margin-top: 50px
-}
+
 
 .Questionnaire form label {
     margin: 10px 0;
