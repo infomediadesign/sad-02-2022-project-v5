@@ -32,6 +32,7 @@ module.exports = function(app) {
                     type: "Point",
                     coordinates: [(Number)(locationData[1]), (Number)(locationData[0])]
                 },
+<<<<<<< HEAD
                 findwithin: req.body.findwithin,
                 passion: req.body.passion.split(','),
                 bestdrink: req.body.bestdrink,
@@ -43,6 +44,19 @@ module.exports = function(app) {
                 gender: req.body.gender,
                 preferredgender: req.body.preferredgender,
                 dob: req.body.dob,
+=======
+                findwithin:req.body.findwithin,
+                passion:req.body.passion.split(','),
+                bestdrink:req.body.bestdrink,
+                education:req.body.education,
+                foodpreferences:req.body.foodpreferences,
+                bestpets:req.body.bestpets.split(','),
+                smoking:req.body.smoking,
+                Socialmedia:req.body.Socialmedia,
+                gender:req.body.gender,
+                preferredgender:req.body.preferredgender,
+                dob:req.body.dob,
+>>>>>>> development
                 img: {
                     data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
                     contentType: 'image/png'
