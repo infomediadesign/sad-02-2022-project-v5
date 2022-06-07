@@ -27,7 +27,7 @@ var blindProfile = new mongoose.Schema({
     disliked:[],
     userid:String
 });
-userProfile.index({ location: "2dsphere" });
+blindProfile.index({ location: "2dsphere" });
 //Image is a model which has a schema imageSchema
   
 module.exports = new mongoose.model('blindDate', blindProfile);
