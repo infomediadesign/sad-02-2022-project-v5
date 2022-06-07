@@ -3,10 +3,11 @@ import React, { useState,useEffect} from "react";
 import "./Profile.css";
 import axios from "axios";
 import Slider from "@mui/material/Slider";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
 
-
+  const [cookies] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");
@@ -19,6 +20,7 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
   const [userProfile, getUserProfile] = useState([]);
+
   
   var options = {
     enableHighAccuracy: true,
@@ -46,7 +48,7 @@ const Profile = () => {
   useEffect(() => {
     async function getProfileData(){
       await axios
-         .get('http://localhost:5000/api/getmyprofile/',{params: userId})
+         .get('http://localhost:5000/api/getmyprofile',{params: userId})
          .then((response) => {
            getUserProfile(response.data);
            tempData = response.data;
@@ -72,6 +74,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       var form = new FormData();
+      form.append("userid", cookies.userid);
       form.append("file", file);
       form.append("name", fullName);
       form.append("about", about);
@@ -81,7 +84,7 @@ const Profile = () => {
       form.append("dob", date + "-" + month + "-" + year);
       form.append("location", location);
       form.append("findwithin", distance);
-      await axios.post("http://localhost:5000/api/updateprofile", form);
+      await axios.post("http://localhost:5000/api/updateprofiledetails", form);
     } catch (err) {
       console.log(err);
     }
@@ -141,7 +144,6 @@ const Profile = () => {
             type="file"
             name="image"
             onChange={handleFile}
-            required
           ></input>
           <label htmlFor="first_name"> FullName</label>
           <input

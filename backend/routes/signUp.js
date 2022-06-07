@@ -36,7 +36,7 @@ module.exports = function(app){
                 passion:req.body.passion.split(','),
                 bestdrink:req.body.bestdrink,
                 education:req.body.education,
-                foodpreferences:req.body.foodpreferences.split(','),
+                foodpreferences:req.body.foodpreferences,
                 bestpets:req.body.bestpets.split(','),
                 smoking:req.body.smoking,
                 Socialmedia:req.body.Socialmedia,
