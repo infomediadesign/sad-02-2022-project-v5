@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,10 +9,14 @@ import { Avatar } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import Profile from '../Profile/Profile';
-
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
+
+  
 
   return (
     <div
@@ -50,11 +54,14 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  
   return (
     <div className="sideNavContainer">
       <div className='sideNavTop'>
         <Tabs className='Tabs' value={value} onChange={handleChange}>
           <Tab className="sideNavAvatar" icon={<Avatar  alt="User profile" src="/images/img1.jpg"/>} {...a11yProps(0)} ></Tab>
+          
           <Tab className="sideNavHeaderButtons"icon={<ManageSearchIcon fontSize="large" className="sidenavExplore"/>} {...a11yProps(1)} />
           <Tab className="sideNavHeaderButtons2"icon={<ChatOutlinedIcon fontSize="medium" className="sidenavChat"/>} {...a11yProps(2)} />
         </Tabs>
