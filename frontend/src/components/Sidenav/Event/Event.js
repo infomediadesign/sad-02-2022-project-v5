@@ -1,8 +1,21 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import './Event.css';
+import { useCookies } from "react-cookie";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const Event = () => {
+  const [cookies] = useCookies([]);
+  var myid = cookies.userid;
+    const joinBlindDate = ()=>{
+        axios.post('http://localhost:5000/api/getblinddate',{myid}).then((response)=>{
+            toast( {response} , {
+                    theme: "dark",
+                  });
+            console.log(response)
+    });
+    }
   return (
     <div className='sideNavContainer'>
         <div className="sideNavWelcomeText">
@@ -33,13 +46,14 @@ const Event = () => {
                         Find a random match and see where it goes.
                     </div>
                     <div>
-                        <Button className='sideNavEventJoinButton' size="medium">
+                        <Button onClick={joinBlindDate} className='sideNavEventJoinButton' size="medium">
                         Join Now
                         </Button>
                     </div>
                 </div>
             </div>
         </div>
+    <ToastContainer/>
     </div>
   )
 }
