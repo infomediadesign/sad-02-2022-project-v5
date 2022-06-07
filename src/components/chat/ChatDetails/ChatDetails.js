@@ -5,7 +5,6 @@ import { SearchOutlined } from '@mui/icons-material';
 import { CallOutlined} from '@material-ui/icons';
 import { InsertEmoticonOutlined } from '@material-ui/icons';
 import axios from 'axios';
-import SidebarChatList from '../SidebarChatList/SidebarChatList';
 
 const ChatDetails = ({userName,senderMessage,receiverMessage}) => {
 
@@ -21,12 +20,7 @@ const ChatDetails = ({userName,senderMessage,receiverMessage}) => {
           <span>{new Date().toUTCString()}</span>
           </div>
         </div>
-         
-        <div className='chatdetails_headeronright'>
-
-
         </div>
-      </div>
 
        <div className='chatdetails_body'>
         <p className='chatmessage'>{senderMessage}

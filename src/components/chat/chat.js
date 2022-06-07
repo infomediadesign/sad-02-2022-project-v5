@@ -2,7 +2,6 @@ import './Chat.css'
 import ChatDetails from './ChatDetails/ChatDetails'
 import React, { useEffect, useState } from 'react'
 import { SearchOutlined } from '@mui/icons-material';
-import SidebarChatList from './SidebarChatList/SidebarChatList';
 import axios from 'axios';
 
 function Chat (){
@@ -24,13 +23,14 @@ function Chat (){
           userInfo = {
                name:response.data[i].members[0],
                smessage:response.data[i].messages[i].text,
+               rmessage:response.data[i].messages[i+1].text,
           }
         }
         else{
-          if(response.data[i].members[i].senderid !== mydata.myid)
           userInfo = {
                name:response.data[i].members[1],
-               rmessage:response.data[i].messages[i].text,
+               smessage:response.data[i].messages[i].text,
+               rmessage:response.data[i].messages[i+1].text,
                
           }
         }
@@ -59,16 +59,18 @@ function Chat (){
             </div>
         </div>
     </div> */}
-    <div className='chatLists_Container'>
+    <div>
     { data.map((object, i) => <ChatDetails userName = {(object.name)} senderMessage = {(object.smessage)} receiverMessage ={(object.rmessage)} />)} 
     { data.map((object, i) => <div onClick={()=>getChatDetails(object)} className='sidebarchat_container'>
+      <div className='sidebarchat_container'>
         <div className='sidebarchat_info'>
           <h3>{object.name}</h3>  
+        </div>
         </div>
     </div>)}
      
     </div>
-</div> 
+    </div> 
 
        </div>
       </div>
