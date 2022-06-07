@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {Link, useNavigate} from 'react-router-dom';
 import "./SignUp.css";
+import { useCookies } from "react-cookie";
 import Slider from "@mui/material/Slider";
 
 const SignUp = () => {
   //   const [cookies, setCookie, removeCookie] = useCookies(null);
-  //   let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   var passionTemp;
   var petTemp;
@@ -17,7 +19,7 @@ const SignUp = () => {
   const [selectedPet, setSelectedPet] = useState([]);
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
-
+  const [cookies] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");
@@ -29,6 +31,12 @@ const SignUp = () => {
   const [distance, setDistance] = useState();
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
+
+   var myid = cookies.userid;
+
+   
+
+   debugger
 
   var options = {
     enableHighAccuracy: true,
@@ -124,9 +132,16 @@ const SignUp = () => {
     setFullName(event.target.value);
   };
 
+ 
+  
+
   const handleAbout = (event) => {
     setAbout(event.target.value);
   };
+
+  // const ButtonSubmit = () => {
+  //   navigate("/signin")
+  // };
 
   const handleFile = (e) => {
     setFile(e.target.files[0]);
@@ -153,7 +168,21 @@ const SignUp = () => {
       form.append("dob", date + "-" + month + "-" + year);
       form.append("location", location);
       form.append("findwithin", distance);
-      await axios.post("http://localhost:5000/api/addprofile", form);
+      form.append("userid", myid)
+     
+      await axios.post("http://localhost:5000/api/addprofile", form)
+      // .then( () => {
+      //   debugger;
+      //   // navigate("/signin")
+      // }
+     
+      // )
+      // .catch(
+      //   (err) => {
+      //     console.log(err);
+      //   }
+      // )
+      
     } catch (err) {
       console.log(err);
     }
@@ -173,7 +202,7 @@ const SignUp = () => {
                 className="fileInput"
                 type="file"
                 name="image"
-                onChange={handleFile}
+                onChange={handleFile}woman
                 required
               ></input>
               <label htmlFor="first_name"> FullName</label>
@@ -222,9 +251,9 @@ const SignUp = () => {
                   id="man-gender-identity"
                   type="radio"
                   name="gender_identity"
-                  value="men"
+                  value="man"
                   onChange={handleGenderChange}
-                  checked={selectedGender === "men"}
+                  checked={selectedGender === "man"}
                 />
                 <label htmlFor="man-gender-identity"> Man</label>
 
@@ -232,9 +261,9 @@ const SignUp = () => {
                   id="woman-gender-identity"
                   type="radio"
                   name="gender_identity"
-                  value="women"
+                  value="woman"
                   onChange={handleGenderChange}
-                  checked={selectedGender === "women"}
+                  checked={selectedGender === "woman"}
                 />
                 <label htmlFor="woman-gender-identity"> Woman</label>
 
@@ -297,7 +326,11 @@ const SignUp = () => {
                 value={about}
                 onChange={handleAbout}
               />
-              <input type="submit" />
+           
+              <input type="submit"  />  
+              <button><Link to = "/signin" > Create Account </Link> </button>
+
+          
             </section>
           </form>
         </div>
