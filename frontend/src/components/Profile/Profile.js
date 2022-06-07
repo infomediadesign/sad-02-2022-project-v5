@@ -20,7 +20,6 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
   const [userProfile, getUserProfile] = useState([]);
-
   
   var options = {
     enableHighAccuracy: true,

@@ -14,7 +14,6 @@ module.exports = function(app){
         });
     });
     app.post('/api/addadmin', (req, res, next) => {
-        console.log(req.body)
         var obj = {
             email: req.body.email,
             password: req.body.password,

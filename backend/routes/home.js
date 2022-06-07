@@ -21,17 +21,21 @@ module.exports = function(app) {
             myData.liked.push(req.body.likedData.profileid);
             await userProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }},{matches:{$ne:req.body.likedData.profileid }}]},myData).clone()
             var obj = {members:[req.body.likedData.myid,req.body.likedData.profileid],messages:[]}
-            const query = {}
-            const options = {
-            upsert: true,
-            new: true,
-            setDefaultsOnInsert: true
-            };
-            await conversation.findOneAndUpdate(query, obj, options, (error, result) => {
-                if (error) {
-                  return;
-                }
-              }).clone()
+            // const query = {}
+            // const options = {
+            // upsert: true,
+            // new: true,
+            // setDefaultsOnInsert: true
+            // };
+            // await conversation.findOneAndUpdate(query, obj, options, (error, result) => {
+            //     if (error) {
+            //       return;
+            //     }
+            //   }).clone()
+            var createdAlready = await conversation.findOne({$and:[{members:req.body.data.profileid},{members:req.body.data.myid }]})
+            if(!createdAlready){
+                await conversation.create(obj);
+            }
             console.log(obj)
             res.send("User matched")
         }
@@ -61,7 +65,7 @@ module.exports = function(app) {
         console.log(req.query.myid)
     myData = await userProfile.findOne({userid:req.query.myid}).select({"disliked": 1, "liked": 1,"findwithin":1,"preferredgender":1,"location":1}).clone();
         if(myData.preferredgender === 'everyone'){
-            genderPrefference = ['man','everyone','woman']
+            genderPrefference = ['man','other','woman']
         }
         else{
             genderPrefference = [myData.preferredgender]
