@@ -3,6 +3,7 @@ import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from 'react-toastify';
+import Navbar from "../Navbar";
 import axios from "axios";
 
 export default function Signin(){
@@ -11,7 +12,7 @@ export default function Signin(){
     const navigate = useNavigate();
     useEffect(() => {
         if (cookies.jwt) {
-          navigate("/");
+          navigate("/home");
         }
       }, [cookies, navigate]);
     const [values,setValues] = useState({
@@ -41,7 +42,7 @@ export default function Signin(){
                 if(email) generateError(email);
                 else if(password) generateError(password);
             }else{
-                navigate("/");
+                navigate("/home");
             }
         }
             } catch(err){
@@ -49,11 +50,22 @@ export default function Signin(){
             }
     };
 
-
+    const navbarLinks = [
+    
+        { url: "/", title: "Home" },
+        
+      ];
 
     return ( 
-    <div className = "sigInBody">
+        <div>
+        <Navbar navbarLinks={navbarLinks} />
+    <div className="SignInBody">
+    <div>
+        <img className="photo" src={require('./dating3.jpg')} />
+        </div>
+    
     <div className = "SignIncontainer">
+        
         <h2> Signin Account </h2> 
         <form onSubmit = { (e) => handleSubmit(e)}>
             <div>
@@ -77,9 +89,10 @@ export default function Signin(){
             </div >
             <button className="submit" type = "submit" > Submit </button> 
             <span> New to this application ? <Link to = "/register" > Register </Link> </span> 
-        </form>
+        </form> 
         <ToastContainer/>
     </div> 
+    </div>
     </div >
     );
 }
