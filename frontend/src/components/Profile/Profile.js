@@ -3,12 +3,11 @@ import React, { useState,useEffect} from "react";
 import "./Profile.css";
 import axios from "axios";
 import Slider from "@mui/material/Slider";
-// import axios from "axios";
-// import React from "react";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
 
-
+  const [cookies] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");
@@ -21,6 +20,26 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
   const [userProfile, getUserProfile] = useState([]);
+  
+  var options = {
+    enableHighAccuracy: true,
+
+    timeout: 5000,
+
+    maximumAge: 0,
+  };
+  function success(pos) {
+    var crd = pos.coords;
+    var tempLocation = [];
+    tempLocation.push(Number(crd.longitude));
+    tempLocation.push(Number(crd.latitude));
+    setLocation(tempLocation);
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
   var tempData;
   var userId = {
     myid: "amadou@gmail.com"
@@ -28,14 +47,11 @@ const Profile = () => {
   useEffect(() => {
     async function getProfileData(){
       await axios
-         .get('http://localhost:5000/api/getmyprofile/',{params: userId})
+         .get('http://localhost:5000/api/getmyprofile',{params: userId})
          .then((response) => {
            getUserProfile(response.data);
            tempData = response.data;
 
-          // console.log(userProfile)
-          // setLocation(tempData.location)
-          // setFile(userProfile.name)
           setFullName(tempData.name)
           setDobDate(tempData.dob.split("-")[0])
           setDobMonth(tempData.dob.split("-")[1])
@@ -53,8 +69,24 @@ const Profile = () => {
      getProfileData();
   },[]);
   
-  const handleSubmit = () => {
-    console.log("submitted");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      var form = new FormData();
+      form.append("userid", cookies.userid);
+      form.append("file", file);
+      form.append("name", fullName);
+      form.append("about", about);
+      form.append("gender", selectedGender);
+      form.append("preferredgender", PreferredGender);
+      form.append("fileName", fileName);
+      form.append("dob", date + "-" + month + "-" + year);
+      form.append("location", location);
+      form.append("findwithin", distance);
+      await axios.post("http://localhost:5000/api/updateprofiledetails", form);
+    } catch (err) {
+      console.log(err);
+    }
   };
   
   const handleDistance = (event, value) => {
@@ -111,7 +143,6 @@ const Profile = () => {
             type="file"
             name="image"
             onChange={handleFile}
-            required
           ></input>
           <label htmlFor="first_name"> FullName</label>
           <input
@@ -159,7 +190,7 @@ const Profile = () => {
               id="man-gender-identity"
               type="radio"
               name="gender_identity"
-              value="men"
+              value="man"
               onChange={handleGenderChange}
               checked={selectedGender === "man"}
             />
@@ -169,7 +200,7 @@ const Profile = () => {
               id="woman-gender-identity"
               type="radio"
               name="gender_identity"
-              value="women"
+              value="woman"
               onChange={handleGenderChange}
               checked={selectedGender === "woman"}
             />
@@ -221,7 +252,7 @@ const Profile = () => {
               id="everyone-gender-interest"
               type="radio"
               name="gender_interest"
-              value="woman"
+              value="everyone"
               onChange={handlePreferredGender}
               checked ={PreferredGender=== "everyone"}
             />
@@ -237,7 +268,7 @@ const Profile = () => {
             value={about}
             onChange={handleAbout}
           />
-          <input type="submit" />
+          <input type="submit" value="Update Profile" />
         </section>
       </form>
     </div>

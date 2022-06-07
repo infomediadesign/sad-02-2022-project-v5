@@ -10,6 +10,7 @@ const Home = () => {
     const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
+    console.log(cookies.userid)
     const verifyUser = async () => {
       if (!cookies.jwt) {
           console.log("jwt does not exist")
@@ -38,21 +39,17 @@ const Home = () => {
   const logOut = () => {
     removeCookie("jwt");
     removeCookie("userid");
-    navigate("/signin");
+    navigate("/");
   };
   return (
     <div className="container">
-        <button onClick={logOut}>Log out</button>
+        <button className="logout" onClick={logOut}>Log out</button>
         <div className="sidenav">
             <Sidenav/>
         </div>
         <div className="suggestion">
           <Suggestions 
-          Username="Shubham Choudhary"
-           Age="25" 
-           Place="Mannheim, Germany"
-           Location="35" 
-           About="Hey Baby Girl" />
+       />
         </div>
        
     

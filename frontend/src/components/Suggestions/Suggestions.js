@@ -6,8 +6,10 @@ import Tags from "../../Tags/Tags";
 import { TimedImage } from "react-timed-image"
 import Axios from "axios";
 import TinderCard from 'react-tinder-card';
+import { useCookies } from "react-cookie";
 
 const Suggestions = () => {
+    const [cookies, setCookie, removeCookie] = useCookies([]);
     const [data,setData] = useState([]);  
     const [allData,setAllData] = useState([]);  
     const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +25,7 @@ const Suggestions = () => {
 
 
     var mydata = {
-        myid:"shubham@gmail.com"
+        myid:cookies.userid
         
     }
   
@@ -131,7 +133,7 @@ const Suggestions = () => {
             setOncount(oncount + 1);
             console.log(oncount)
             var likedData = {
-                    myid: "shubham@gmail.com",
+                    myid: cookies.userid,
                     profileid: data.userid
                 }
                 console.log(likedData)

@@ -4,15 +4,21 @@
     box-sizing: border-box;
 }
 
-registerBody {
-    height: 100%;
-    width: 100%;
+.photo {
+    height: 500px;
+    width: 700px;
+}
+
+.registerBody {
+    height: 100vh;
+    padding-top: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
     background-color: rgb(236, 236, 238);
     overflow: hidden;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    justify-content: space-around;
 }
 
 .registerContainer {
@@ -22,10 +28,10 @@ registerBody {
     padding: 1rem 3rem;
     padding-bottom: 2rem;
     border-radius: 0.5rem;
-    border-top: rgb(80, 98, 255) 0.5rem solid;
+    border-top: #75abbc;
     width: 400px;
-    margin-left: 570px;
-    margin-top: 200px;
+    margin-left: -50PX;
+    margin-right: 40PX;
 }
 
 h2 {
@@ -52,7 +58,7 @@ input {
 }
 
 button {
-    background-color: rgb(80, 98, 255);
+    background-color: #75abbc;
     color: white;
     border: none;
     padding: 0.5rem;
@@ -64,13 +70,13 @@ button {
 
 span a {
     text-decoration: none;
-    color: rgb(80, 98, 255);
+    color: #75abbc;
 }
 
 .private {
     height: 100vh;
     width: 100vw;
-    background-color: rgb(80, 98, 255);
+    background-color: #75abbc;
     color: white;
     display: flex;
     justify-content: center;

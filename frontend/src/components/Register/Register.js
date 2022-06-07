@@ -3,6 +3,7 @@ import React,{useState,useEffect} from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import {ToastContainer, toast} from 'react-toastify';
+import Navbar from "../Navbar";
 import axios from "axios";
 
 export default function Register(){
@@ -10,7 +11,7 @@ export default function Register(){
     const navigate = useNavigate();
     useEffect(() => {
         if (cookies.jwt) {
-          navigate("/");
+          navigate("/signup");
         }
       }, [cookies, navigate]);
     const [values,setValues] = useState({
@@ -21,6 +22,7 @@ export default function Register(){
     const generateError = (err) => toast.error(err, {
         position: "bottom-right",
     });
+
 
 //prevent form submission
 //calling API : try/catch
@@ -42,7 +44,7 @@ const handleSubmit = async(e) => {
                 if(email) generateError(email);
                 else if(password) generateError(password);
             }else{
-                    navigate("/");
+                    navigate("/signup");
                 }
         }
     } catch(err){ 
@@ -50,8 +52,21 @@ const handleSubmit = async(e) => {
     }
 };
 
+const navbarLinks = [
+    
+    { url: "/", title: "Home" },
+    
+  ];
+
+
 return ( 
+    <div>
+    <Navbar navbarLinks={navbarLinks} />
     <div className="registerBody">
+        
+        <div>
+        <img className="photo" src={require('./dating.jpg')} />
+        </div>
     <div className="registerContainer">
         <h2>Register Account</h2>
         <form onSubmit={(e)=>handleSubmit(e)}>
@@ -71,13 +86,14 @@ return (
                 placeholder="Password" 
                 onChange={(e)=>setValues({...values, [e.target.name]: e.target.value})}/>
             </div>
-            <button type="submit">Submit</button>
+            <button className="submit" type="submit">Submit</button>
             <span>
                 Already have an account? <Link to="/signin">Signin</Link>
             </span>
         </form>
         <ToastContainer/>
     </div> 
+    </div>
     </div>
     );
 }
