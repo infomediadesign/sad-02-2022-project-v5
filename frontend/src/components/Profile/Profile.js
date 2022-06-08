@@ -42,7 +42,7 @@ const Profile = () => {
   navigator.geolocation.getCurrentPosition(success, error, options);
   var tempData;
   var userId = {
-    myid: "amadou@gmail.com"
+    myid: cookies.userid
   }
   useEffect(() => {
     async function getProfileData(){
