@@ -131,7 +131,6 @@ Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}
       });
     
 });
-
     };  
     const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + ' left the screen')
