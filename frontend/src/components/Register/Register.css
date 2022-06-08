@@ -57,7 +57,7 @@ input {
     font-size: 1.1rem;
 }
 
-button {
+.submit {
     background-color: #75abbc;
     color: white;
     border: none;
