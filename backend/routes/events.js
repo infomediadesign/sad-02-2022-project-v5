@@ -173,13 +173,30 @@ module.exports = function(app) {
                 res.status(500).send('An error occurred', err);
             }
             else {
-                // var finalData = items;
-                // for(var i=0;i<items.length;i++)
-                // {
-                //     items[i].img = Buffer.from(items[i].img.data).toString('base64')
-                //     finalData[i] = items[i]
-                // }
-                res.send({data:items,mylocation:myData.location})
+                var finalData = [];
+                for(var i=0;i<items.length;i++)
+                {
+                    var obj = {
+                        name: items[i].name,
+                        userid: items[i].userid,
+                        about: items[i].about,
+                        location: items[i].location,
+                        findwithin:items[i].findwithin,
+                        passion:items[i].passion,
+                        bestdrink:items[i].bestdrink,
+                        education:items[i].education,
+                        foodpreferences:items[i].foodpreferences,
+                        bestpets:items[i].bestpets,
+                        smoking:items[i].smoking,
+                        Socialmedia:items[i].Socialmedia,
+                        gender:items[i].gender,
+                        preferredgender:items[i].preferredgender,
+                        dob:items[i].dob,
+                        img: Buffer.from(items[i].img.data).toString('base64')
+                    }
+                    finalData.push(obj)
+                }
+                res.send({data:finalData,mylocation:myData.location})
             }
         }).clone();
     });

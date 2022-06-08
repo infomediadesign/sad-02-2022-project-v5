@@ -89,8 +89,30 @@ module.exports = function(app) {
                 res.status(500).send('An error occurred', err);
             }
             else {
-                    // res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64'),data:items})
-                    res.send({data:items,mylocation:myData.location})
+                var finalData = [];
+                for(var i=0;i<items.length;i++)
+                {
+                    var obj = {
+                        name: items[i].name,
+                        userid: items[i].userid,
+                        about: items[i].about,
+                        location: items[i].location,
+                        findwithin:items[i].findwithin,
+                        passion:items[i].passion,
+                        bestdrink:items[i].bestdrink,
+                        education:items[i].education,
+                        foodpreferences:items[i].foodpreferences,
+                        bestpets:items[i].bestpets,
+                        smoking:items[i].smoking,
+                        Socialmedia:items[i].Socialmedia,
+                        gender:items[i].gender,
+                        preferredgender:items[i].preferredgender,
+                        dob:items[i].dob,
+                        img: Buffer.from(items[i].img.data).toString('base64')
+                    }
+                    finalData.push(obj)
+                }
+                res.send({data:finalData,mylocation:myData.location})
             }
         }).clone();
     });

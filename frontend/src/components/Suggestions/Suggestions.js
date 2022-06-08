@@ -178,7 +178,7 @@ const Suggestions = () => {
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
-                    <img layout="position" className="profilephoto" src={data.img} />
+                    <img alt="profileimage" layout="position" className="profilephoto" src={`data:image/jpeg;base64,${data.img}`} /> 
                     <motion.div className="names">
 
 
