@@ -22,7 +22,7 @@ const Suggestions = () => {
     var mylocat;
     var firstData;
 
-
+    
 
     var mydata = {
         myid:cookies.userid
@@ -70,9 +70,12 @@ const Suggestions = () => {
                     setData(firstData[oncount])
                     setAge(getAge(firstData[oncount].dob))
                     setDistancefromme(getDistanceFromLatLonInKm(firstData[oncount].location.coordinates[0],firstData[oncount].location.coordinates[1],mylocat[0],mylocat[1]).toFixed(1))
-                    console.log(oncount)
+                    console.log(firstData)
+                    
+                
                 }   
             }
+            
             function  showprofile () {
                 if(oncount < allData.length)
                 {
