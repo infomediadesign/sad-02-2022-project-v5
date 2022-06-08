@@ -125,7 +125,7 @@ module.exports = function(app) {
         }
         else{
             myData.liked.push(req.body.likedData.profileid);
-            await userProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }}]},myData).clone()
+            await coffeeDateProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }}]},myData).clone()
             console.log(" User liked")
             res.send("User liked")
         }
