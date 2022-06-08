@@ -4,8 +4,11 @@ import './Event.css';
 import { useCookies } from "react-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Event = () => {
+const navigate = useNavigate();
   const [cookies] = useCookies([]);
   var myid = cookies.userid;
     const joinBlindDate = ()=>{
@@ -14,7 +17,15 @@ const Event = () => {
             toast( {response} , {
                     theme: "dark",
                   });
-            console.log(response)
+    });
+    }
+    const joinCoffeeDate = ()=>{
+        console.log("here")
+        axios.post('http://localhost:5000/api/joincoffeedate',{myid}).then((response)=>{
+            toast( {response} , {
+                    theme: "dark",
+                  });
+            navigate("/coffeedate");
     });
     }
   return (
@@ -32,7 +43,7 @@ const Event = () => {
                         Take me to your favorite cafe
                     </div>
                     <div>
-                        <Button className='sideNavEventJoinButton' size="medium">
+                        <Button onClick={joinCoffeeDate} className='sideNavEventJoinButton' size="medium">
                         Join Now
                         </Button>
                     </div>
