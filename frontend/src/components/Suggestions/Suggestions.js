@@ -207,9 +207,9 @@ const Suggestions = () => {
                         {data.passion.map((object) => <Tags Tagname= {object}/>)}
                         </motion.div>
 
-                        <motion.h3 layout="position">My Food Preverence</motion.h3>
+                        <motion.h3 layout="position">My Food Preference</motion.h3>
                         <motion.div className="details">
-                        {data.foodpreferences.map((object) => <Tags Tagname= {object}/>)}
+                        <Tags Tagname= {data.foodpreferences}/>
                         </motion.div>
 
                         <motion.h3 layout="position">My Drink of Choice</motion.h3>
