@@ -20,7 +20,6 @@ const Suggestions = () => {
     const [oncount, setOncount] = useState(0); 
     var mylocat;
     var firstData;
-    var imgdatatest;
     var mydata = {
         myid:cookies.userid
     }
@@ -36,7 +35,6 @@ const Suggestions = () => {
         Axios.get('http://localhost:5000/api/getcoffeedateuserprofile',{ params: mydata}).then((response)=>{
 
             firstData = response.data.data;
-            imgdatatest = response.data.postImgBase64
             setAllData(response.data.data)
             setMyloc(response.data.mylocation.coordinates)
             mylocat = response.data.mylocation.coordinates;
@@ -146,8 +144,7 @@ Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
-                    <img alt="profileimage" layout="position" className="profilephoto" src={require('./profile4.jpg')} />
-                    {/* <img alt="profileimage" layout="position" className="profilephoto" src={`data:image/jpeg;base64,${imgdatatest}`} />                     */}
+                    <img alt="profileimage" layout="position" className="profilephoto" src={`data:image/jpeg;base64,${data.img}`} />                    
                     <motion.div className="names">
                         <motion.h1 layout="position">{data.name}</motion.h1>
                     </motion.div>
