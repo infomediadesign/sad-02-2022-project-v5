@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import './DateSuggestions.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Tags from "../../../Tags/Tags";
+import {ToastContainer, toast} from 'react-toastify';
 import { TimedImage } from "react-timed-image"
 import Axios from "axios";
 import TinderCard from 'react-tinder-card';
@@ -94,8 +95,6 @@ const Suggestions = () => {
         var m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             userage--;
-
-            
         }
         return userage;
     }
@@ -116,8 +115,9 @@ const Suggestions = () => {
             }
             console.log(likedData)
         Axios.post('http://localhost:5000/api/postcoffeedateuserliked',{likedData}).then((response)=>{
-            console.log(response)
-            
+            toast(`Hi ${response.data} 🦄`, {
+                    theme: "dark",
+                  });
     });
     };    
         
@@ -126,12 +126,14 @@ const Suggestions = () => {
     showprofile()
     setOncount(oncount + 1);
     var dislikedData = {
-        myid: "shubham@gmail.com",
+        myid: cookies.userid,
         profileid: data.userid
     }
     console.log(dislikedData)
 Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}).then((response)=>{
-    console.log(response)
+    toast(`Hi ${response.data} 🦄`, {
+        theme: "dark",
+      });
     
 });
 
@@ -189,6 +191,7 @@ Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}
                 )}
             </motion.div>
             </TinderCard>
+                <ToastContainer/>
             <button className="button" onClick={handlelikebutton}>
                   < img alt="likebutton" className="icons" src={require('./like.png')} />
             </button>
