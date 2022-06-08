@@ -5,10 +5,9 @@ import axios from "axios";
 import CoffeeDateSuggestions from '../Date/DateSuggestions/DateSuggestions';
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { toast, ToastContainer } from "react-toastify";
 const Date = () => {
     const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies([]);
+  const [cookies,  removeCookie] = useCookies([]);
   useEffect(() => {
     console.log(cookies.userid)
     const verifyUser = async () => {
@@ -28,10 +27,6 @@ const Date = () => {
           removeCookie("userid");
           navigate("/signin");
         } 
-        // else
-        //   toast(`Hi ${data.user} 🦄`, {
-        //     theme: "dark",
-        //   });
       }
     };
     verifyUser();
