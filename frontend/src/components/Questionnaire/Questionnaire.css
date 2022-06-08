@@ -33,6 +33,7 @@ h2{
     border-radius: 10px;
 }
 
+
 .Questionnaire form label {
     margin: 10px 0;
 }
@@ -71,6 +72,7 @@ h2{
     width: 10%;
 }
 
+
 .Questionnaire form input[type=radio]:checked + label {
     border: solid 2px rgb(221, 39, 22);
 }
@@ -88,4 +90,7 @@ h2{
 
 .Questionnaire form .photo-container img {
     width: 100%
+}
+.details-btn{
+
 }

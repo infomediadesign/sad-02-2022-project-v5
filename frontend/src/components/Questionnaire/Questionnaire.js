@@ -4,7 +4,7 @@
   import { useNavigate } from "react-router-dom";
   import axios from 'axios'
   import "./Questionnaire.css";
-
+  import { useCookies } from "react-cookie";
   const Questionnaire = () => {
     var passionTemp;
     var petTemp;
@@ -17,7 +17,7 @@
     const [selectedSmoking, setSelectedSmoking] = useState("");
     const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
     const [userProfile, getUserProfile] = useState([]);
-
+    const [cookies] = useCookies([]);
     var tempData;
     var userId = {
       myid: "amadou@gmail.com",
@@ -33,9 +33,9 @@
             getUserProfile(response.data);
             tempData = response.data;
 
-            setSelectedPassions(tempData.passion);
+            setSelectedPassions(tempData.passion).split(',');
             setSelectedFood(tempData.foodpreferences);
-            setSelectedPet(tempData.bestpets);
+            setSelectedPet(tempData.bestpets).split(',');
             setSelectedDrink(tempData.bestdrink);
             setSelectedEducation(tempData.education);
             setSelectedSmoking(tempData.smoking);
@@ -50,6 +50,7 @@
 
     const handlePassionChange = (event) => {
       passionTemp = selectedPassions;
+      debugger
       if (event.target.checked) {
         passionTemp.push(event.target.value);
       } else {
@@ -94,8 +95,27 @@
       setSelectedSocialMedia(e.target.value);
     };
 
-    const handleSubmit = () => {
-      console.log("submitted");
+    // const handleSubmit = () => {
+    //   console.log("submitted");
+    // };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      debugger
+      console.log('i am clicked',e.value);
+      try {
+        var form = new FormData();
+        form.append("userid", cookies.userid);
+        form.append("passion", selectedPassions);
+        form.append("bestpets", selectedPet);
+        form.append("bestdrink", selectedDrink);
+        form.append("education", selectedEducation);
+        form.append("foodpreferences", selectedFood);
+        form.append("smoking", selectedSmoking);
+        form.append("Socialmedia", selectedSocialMedia);
+        await axios.post("http://localhost:5000/api/updateprofilequestionaire", form);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     function getpassiondefaultchecks(value) {
@@ -137,7 +157,6 @@
                 name="passion"
                 value="basketball"
                 defaultChecked={getpassiondefaultchecks("basketball")}
-                isChecked
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-basketball">Basketball</label>
@@ -148,7 +167,6 @@
                 value="theater"
                 defaultChecked={getpassiondefaultchecks("theater")}
                 onChange={handlePassionChange}
-                isChecked
               />
               <label htmlFor="passion-theater">Theater</label>
               <br />
@@ -196,8 +214,8 @@
                 id="passion-photography"
                 type="checkbox"
                 name="passion"
-                defaultChecked={getpassiondefaultchecks("photography")}
                 value="photography"
+                defaultChecked={getpassiondefaultchecks("photography")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-photography">Photography</label>
@@ -498,7 +516,11 @@
               />
               <label htmlFor="social-media-off-grid">Off Grid</label>
             </div>
+            <input type="submit" value="Update Details" className="details-btn" />
           </section>
+          <div>
+
+          </div>
         </form>
       </div>
     );

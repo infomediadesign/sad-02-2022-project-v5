@@ -39,7 +39,7 @@ const Home = () => {
   const logOut = () => {
     removeCookie("jwt");
     removeCookie("userid");
-    navigate("/signin");
+    navigate("/");
   };
   return (
     <div className="container">

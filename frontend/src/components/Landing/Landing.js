@@ -10,9 +10,9 @@ import Slider from "../Slider";
 
 function home() {
   const navbarLinks = [
-    { url: "#", title: "Home" },
-    { url: "#", title: "login" },
-    { url: "#", title: "Create Account" },
+    
+    { url: "/signin", title: "SignIn" },
+    { url: "/register", title: "Create Account" },
   ];
 
   return (
