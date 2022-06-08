@@ -20,7 +20,7 @@
     const [cookies] = useCookies([]);
     var tempData;
     var userId = {
-      myid: "amadou@gmail.com",
+      myid: cookies.userid
     };
 
     useEffect(() => {
@@ -28,14 +28,14 @@
         await axios
           .get("http://localhost:5000/api/getmyprofile/", { params: userId })
           .then((response) => {
-            // debugger;
+            debugger;
             console.log(response);
             getUserProfile(response.data);
             tempData = response.data;
 
-            setSelectedPassions(tempData.passion).split(',');
+            setSelectedPassions(tempData.passion);
             setSelectedFood(tempData.foodpreferences);
-            setSelectedPet(tempData.bestpets).split(',');
+            setSelectedPet(tempData.bestpets);
             setSelectedDrink(tempData.bestdrink);
             setSelectedEducation(tempData.education);
             setSelectedSmoking(tempData.smoking);
@@ -53,13 +53,29 @@
       debugger
       if (event.target.checked) {
         passionTemp.push(event.target.value);
+        
       } else {
         var index = passionTemp.indexOf(event.target.value);
-        if (index !== -1) {
+        debugger
+        if (index > -1) {
           passionTemp.splice(index, 1);
         }
       }
       setSelectedPassions(passionTemp);
+    };
+
+    const handlePetChange = (event) => {
+      petTemp = selectedPet;
+      if (event.target.checked) {
+        petTemp.push(event.target.value);
+      } else {
+        var index = petTemp.indexOf(event.target.value);
+        // debugger
+        if (index !== -1) {
+          petTemp.splice(index, 1);
+        }
+      }
+      setSelectedPet(petTemp);
     };
 
     const handleDrinkChange = (e) => {
@@ -74,18 +90,7 @@
       setSelectedFood(e.target.value);
     };
 
-    const handlePetChange = (event) => {
-      petTemp = selectedPet;
-      if (event.target.checked) {
-        petTemp.push(event.target.value);
-      } else {
-        var index = petTemp.indexOf(event.target.value);
-        if (index !== -1) {
-          petTemp.splice(index, 1);
-        }
-      }
-      setSelectedPet(petTemp);
-    };
+    
 
     const handleSmokingChange = (e) => {
       setSelectedSmoking(e.target.value);
@@ -95,24 +100,25 @@
       setSelectedSocialMedia(e.target.value);
     };
 
-    // const handleSubmit = () => {
-    //   console.log("submitted");
-    // };
+   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      debugger
-      console.log('i am clicked',e.value);
+      // debugger
+      console.log('i am clicked',e);
       try {
-        var form = new FormData();
-        form.append("userid", cookies.userid);
-        form.append("passion", selectedPassions);
-        form.append("bestpets", selectedPet);
-        form.append("bestdrink", selectedDrink);
-        form.append("education", selectedEducation);
-        form.append("foodpreferences", selectedFood);
-        form.append("smoking", selectedSmoking);
-        form.append("Socialmedia", selectedSocialMedia);
-        await axios.post("http://localhost:5000/api/updateprofilequestionaire", form);
+        // var questionaireForm = new FormData();
+        var questionaireForm = {
+          passion:selectedPassions,
+          bestdrink:selectedDrink,
+          education:selectedEducation,
+          foodpreferences:selectedFood,
+          bestpets:selectedPet,
+          smoking:selectedSmoking,
+          Socialmedia:selectedSocialMedia,
+          userid: cookies.userid
+      }
+        
+        await axios.post("http://localhost:5000/api/updateprofilequestionaire", questionaireForm);
       } catch (err) {
         console.log(err);
       }
@@ -147,7 +153,7 @@
                 type="checkbox"
                 name="passion"
                 value="hiphop"
-                defaultChecked={getpassiondefaultchecks("hiphop")}
+                checked={getpassiondefaultchecks("hiphop")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-hiphop">Hip Hop</label>
@@ -156,7 +162,7 @@
                 type="checkbox"
                 name="passion"
                 value="basketball"
-                defaultChecked={getpassiondefaultchecks("basketball")}
+                checked={getpassiondefaultchecks("basketball")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-basketball">Basketball</label>
@@ -165,7 +171,7 @@
                 type="checkbox"
                 name="passion"
                 value="theater"
-                defaultChecked={getpassiondefaultchecks("theater")}
+                checked={getpassiondefaultchecks("theater")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-theater">Theater</label>
@@ -177,7 +183,7 @@
                 type="checkbox"
                 name="passion"
                 value="meditation"
-                defaultChecked={getpassiondefaultchecks("meditation")}
+                checked={getpassiondefaultchecks("meditation")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-meditation">Meditation</label>
@@ -186,7 +192,7 @@
                 type="checkbox"
                 name="passion"
                 value="yoga"
-                defaultChecked={getpassiondefaultchecks("yoga")}
+                checked={getpassiondefaultchecks("yoga")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-yoga">Yoga</label>
@@ -195,7 +201,7 @@
                 type="checkbox"
                 name="passion"
                 value="reading"
-                defaultChecked={getpassiondefaultchecks("reading")}
+                checked={getpassiondefaultchecks("reading")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-reading">Reading</label>
@@ -206,7 +212,7 @@
                 type="checkbox"
                 name="passion"
                 value="running"
-                defaultChecked={getpassiondefaultchecks("running")}
+                checked={getpassiondefaultchecks("running")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-running">Running</label>
@@ -215,7 +221,7 @@
                 type="checkbox"
                 name="passion"
                 value="photography"
-                defaultChecked={getpassiondefaultchecks("photography")}
+                checked={getpassiondefaultchecks("photography")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-photography">Photography</label>
@@ -224,7 +230,7 @@
                 type="checkbox"
                 name="passion"
                 value="makeup"
-                defaultChecked={getpassiondefaultchecks("makeup")}
+                checked={getpassiondefaultchecks("makeup")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-makup">Makeup</label>
@@ -235,7 +241,7 @@
                 type="checkbox"
                 name="passion"
                 value="gym"
-                defaultChecked={getpassiondefaultchecks("gym")}
+                checked={getpassiondefaultchecks("gym")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-gym">Gym</label>
@@ -244,7 +250,7 @@
                 type="checkbox"
                 name="passion"
                 value="social-media"
-                defaultChecked={getpassiondefaultchecks("social-media")}
+                checked={getpassiondefaultchecks("social-media")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-social-media">Social Media</label>
@@ -253,7 +259,7 @@
                 type="checkbox"
                 name="passion"
                 value="movies"
-                defaultChecked={getpassiondefaultchecks("movies")}
+                checked={getpassiondefaultchecks("movies")}
                 onChange={handlePassionChange}
               />
               <label htmlFor="passion-movies">Movies</label>

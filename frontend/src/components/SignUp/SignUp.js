@@ -36,7 +36,7 @@ const SignUp = () => {
 
    
 
-   debugger
+  //  debugger
 
   var options = {
     enableHighAccuracy: true,
@@ -341,7 +341,7 @@ const SignUp = () => {
         <div className="Questionnaire">
           <h2>ADD MORE DETAILS</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="questionnaire-form">
             <section>
               <label>Passions</label>
               <div className="multiple-input-container">
