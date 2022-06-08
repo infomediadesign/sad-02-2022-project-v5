@@ -1,16 +1,14 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import './DateSuggestions.css';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Tags from "../../../Tags/Tags";
 import {ToastContainer, toast} from 'react-toastify';
-import { TimedImage } from "react-timed-image"
 import Axios from "axios";
 import TinderCard from 'react-tinder-card';
 import { useCookies } from "react-cookie";
 
 const Suggestions = () => {
-    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [cookies] = useCookies([]);
     const [data,setData] = useState([]);  
     const [allData,setAllData] = useState([]);  
     const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +38,6 @@ const Suggestions = () => {
             setMyloc(response.data.mylocation.coordinates)
             mylocat = response.data.mylocation.coordinates;
             showfirstprofile();
-            
-            // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
-            
             })
 
             
@@ -115,7 +110,7 @@ const Suggestions = () => {
             }
             console.log(likedData)
         Axios.post('http://localhost:5000/api/postcoffeedateuserliked',{likedData}).then((response)=>{
-            toast(`Hi ${response.data} 🦄`, {
+            toast(` ${response.data} 🦄`, {
                     theme: "dark",
                   });
     });
@@ -131,7 +126,7 @@ const Suggestions = () => {
     }
     console.log(dislikedData)
 Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}).then((response)=>{
-    toast(`Hi ${response.data} 🦄`, {
+    toast(` ${response.data} 🦄`, {
         theme: "dark",
       });
     
