@@ -22,7 +22,7 @@ const Suggestions = () => {
     var mylocat;
     var firstData;
 
-
+    
 
     var mydata = {
         myid:cookies.userid
@@ -70,9 +70,12 @@ const Suggestions = () => {
                     setData(firstData[oncount])
                     setAge(getAge(firstData[oncount].dob))
                     setDistancefromme(getDistanceFromLatLonInKm(firstData[oncount].location.coordinates[0],firstData[oncount].location.coordinates[1],mylocat[0],mylocat[1]).toFixed(1))
-                    console.log(oncount)
+                    console.log(firstData)
+                    
+                
                 }   
             }
+            
             function  showprofile () {
                 if(oncount < allData.length)
                 {
@@ -175,7 +178,7 @@ const Suggestions = () => {
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
-                    <img layout="position" className="profilephoto" src={require('./profile4.jpg')} />
+                    <img layout="position" className="profilephoto" src={data.img} />
                     <motion.div className="names">
 
 
