@@ -15,7 +15,7 @@ var userProfile = new mongoose.Schema({
     passion:[String],
     bestdrink:String,
     education:String,
-    foodpreferences:[String],
+    foodpreferences:String,
     bestpets:[String],
     smoking:String,
     socialmedia:String,
