@@ -6,6 +6,7 @@ import Tags from "../../Tags/Tags";
 import { TimedImage } from "react-timed-image"
 import Axios from "axios";
 import TinderCard from 'react-tinder-card';
+import { toast, ToastContainer } from "react-toastify";
 import { useCookies } from "react-cookie";
 
 const Suggestions = () => {
@@ -138,7 +139,9 @@ const Suggestions = () => {
                 }
                 console.log(likedData)
             Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
-                console.log(response)
+                toast(`${response.data} 🦄`, {
+                        theme: "dark",
+                      });
                 
         });
         };    
@@ -149,7 +152,7 @@ const Suggestions = () => {
         showprofile()
         setOncount(oncount + 1);
         var dislikedData = {
-            myid: "shubham@gmail.com",
+            myid: cookies.userid,
             profileid: data.userid
         }
         console.log(dislikedData)
@@ -239,6 +242,7 @@ const Suggestions = () => {
                 )}
             </motion.div>
             </TinderCard>
+        <ToastContainer/>
             <button className="button" onClick={handlelikebutton}>
                   < img className="icons" src={require('./like.png')} />
             </button>
