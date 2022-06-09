@@ -22,7 +22,9 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
   const [value, setValue] = React.useState(0)
+  const [profileImage, setImage] = useState("");
   const [userProfile, getUserProfile] = useState([]);
+  const [image, getImage] = useState([]);
   
   var options = {
     enableHighAccuracy: true,
@@ -63,12 +65,26 @@ const Profile = () => {
           setPreferredgender(tempData.preferredgender)
           setDistance(tempData.findwithin)
           setAbout(tempData.about)
+          setImage(tempData.profileImage)
          })
          .catch(() => {
            console.log("no data has been received");
          });
      };
      getProfileData();
+     async function getmypicture(){
+      await axios.get('http://localhost:5000/api/getmypicture/',{params: userId})
+      .then((response) => {
+        getImage(response.data);
+        tempData = response.data;
+        setImage(tempData.img);
+  
+      }).catch(()=> {
+        console.log("picture not received");
+      });
+     }
+     getmypicture();
+
   },[]);
   
   const handleSubmit = async (e) => {
@@ -84,6 +100,7 @@ const Profile = () => {
       form.append("fileName", fileName);
       form.append("dob", date + "-" + month + "-" + year);
       form.append("location", location);
+      form.append("findwithin", distance);
       form.append("findwithin", distance);
       await axios.post("http://localhost:5000/api/updateprofiledetails", form);
     } catch (err) {
