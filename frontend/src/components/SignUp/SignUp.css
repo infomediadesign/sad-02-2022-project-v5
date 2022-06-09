@@ -5,3 +5,6 @@
 .fileInput{
     width: 200px;
 }
+.questionnaire-form{
+    flex-direction: row;
+}

@@ -24,6 +24,7 @@ module.exports = function(app){
         myData = await userProfile.findOne({userid:req.query.myid});
         res.send(myData)
     });
+    
     app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
         console.log(req.body)
             var locationData = req.body.location.split(',');
@@ -61,26 +62,27 @@ module.exports = function(app){
                 dob:req.body.dob
             }
             }
-            console.log(obj)
 
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            
+            console.log(obj)
+            console.log(req.body.userid)
             console.log("Profile Updated")
             
 
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
-        console.log(req.body)
+        console.log(req.body);
             var obj = {
-                passion:req.body.passion.split(','),
+                passion:req.body.passion,
                 bestdrink:req.body.bestdrink,
                 education:req.body.education,
                 foodpreferences:req.body.foodpreferences,
-                bestpets:req.body.bestpets.split(','),
+                bestpets:req.body.bestpets,
                 smoking:req.body.smoking,
                 Socialmedia:req.body.Socialmedia,
             }
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
             console.log("Profile Updated")
+
     });
 }
