@@ -20,30 +20,36 @@ module.exports = function(app){
       
     var upload = multer({ storage: storage });
     app.get('/api/getmyprofile/', async(req, res) => {
-        var myData;
-        myData = await userProfile.findOne({userid:req.query.myid});
-        var obj = {
-            name: myData.name,
-            userid: myData.userid,
-            about: myData.about,
-            location: myData.location,
-            findwithin:myData.findwithin,
-            passion:myData.passion,
-            bestdrink:myData.bestdrink,
-            education:myData.education,
-            foodpreferences:myData.foodpreferences,
-            bestpets:myData.bestpets,
-            smoking:myData.smoking,
-            Socialmedia:myData.Socialmedia,
-            gender:myData.gender,
-            preferredgender:myData.preferredgender,
-            dob:myData.dob,
-            img: Buffer.from(myData.img.data).toString('base64')
+        try{var myData;
+            myData = await userProfile.findOne({userid:req.query.myid});
+            var obj = {
+                name: myData.name,
+                userid: myData.userid,
+                about: myData.about,
+                location: myData.location,
+                findwithin:myData.findwithin,
+                passion:myData.passion,
+                bestdrink:myData.bestdrink,
+                education:myData.education,
+                foodpreferences:myData.foodpreferences,
+                bestpets:myData.bestpets,
+                smoking:myData.smoking,
+                Socialmedia:myData.Socialmedia,
+                gender:myData.gender,
+                preferredgender:myData.preferredgender,
+                dob:myData.dob,
+                img: Buffer.from(myData.img.data).toString('base64')
+            }
+            res.send(obj)
         }
-        res.send(obj)
+        catch(er){
+            res.send("Something went wrong.");
+        }
+        
     });
     
     app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
+        try{
             var locationData = req.body.location.split(',');
             if(req.file!= undefined)
             {
@@ -81,26 +87,39 @@ module.exports = function(app){
             }
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
             res.send("Profile Updated")
-            
-
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
-        console.log(req.body);
-            var obj = {
-                passion:req.body.passion,
-                bestdrink:req.body.bestdrink,
-                education:req.body.education,
-                foodpreferences:req.body.foodpreferences,
-                bestpets:req.body.bestpets,
-                smoking:req.body.smoking,
-                Socialmedia:req.body.Socialmedia,
-            }
-            await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            res.send("Profile Updated")
+        try{
+            console.log(req.body);
+                var obj = {
+                    passion:req.body.passion,
+                    bestdrink:req.body.bestdrink,
+                    education:req.body.education,
+                    foodpreferences:req.body.foodpreferences,
+                    bestpets:req.body.bestpets,
+                    smoking:req.body.smoking,
+                    Socialmedia:req.body.Socialmedia,
+                }
+                await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
+                res.send("Profile Updated")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     });
     app.get('/api/getmypicture/', async(req,res) =>{
-        var profilepic;
+        try{
+            var profilepic;
         profilepic = await userProfile.findOne({userid:req.query.myid}).select({"img":1});
         res.send(Buffer.from(profilepic.img.data).toString('base64'))
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+        
     })
 }
