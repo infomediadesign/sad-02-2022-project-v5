@@ -5,9 +5,9 @@ var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
 require('dotenv/config');
-module.exports = function(app){
+module.exports = function(app){ 
     app.use(cors())
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
     var storage = multer.diskStorage({
         destination: (req, file, cb) => {
@@ -25,7 +25,6 @@ module.exports = function(app){
         res.send(myData)
     });
     app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
-        console.log(req.body)
             var locationData = req.body.location.split(',');
             if(req.file!= undefined)
             {
@@ -61,26 +60,21 @@ module.exports = function(app){
                 dob:req.body.dob
             }
             }
-            console.log(obj)
-
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            
-            console.log("Profile Updated")
-            
-
+            res.send("Profile Updated")
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
-        console.log(req.body)
+            console.log(req.body)
             var obj = {
-                passion:req.body.passion.split(','),
+                passion:req.body.passion,
                 bestdrink:req.body.bestdrink,
                 education:req.body.education,
                 foodpreferences:req.body.foodpreferences,
-                bestpets:req.body.bestpets.split(','),
+                bestpets:req.body.bestpets,
                 smoking:req.body.smoking,
                 Socialmedia:req.body.Socialmedia,
             }
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            console.log("Profile Updated")
+            res.send("Profile Updated")
     });
 }
