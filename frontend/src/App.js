@@ -3,8 +3,8 @@ import Landing from './components/Landing/Landing'
 import Admin from './components/Admin/Admin';
 import SignUp from './components/SignUp/SignUp';
 import Profile from './components/Profile/Profile';
-import Sidenav from './components/Sidenav/Sidenav';
 import ProfileDetails from './components/ProfileDetails/ProfileDetails';
+import CoffeeDate from './components/Date/Date';
 import Home from './components/Home/Home';
 import Test from './components/Test/Test';
 import Signin from './components/Signin/Signin';
@@ -23,6 +23,7 @@ export default function App(){
       <Route exact path="/signin" element={<Signin/>}/>
       <Route exact path="/signup" element={<SignUp/>}/>
       <Route exact path="/home" element={<Home/>}/>
+      <Route exact path="/coffeedate" element={<CoffeeDate/>}/>
       <Route exact path="/test" element={<Test/>}/>
       <Route exact path="/profile" element={<ProfileDetails/>}/>
     </Routes>
