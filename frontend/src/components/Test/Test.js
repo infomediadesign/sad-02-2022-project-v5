@@ -37,9 +37,9 @@ const Test = () => {
 
     // sending text to a user
     // var data = {
-    //     myid:"amadou@gmail.com",
+    //     myid:"shubham@gmail.com",
     //     profileid:"pranav@gmail.com",
-    //     text:"How are you"
+    //     text:"../ "
     // }
     
     // Axios.post('http://localhost:5000/api/sendmessage',{data}).then((response)=>{

@@ -11,6 +11,8 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import Chat from './components/Chat/Chat'
+import ChatDetails from './components/Chat/ChatDetails/ChatDetails';
 
 export default function App(){
   return(
@@ -21,6 +23,7 @@ export default function App(){
       <Route exact path="/signin" element={<Signin/>}/>
       <Route exact path="/signup" element={<SignUp/>}/>
       <Route exact path="/home" element={<Home/>}/>
+      <Route exact path="/chat" element={<Chat/>}/>
       <Route exact path="/coffeedate" element={<CoffeeDate/>}/>
       <Route exact path="/test" element={<Test/>}/>
       <Route exact path="/profile" element={<ProfileDetails/>}/>

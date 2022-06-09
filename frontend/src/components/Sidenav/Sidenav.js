@@ -11,6 +11,7 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import Profile from '../Profile/Profile';
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import Chat from '../Chat/Chat'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,7 +74,7 @@ export default function BasicTabs() {
        <Event/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Chat Screen
+       <Chat/>
       </TabPanel>
     </div>
   );
