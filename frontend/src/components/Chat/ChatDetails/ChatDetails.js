@@ -1,34 +1,35 @@
 import React,{useEffect, useState} from 'react'
 import './ChatDetails.css'
-import {Avatar, IconButton} from '@material-ui/core'
-import { SearchOutlined } from '@mui/icons-material';
-import { CallOutlined} from '@material-ui/icons';
-import { InsertEmoticonOutlined } from '@material-ui/icons';
-import axios from 'axios';
+import {Avatar} from '@material-ui/core'
+import { Cookies } from 'react-cookie'
+import { useCookies } from "react-cookie";
+import { Cookie } from '@mui/icons-material'
 
-const ChatDetails = ({userName,senderMessage,receiverMessage}) => {
-
+const ChatDetails = ({chatDetails}) => {
+  const [cookies] = useCookies([]);
   return (
     <div className='chat_details'>
       <div className='chatdetails_header'>
         <Avatar />
 
          <div className='chatdetails_headerInfo'>
-          <h3>{userName}</h3>
+          <h3>{chatDetails.name}</h3>
           <div className='chatheader_timestamp'>
           <p>Last seen at: </p>
           <span>{new Date().toUTCString()}</span>
-          </div>
+          </div>                                                                          
         </div>
         </div>
-
-       <div className='chatdetails_body'>
-        <p className='chatmessage'>{senderMessage}
-        </p>
-
-        <p className='chatmessage chat_received'>{receiverMessage}
-        </p>
-        </div>
+         <div className='chatdetails_body'>
+        { chatDetails.message?.map((object, i) =>
+        object.senderid!==cookies.userid?
+         <p className='chatmessage chat_received'>{object.text}
+         </p>:
+         <p className='chatmessage'>{object.text}
+         </p>
+        )}
+         </div>
+      
 
       {/* <div className='chatdetails_footer'>
         <InsertEmoticonOutlined/>

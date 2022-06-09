@@ -23,6 +23,7 @@ export default function App(){
       <Route exact path="/signin" element={<Signin/>}/>
       <Route exact path="/signup" element={<SignUp/>}/>
       <Route exact path="/home" element={<Home/>}/>
+      <Route exact path="/chat" element={<Chat/>}/>
       <Route exact path="/coffeedate" element={<CoffeeDate/>}/>
       <Route exact path="/test" element={<Test/>}/>
       <Route exact path="/profile" element={<ProfileDetails/>}/>

@@ -151,7 +151,7 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -546,7 +546,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -591,7 +591,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -603,7 +603,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/postcoffeedateuserliked",
+					"raw": "http://localhost:5000/api/postuserliked",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -611,7 +611,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"postcoffeedateuserliked"
+						"postuserliked"
 					]
 				}
 			},
@@ -636,7 +636,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -681,7 +681,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",

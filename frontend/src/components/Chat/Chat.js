@@ -3,65 +3,79 @@ import ChatDetails from './ChatDetails/ChatDetails'
 import React, { useEffect, useState } from 'react'
 import { SearchOutlined } from '@mui/icons-material';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Chat (){
   const[data,setData] = useState([]);
+  const navigate = useNavigate();
+const [cookies,  removeCookie] = useCookies([]);
   const[chatData,setChatData] = useState([]);
   var userInfo;
   var tempdata = [];
   var mydata = {
-    myid:"pranav@gmail.com"
+    myid:cookies.userid
     
     }
-    useEffect(() =>{
-      axios.get('http://localhost:5000/api/getmymessages/',{ params: mydata}).then((response)=>{
-        console.log(response.data);
-       if(response.data !== undefined){
+  
+  useEffect(() => {
+    const verifyUser = async () => {
+      if (!cookies.jwt) {
+          console.log("jwt does not exist")
+        navigate("/signin");
+      } else {
+        const { data } = await axios.post(
+          "http://localhost:5000",
+          {cookies},
+          {
+            withCredentials: true,
+          }
+        );
+        if (!data.status) {
+          removeCookie("jwt");
+          removeCookie("userid");
+          navigate("/signin");
+        } 
+      }
+    };
+    verifyUser();
+    axios.get('http://localhost:5000/api/getmymessages/',{ params: mydata}).then((response)=>{
+      console.log(response.data)
+      debugger;
+      if(response.data != undefined){
         for(var i = 0; i< response.data.length; i++){
         if(response.data[i].members[0] !== mydata.myid){
-          if(response.data[i].members[i].receiverid !== mydata.myid)
           userInfo = {
                name:response.data[i].members[0],
-               smessage:response.data[i].messages[i].text,
-               rmessage:response.data[i].messages[i+1].text,
+               message:response.data[i].messages,
           }
         }
         else{
           userInfo = {
                name:response.data[i].members[1],
-               smessage:response.data[i].messages[i].text,
-               rmessage:response.data[i].messages[i+1].text,
-               
+               message:response.data[i].messages,
           }
         }
+        var found = tempdata.some(el => el.name === userInfo.name);
+        if (!found) 
         tempdata.push(userInfo);
+        }
       }
       setData(tempdata);
-    }
-      });
-    },[])
+      console.log(tempdata)
+    });
+  }, [cookies, navigate, removeCookie]);
 
   
     const getChatDetails= (data) =>{
-      debugger
+      console.log(data)
       setChatData(data);
     }
-    console.log(chatData);
    return (
     <div className='chatContainer'>
       <div className='chatcontainer_body'>
       <div className='chat_list'>
-    {/* <div className='chatlistbar_header'>
-        <div className='Chatlist_searchbar'>
-            <div className='chatlist_searchbarcontainer'>
-                <SearchOutlined/>
-                <input placeholder='Search or start new chat' type="text"/>
-            </div>
-        </div>
-    </div> */}
-    <div>
-    { data.map((object, i) => <ChatDetails userName = {(object.name)} senderMessage = {(object.smessage)} receiverMessage ={(object.rmessage)} />)} 
-    { data.map((object, i) => <div onClick={()=>getChatDetails(object)} className='sidebarchat_container'>
+    { data.map((object, i) => <div key={i} onClick={()=>getChatDetails(object)} className='sidebarchat_container'>
       <div className='sidebarchat_container'>
         <div className='sidebarchat_info'>
           <h3>{object.name}</h3>  
@@ -70,10 +84,11 @@ function Chat (){
     </div>)}
      
     </div>
+    
+    <ChatDetails chatDetails={chatData} />
     </div> 
 
        </div>
-      </div>
   )
 }
 

@@ -43,42 +43,16 @@ const Home = () => {
   };
   return (
     <div className="container">
-<<<<<<< HEAD:src/components/home/home.js
-
-        <button onClick={logOut}>Log out</button>
-
-=======
         <button className="logout" onClick={logOut}>Log out</button>
->>>>>>> development:frontend/src/components/Home/Home.js
         <div className="sidenav">
 
             <Sidenav/>
 
         </div>
-<<<<<<< HEAD:src/components/home/home.js
-
-        {/* <div className="suggestion">
-
-          <Suggestions
-
-          Username="Shubham Choudhary"
-
-           Age="25"
-
-           Place="Mannheim, Germany"
-
-           Location="35"
-
-           About="Hey Baby Girl" />
-
-        </div> */}
-
-=======
         <div className="suggestion">
           <Suggestions 
        />
         </div>
->>>>>>> development:frontend/src/components/Home/Home.js
        
 
    
