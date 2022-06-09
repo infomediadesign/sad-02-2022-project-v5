@@ -50,13 +50,11 @@
 
     const handlePassionChange = (event) => {
       passionTemp = selectedPassions;
-      debugger
       if (event.target.checked) {
         passionTemp.push(event.target.value);
         
       } else {
         var index = passionTemp.indexOf(event.target.value);
-        debugger
         if (index > -1) {
           passionTemp.splice(index, 1);
         }
@@ -66,11 +64,14 @@
 
     const handlePetChange = (event) => {
       petTemp = selectedPet;
+      debugger
+
       if (event.target.checked) {
         petTemp.push(event.target.value);
       } else {
+      debugger
+
         var index = petTemp.indexOf(event.target.value);
-        // debugger
         if (index !== -1) {
           petTemp.splice(index, 1);
         }
@@ -103,10 +104,8 @@
    
     const handleSubmit = async (e) => {
       e.preventDefault();
-      // debugger
       console.log('i am clicked',e);
       try {
-        // var questionaireForm = new FormData();
         var questionaireForm = {
           passion:selectedPassions,
           bestdrink:selectedDrink,
@@ -126,7 +125,8 @@
 
     function getpassiondefaultchecks(value) {
       if (userProfile.passion != undefined) {
-        if (userProfile.passion.includes(value)) return true;
+        if (userProfile.passion.includes(value))
+        return true;
         else return false;
       }
     }
@@ -418,7 +418,7 @@
                 type="checkbox"
                 name="pet"
                 value="dog"
-                defaultChecked={getpetsdefaultchecks("dog")}
+                checked={getpetsdefaultchecks("dog")}
                 onChange={handlePetChange}
               />
               <label htmlFor="pet-dog">Dog</label>
@@ -428,7 +428,7 @@
                 name="pet"
                 value="fish"
                 onChange={handlePetChange}
-                defaultChecked={getpetsdefaultchecks("fish")}
+                checked={getpetsdefaultchecks("fish")}
               />
               <label htmlFor="pet-fish">Fish</label>
               <input
@@ -437,7 +437,7 @@
                 name="pet"
                 value="cat"
                 onChange={handlePetChange}
-                defaultChecked={getpetsdefaultchecks("cat")}
+                checked={getpetsdefaultchecks("cat")}
               />
               <label htmlFor="pet-cat">Cat</label>
             </div>
@@ -448,7 +448,7 @@
                 name="pet"
                 value="reptiles"
                 onChange={handlePetChange}
-                defaultChecked={getpetsdefaultchecks("reptiles")}
+                checked={getpetsdefaultchecks("reptiles")}
               />
               <label htmlFor="pet-reptiles">Reptiles</label>
               <input
@@ -457,7 +457,7 @@
                 name="pet"
                 value="pet-free"
                 onChange={handlePetChange}
-                defaultChecked={getpetsdefaultchecks("pet-free")}
+                checked={getpetsdefaultchecks("pet-free")}
               />
               <label htmlFor="pet-free">Pet free</label>
             </div>
