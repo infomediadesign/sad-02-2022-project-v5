@@ -76,7 +76,7 @@ const Profile = () => {
       form.append("userid", cookies.userid);
       form.append("file", file);
       form.append("name", fullName);
-      form.append("about", about);
+      form.append("about", about);  
       form.append("gender", selectedGender);
       form.append("preferredgender", PreferredGender);
       form.append("fileName", fileName);
