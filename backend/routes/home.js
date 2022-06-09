@@ -12,7 +12,6 @@ module.exports = function(app) {
     app.post('/api/postuserliked', async(req, res)=>{
         try{
             var myData;
-        console.log(req.body.likedData)
         myData = await userProfile.findOne({userid:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         likedUserData = await userProfile.findOne({userid:req.body.likedData.profileid,liked:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         if(likedUserData){
