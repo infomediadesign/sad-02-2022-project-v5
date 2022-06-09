@@ -14,13 +14,7 @@
 }
 
 .image-container-profile img{
-    background: white;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    padding: 5px;
-    transform: translate(155px,2px);
-    border: 2px solid #8e00b9;
+    
 }
 
 
@@ -32,24 +26,9 @@
     font-family:'Times New Roman', Times, serif;
 }
 
-/* .lower-container-profile h3,h4,p{
-    margin: 0;
-    padding: 0;
+.sideNavAvatar{
+    cursor:pointer!important;
 }
-
-.lower-container-profile h4{
-    color:#8e00b9;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.lower-container-profile p{
-    margin: 1rem;
-    font-family: sans-serif;
-    color: #2f2d2e;
-    font-size: 0.9rem;
-    text-align: justify;
-} */
 
 .profile-button{
     margin: 1rem;

@@ -1,9 +1,11 @@
-// import { width } from "@mui/system";
 import React, { useState,useEffect} from "react";
 import "./Profile.css";
 import axios from "axios";
 import Slider from "@mui/material/Slider";
 import { useCookies } from "react-cookie";
+import { Avatar } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 const Profile = () => {
 
@@ -19,6 +21,7 @@ const Profile = () => {
   const [distance, setDistance] = useState("");
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
+  const [value, setValue] = React.useState(0)
   const [userProfile, getUserProfile] = useState([]);
   
   var options = {
@@ -59,7 +62,6 @@ const Profile = () => {
           setSelectedGender(tempData.gender)
           setPreferredgender(tempData.preferredgender)
           setDistance(tempData.findwithin)
-          // setFileName(userProfile.name)
           setAbout(tempData.about)
          })
          .catch(() => {
@@ -126,13 +128,18 @@ const Profile = () => {
     setFileName(e.target.files[0].name);
   };
 
-  
+  const handlePicture = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className="Profile">
       <div className="upper-container-profile">
         <div className="image-container-profile">
-          <img src="/images/img1.jpg" alt="" />
+          {/* <img src="/images/img1.jpg" alt="" /> */}
+          <Tabs className='Tabs' value={value} onChange={handlePicture}>
+          <Tab className="sideNavAvatar" icon={<Avatar  alt="User profile" src="/images/img1.jpg"/>}></Tab>
+          </Tabs>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
