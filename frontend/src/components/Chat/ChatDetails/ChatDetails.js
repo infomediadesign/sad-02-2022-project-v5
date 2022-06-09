@@ -1,12 +1,54 @@
 import React,{useEffect, useState} from 'react'
 import './ChatDetails.css'
 import {Avatar} from '@material-ui/core'
-import { Cookies } from 'react-cookie'
+import { InsertEmoticonOutlined } from '@mui/icons-material';
 import { useCookies } from "react-cookie";
-import { Cookie } from '@mui/icons-material'
+import Axios from 'axios';
+
 
 const ChatDetails = ({chatDetails}) => {
   const [cookies] = useCookies([]);
+  const [typedText,setTypedText] = useState([]);
+
+  const handleTypedText = async (e) =>{
+    e.preventDefault();
+    try{
+      setTypedText(e.target.value);
+      setTypedText("");
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+  const handleSendMessage = async (e) =>{
+    e.preventDefault();
+    try{
+      if(chatDetails.senderid!=cookies.userid)
+      {
+          var sentMsgData = {
+            myid: cookies.userid,
+            profileid:chatDetails.senderid,
+            text:chatDetails.message
+          } 
+          Axios.post('http://localhost:5000/api/sendmessage',{sentMsgData}).then((response)=>{
+          console.log(response.data.messages);
+     });
+        }else{
+          var sentMsgData = {
+            myid: cookies.userid,
+            profileid:chatDetails.receiverid,
+            text:chatDetails.message
+          } 
+          Axios.post('http://localhost:5000/api/sendmessage',{sentMsgData}).then((response)=>{
+          console.log(response.data);
+        });
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+
   return (
     <div className='chat_details'>
       <div className='chatdetails_header'>
@@ -31,17 +73,17 @@ const ChatDetails = ({chatDetails}) => {
          </div>
       
 
-      {/* <div className='chatdetails_footer'>
+       <div className='chatdetails_footer'>
         <InsertEmoticonOutlined/>
         <form>
-        <input value={input}
+        <input value={typedText}
           placeholder="Type a message" 
-          onChange={(e) => setInput(e.target.value)}
+          onChange={handleTypedText}
           type="text"/>
-           <button className='sendbutton' onClick={sendMessage}
+           <button className='sendbutton' onClick={handleSendMessage}
             type="submit">Send</button>
            </form>
-      </div>  */}
+      </div> 
     </div>
   );
 };

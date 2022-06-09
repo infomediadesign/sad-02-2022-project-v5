@@ -73,7 +73,8 @@
 }
 
 .chatdetails_footer > form > button {
-    display: none;
+    display: flex;
+    flex: 1;
 }
 
 .chatdetails_footer > .MuiSvgIcon-root{
