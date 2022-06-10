@@ -461,7 +461,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"passion\":[\"basketball\"],\r\n    \"bestdrink\":[\"All\"],\r\n    \"education\":\"Masters\",\r\n    \"foodpreferences\":\"Vegan\",\r\n    \"bestpets\":[\"Dog\",\"Cat\"],\r\n    \"smoking\":\"Never\",\r\n    \"Socialmedia\":\"Socailly\"\r\n}",
+							"raw": "{\r\n    \"passion\":[\"Basketball\",\"Yoga\"],\r\n    \"bestdrink\":[\"All\"],\r\n    \"education\":\"Masters\",\r\n    \"foodpreferences\":\"Vegan\",\r\n    \"bestpets\":[\"Dog\",\"Cat\"],\r\n    \"smoking\":\"Never\",\r\n    \"Socialmedia\":\"Socailly\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
