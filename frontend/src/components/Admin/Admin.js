@@ -3,6 +3,13 @@ import Axios from "axios";
 import './Admin.css';
 import Box from '@mui/material/Box';
 
+import {useState,useEffect} from "react";
+import {Link, useNavigate} from 'react-router-dom';
+import { useCookies } from "react-cookie";
+import {ToastContainer, toast} from 'react-toastify';
+
+import axios from "axios";
+
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import CRUDTable, {
@@ -56,6 +63,87 @@ const Admin = () => {
       
         return sorter;
       };
+
+      const navigate = useNavigate();
+      const [cookies, setCookie, removeCookie] = useCookies([]);
+      
+    useEffect(() => {
+      console.log(cookies.userid)
+      const verifyUser = async () => {
+        if (!cookies.jwt) {
+            console.log("jwt does not exist")
+          navigate("/signin");
+        } else {
+          const { data } = await axios.post(
+            "http://localhost:5000",
+            {cookies},
+            {
+              withCredentials: true,
+            }
+          );
+          if (!data.status) {
+            removeCookie("jwt");
+            removeCookie("userid");
+            navigate("/signin");
+          } 
+          // else
+          //   toast(`Hi ${data.user} 🦄`, {
+          //     theme: "dark",
+          //   });
+        }
+      };
+      verifyUser();
+    }, [cookies, navigate, removeCookie]);
+    const logOut = () => {
+      removeCookie("jwt");
+      removeCookie("userid");
+      navigate("/");
+    };
+      const [values,setValues] = useState({
+          email:"",
+          password:"",
+      });
+      //handle errors
+      const generateError = (err) => toast.error(err, {
+          position: "bottom-right",
+      });
+  
+  
+  //prevent form submission
+  //calling API : try/catch
+  //{data} : will be destructured from the axios response
+  const handleSubmit = async(e) => {
+      e.preventDefault();
+      try{
+          var userData ={
+              email:values.email,
+              password:values.password,
+              isAdmin:true
+          }
+          const {data} = await axios.post("http://localhost:5000/api/registeradmin",{ userData},{
+              withCredentials: true
+          })
+      
+          if(data){
+              if(data.errors){
+                  const { email, password } = data.errors;
+                  if(email) generateError(email);
+                  else if(password) generateError(password);
+              }else{
+                handleClose()
+                  }
+          }
+      } catch(err){ 
+          console.log(err);
+      }
+  };
+  
+  const navbarLinks = [
+      
+      { url: "/", title: "Home" },
+      
+    ];
+      
       
       async function fetchItems(payload){
         await fetchData()
@@ -91,7 +179,37 @@ const Admin = () => {
       >
         <Box sx={style}>
           <div>
-              Register form will come here.
+          <div>
+    
+    <div className="registerBody2">
+        
+   
+    <div className="registerContainer2">
+        <h2>Register Admin</h2>
+        <form onSubmit={(e)=>handleSubmit(e)}>
+            <div>
+                <label>Email</label>
+                <input 
+                type="email" 
+                name="email" 
+                placeholder="Email"
+                onChange={(e)=>setValues({...values, [e.target.name]: e.target.value})}/> 
+            </div> 
+            <div>
+                <label>Password</label>
+                <input 
+                type="password" 
+                name="password" 
+                placeholder="Password" 
+                onChange={(e)=>setValues({...values, [e.target.name]: e.target.value})}/>
+            </div>
+            <button className="submit" type="submit">Submit</button>
+         
+        </form>
+        <ToastContainer/>
+    </div> 
+    </div>
+    </div>
           </div>
         </Box>
       </Modal>
