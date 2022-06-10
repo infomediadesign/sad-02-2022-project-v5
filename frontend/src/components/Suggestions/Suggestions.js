@@ -5,6 +5,7 @@ import Tags from "../../Tags/Tags";
 import Axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 const Suggestions = () => {
     const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -48,7 +49,14 @@ const Suggestions = () => {
                     setMyloc(response.data.mylocation.coordinates)
                     mylocat = response.data.mylocation.coordinates;
                     showfirstprofile();
-                    
+                    debugger
+                    if(response.data.data.length==0)
+                    {
+                        document.getElementById("card_div").style.display="none";
+                        document.getElementById("likebutton").style.display="none";
+                        document.getElementById("dislikelikebutton").style.display="none";
+                        document.getElementById("lastcard_div").style.display="flex";
+                    }
                     // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
                    
                     })
@@ -84,7 +92,10 @@ const Suggestions = () => {
                     setDistancefromme(dist)
                 }
                 else{
-                
+                        document.getElementById("card_div").style.display="none";
+                        document.getElementById("likebutton").style.display="none";
+                        document.getElementById("dislikelikebutton").style.display="none";
+                        document.getElementById("lastcard_div").style.display="flex";
                 }
                 // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))  
             }
@@ -241,14 +252,26 @@ const Suggestions = () => {
                 )}
             </motion.div>
         <ToastContainer/>
-            <button className="button" onClick={handlelikebutton}>
+            <button id="likebutton" className="button" onClick={handlelikebutton}>
                   < img className="icons" src={require('./like.png')} />
             </button>
             {isToggled && <img
                 src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
-            <button className="button2"  onClick={handlelikebutton2}><img className="icons2" src={require('./thumb-down.png')} /></button>
+            <button id="dislikelikebutton" className="button2"  onClick={handlelikebutton2}><img className="icons2" src={require('./thumb-down.png')} /></button>
             {isToggled2 && <img
                 src="https://i.imgur.com/XqQZ4KR.png" alt="new" className="animation_like" />}
+
+<motion.div id="lastcard_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="lastcard">
+               
+               
+               <h1>Hello</h1>
+
+               <h2>You are all caught up for now!</h2>
+
+               <h2 className="buttonstonav">but you can always look <br>
+               </br>into events</h2>
+               
+            </motion.div>
         </div>
 
 
