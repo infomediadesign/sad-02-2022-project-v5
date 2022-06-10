@@ -64,13 +64,41 @@ const Admin = () => {
         return sorter;
       };
 
-      const [cookies] = useCookies(["cookie-name"]);
       const navigate = useNavigate();
-      useEffect(() => {
-          if (cookies.jwt) {
-            navigate("/signup");
-          }
-        }, [cookies, navigate]);
+      const [cookies, setCookie, removeCookie] = useCookies([]);
+      
+    useEffect(() => {
+      console.log(cookies.userid)
+      const verifyUser = async () => {
+        if (!cookies.jwt) {
+            console.log("jwt does not exist")
+          navigate("/signin");
+        } else {
+          const { data } = await axios.post(
+            "http://localhost:5000",
+            {cookies},
+            {
+              withCredentials: true,
+            }
+          );
+          if (!data.status) {
+            removeCookie("jwt");
+            removeCookie("userid");
+            navigate("/signin");
+          } 
+          // else
+          //   toast(`Hi ${data.user} 🦄`, {
+          //     theme: "dark",
+          //   });
+        }
+      };
+      verifyUser();
+    }, [cookies, navigate, removeCookie]);
+    const logOut = () => {
+      removeCookie("jwt");
+      removeCookie("userid");
+      navigate("/");
+    };
       const [values,setValues] = useState({
           email:"",
           password:"",
