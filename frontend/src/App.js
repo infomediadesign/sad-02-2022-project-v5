@@ -12,7 +12,7 @@ import Register from './components/Register/Register';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Chat from './components/Chat/Chat'
-import ChatDetails from './components/Chat/ChatDetails/ChatDetails';
+
 
 export default function App(){
   return(
