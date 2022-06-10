@@ -16,19 +16,7 @@
     bottom: 0;
     z-index: 1000;
 }
-.adminReportButton{
-    float:left;
-}
-.adminLogout{
-    float:right;
-}
-.navBarAdmin{
-    place-content: space-between;
-    display:flex;
-    margin:auto;
-    width:90%;
-    flex-direction:row;
-}
+
 .crud-modal-wrapper__modal {
     background-color: white;
     border-radius: 5px;
@@ -357,10 +345,51 @@
 }
 
 .adminContainer {
-    background: radial-gradient(circle, rgba(179,220,233,1) 0%, rgba(255,255,255,1) 51%, rgba(178,217,229,1) 100%);
+    background: radial-gradient(circle, rgba(179,220,233,1) 0%, rgba(255,255,255,1) 51%, rgba(178,217,229,1) 100%);;
     min-height: 100vh;
 }
-
+.adminReportButton{
+    float:left;
+}
+.adminLogout{
+    float:right;
+}
+.reportBody{
+    display:flex;
+}
+.navBarAdmin{
+    place-content: space-between;
+    display:flex;
+    margin:auto;
+    width:90%;
+    flex-direction:row;
+}
+.expandReportProfile {
+    width: 25rem;
+    justify-content: center;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-top: 24px;
+    height: 480px;
+}
+.cardProfile {
+    background-color: #75abbc;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    box-shadow: 0px 10px 30px rgb(0 0 0 / 50%);
+    display: flex;
+    flex-direction: row;
+    color: white;
+    height: 590px;
+    margin-left: 0px;
+}
+.reportedUserprofiles{
+    margin:auto;
+}
 .crud-table__header {
     background: white;
 }
