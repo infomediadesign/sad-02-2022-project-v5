@@ -7,13 +7,13 @@ const Test = () => {
 
 
     // like a profile
-    var data = {
-        myid:"pranav@gmail.com",
-        profileid:"amadou@gmail.com"
-    }
-    Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
-            console.log(response)
-    });
+    // var data = {
+    //     myid:"pranav@gmail.com",
+    //     profileid:"amadou@gmail.com"
+    // }
+    // Axios.post('http://localhost:5000/api/postuserliked',{data}).then((response)=>{
+    //         console.log(response)
+    // });
     
 
     //get my profile
@@ -37,9 +37,9 @@ const Test = () => {
 
     // sending text to a user
     // var data = {
-    //     myid:"amadou@gmail.com",
+    //     myid:"shubham@gmail.com",
     //     profileid:"pranav@gmail.com",
-    //     text:"How are you"
+    //     text:"../ "
     // }
     
     // Axios.post('http://localhost:5000/api/sendmessage',{data}).then((response)=>{

@@ -5,9 +5,9 @@ var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
 require('dotenv/config');
-module.exports = function(app){
+module.exports = function(app){ 
     app.use(cors())
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
     var storage = multer.diskStorage({
         destination: (req, file, cb) => {
@@ -20,12 +20,36 @@ module.exports = function(app){
       
     var upload = multer({ storage: storage });
     app.get('/api/getmyprofile/', async(req, res) => {
-        var myData;
-        myData = await userProfile.findOne({userid:req.query.myid});
-        res.send(myData)
+        try{var myData;
+            myData = await userProfile.findOne({userid:req.query.myid});
+            var obj = {
+                name: myData.name,
+                userid: myData.userid,
+                about: myData.about,
+                location: myData.location,
+                findwithin:myData.findwithin,
+                passion:myData.passion,
+                bestdrink:myData.bestdrink,
+                education:myData.education,
+                foodpreferences:myData.foodpreferences,
+                bestpets:myData.bestpets,
+                smoking:myData.smoking,
+                Socialmedia:myData.Socialmedia,
+                gender:myData.gender,
+                preferredgender:myData.preferredgender,
+                dob:myData.dob,
+                img: Buffer.from(myData.img.data).toString('base64')
+            }
+            res.send(obj)
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+        
     });
+    
     app.post('/api/updateprofiledetails', upload.single('file'), async(req, res) => {
-        console.log(req.body)
+        try{
             var locationData = req.body.location.split(',');
             if(req.file!= undefined)
             {
@@ -61,26 +85,41 @@ module.exports = function(app){
                 dob:req.body.dob
             }
             }
-            console.log(obj)
-
             await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            
-            console.log("Profile Updated")
-            
-
+            res.send("Profile Updated")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
-        console.log(req.body)
-            var obj = {
-                passion:req.body.passion.split(','),
-                bestdrink:req.body.bestdrink,
-                education:req.body.education,
-                foodpreferences:req.body.foodpreferences,
-                bestpets:req.body.bestpets.split(','),
-                smoking:req.body.smoking,
-                Socialmedia:req.body.Socialmedia,
-            }
-            await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
-            console.log("Profile Updated")
+        try{
+            console.log(req.body);
+                var obj = {
+                    passion:req.body.passion,
+                    bestdrink:req.body.bestdrink,
+                    education:req.body.education,
+                    foodpreferences:req.body.foodpreferences,
+                    bestpets:req.body.bestpets,
+                    smoking:req.body.smoking,
+                    Socialmedia:req.body.Socialmedia,
+                }
+                await userProfile.findOneAndUpdate({userid:req.body.userid},obj)
+                res.send("Profile Updated")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     });
+    app.get('/api/getmypicture/', async(req,res) =>{
+        try{
+            var profilepic;
+        profilepic = await userProfile.findOne({userid:req.query.myid}).select({"img":1});
+        res.send(Buffer.from(profilepic.img.data).toString('base64'))
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+        
+    })
 }

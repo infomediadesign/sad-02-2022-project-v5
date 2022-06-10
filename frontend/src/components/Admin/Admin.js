@@ -102,7 +102,7 @@ const Admin = () => {
                   if(email) generateError(email);
                   else if(password) generateError(password);
               }else{
-                      navigate("/signup");
+                handleClose()
                   }
           }
       } catch(err){ 

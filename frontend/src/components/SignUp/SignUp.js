@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom';
 import "./SignUp.css";
@@ -9,6 +9,35 @@ const SignUp = () => {
   //   const [cookies, setCookie, removeCookie] = useCookies(null);
   // let navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+  useEffect(() => {
+    console.log(cookies.userid)
+    const verifyUser = async () => {
+      if (!cookies.jwt) {
+          console.log("jwt does not exist")
+        navigate("/signin");
+      } else {
+        const { data } = await axios.post(
+          "http://localhost:5000",
+          {cookies},
+          {
+            withCredentials: true,
+          }
+        );
+        if (!data.status) {
+          removeCookie("jwt");
+          removeCookie("userid");
+          navigate("/signin");
+        } 
+        // else
+        //   toast(`Hi ${data.user} 🦄`, {
+        //     theme: "dark",
+        //   });
+      }
+    };
+    verifyUser();
+  }, [cookies, navigate, removeCookie]);
   var passionTemp;
   var petTemp;
 
@@ -19,7 +48,6 @@ const SignUp = () => {
   const [selectedPet, setSelectedPet] = useState([]);
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
-  const [cookies] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");
@@ -36,7 +64,7 @@ const SignUp = () => {
 
    
 
-   debugger
+  //  debugger
 
   var options = {
     enableHighAccuracy: true,
@@ -341,7 +369,7 @@ const SignUp = () => {
         <div className="Questionnaire">
           <h2>ADD MORE DETAILS</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="questionnaire-form">
             <section>
               <label>Passions</label>
               <div className="multiple-input-container">

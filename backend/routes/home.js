@@ -10,8 +10,8 @@ module.exports = function(app) {
     
     var likedUserData;
     app.post('/api/postuserliked', async(req, res)=>{
-        var myData;
-        console.log(req.body.likedData)
+        try{
+            var myData;
         myData = await userProfile.findOne({userid:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         likedUserData = await userProfile.findOne({userid:req.body.likedData.profileid,liked:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         if(likedUserData){
@@ -21,17 +21,6 @@ module.exports = function(app) {
             myData.liked.push(req.body.likedData.profileid);
             await userProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }},{matches:{$ne:req.body.likedData.profileid }}]},myData).clone()
             var obj = {members:[req.body.likedData.myid,req.body.likedData.profileid],messages:[]}
-            // const query = {}
-            // const options = {
-            // upsert: true,
-            // new: true,
-            // setDefaultsOnInsert: true
-            // };
-            // await conversation.findOneAndUpdate(query, obj, options, (error, result) => {
-            //     if (error) {
-            //       return;
-            //     }
-            //   }).clone()
             var createdAlready = await conversation.findOne({$and:[{members:req.body.data.profileid},{members:req.body.data.myid }]})
             if(!createdAlready){
                 await conversation.create(obj);
@@ -45,25 +34,35 @@ module.exports = function(app) {
             console.log(" User liked")
             res.send("User liked")
         }
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+        
 
     })
 
     app.post('/api/postuserdisliked', async(req, res) =>{
-        var myData;
-        console.log(req.body)
-        myData = await userProfile.findOne({userid:req.body.dislikedData.myid}).select({ "disliked": 1}).clone();
-        myData.disliked.push(req.body.dislikedData.profileid);
-        await userProfile.updateOne({$and:[{userid: req.body.dislikedData.myid},{disliked:{$ne:req.body.dislikedData.profileid }}]},myData).clone()
-        console.log("User disliked")
-        res.send("User disliked")
-
+        try{
+            var myData;
+            console.log(req.body)
+            myData = await userProfile.findOne({userid:req.body.dislikedData.myid}).select({ "disliked": 1}).clone();
+            myData.disliked.push(req.body.dislikedData.profileid);
+            await userProfile.updateOne({$and:[{userid: req.body.dislikedData.myid},{disliked:{$ne:req.body.dislikedData.profileid }}]},myData).clone()
+            console.log("User disliked")
+            res.send("User disliked")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     })
     app.get('/api/getuserprofile/', async(req, res) => {
-        var myData;
+        try{
+            var myData;
         var myId = req.query.myid;
         var genderPrefference
         console.log(req.query.myid)
-    myData = await userProfile.findOne({userid:req.query.myid}).select({"disliked": 1, "liked": 1,"findwithin":1,"preferredgender":1,"location":1}).clone();
+        myData = await userProfile.findOne({userid:req.query.myid}).select({"disliked": 1, "liked": 1,"findwithin":1,"preferredgender":1,"location":1}).clone();
         if(myData.preferredgender === 'everyone'){
             genderPrefference = ['man','other','woman']
         }
@@ -89,9 +88,35 @@ module.exports = function(app) {
                 res.status(500).send('An error occurred', err);
             }
             else {
-                    // res.send({postImgBase64: Buffer.from(items[0].img.data).toString('base64'),data:items})
-                    res.send({data:items,mylocation:myData.location})
+                var finalData = [];
+                for(var i=0;i<items.length;i++)
+                {
+                    var obj = {
+                        name: items[i].name,
+                        userid: items[i].userid,
+                        about: items[i].about,
+                        location: items[i].location,
+                        findwithin:items[i].findwithin,
+                        passion:items[i].passion,
+                        bestdrink:items[i].bestdrink,
+                        education:items[i].education,
+                        foodpreferences:items[i].foodpreferences,
+                        bestpets:items[i].bestpets,
+                        smoking:items[i].smoking,
+                        Socialmedia:items[i].Socialmedia,
+                        gender:items[i].gender,
+                        preferredgender:items[i].preferredgender,
+                        dob:items[i].dob,
+                        img: Buffer.from(items[i].img.data).toString('base64')
+                    }
+                    finalData.push(obj)
+                }
+                res.send({data:finalData,mylocation:myData.location})
             }
         }).clone();
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
     });
 }
