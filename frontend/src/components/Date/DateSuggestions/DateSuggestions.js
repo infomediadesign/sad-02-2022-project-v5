@@ -4,7 +4,6 @@ import './DateSuggestions.css';
 import Tags from "../../../Tags/Tags";
 import {ToastContainer, toast} from 'react-toastify';
 import Axios from "axios";
-import TinderCard from 'react-tinder-card';
 import { useCookies } from "react-cookie";
 
 const Suggestions = () => {
@@ -137,7 +136,6 @@ Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}
     }
     return (
         <div className="CoffeeSuggestions">
-        <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
                     <img alt="profileimage" layout="position" className="profilephoto" src={`data:image/jpeg;base64,${data.img}`} />                    
@@ -184,7 +182,6 @@ Axios.post('http://localhost:5000/api/postcoffeedateuserdisliked',{dislikedData}
                     </motion.div>
                 )}
             </motion.div>
-            </TinderCard>
                 <ToastContainer/>
             <button className="button" onClick={handlelikebutton}>
                   < img alt="likebutton" className="icons" src={require('./like.png')} />

@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import './Suggestions.css';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Tags from "../../Tags/Tags";
-import { TimedImage } from "react-timed-image"
 import Axios from "axios";
-import TinderCard from 'react-tinder-card';
 import { toast, ToastContainer } from "react-toastify";
 import { useCookies } from "react-cookie";
 
@@ -178,7 +175,6 @@ const Suggestions = () => {
 
         
         <div className="Suggestions">
-        <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']}>
             <motion.div id="card_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="card">
                 <motion.div className="title">
                     <img alt="profileimage" layout="position" className="profilephoto" src={`data:image/jpeg;base64,${data.img}`} /> 
@@ -244,7 +240,6 @@ const Suggestions = () => {
                     </motion.div>
                 )}
             </motion.div>
-            </TinderCard>
         <ToastContainer/>
             <button className="button" onClick={handlelikebutton}>
                   < img className="icons" src={require('./like.png')} />
