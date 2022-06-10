@@ -27,6 +27,7 @@ module.exports = function(app){
 
     })
     app.get('/api/getmymessages/', async(req, res) => {
+        try{
             var myData;
             var singleMessagesData;
             var finalDataToSend=[];
@@ -35,7 +36,6 @@ module.exports = function(app){
             myData = await conversation.find({members:{ $elemMatch: {$eq: req.query.myid} }}).clone();
             for(var i=0; i<myData.length;i++){
                 image = null;
-                console.log(myData[i].members[0])
                 if(myData[i].members[0]===req.query.myid){
                     images = await userProfile.findOne({userid:myData[i].members[1]}).select({"img":1});
                     singleMessagesData = {
@@ -54,5 +54,11 @@ module.exports = function(app){
                 finalDataToSend.push(singleMessagesData);
             }
             res.send(finalDataToSend);
+
+        }
+        catch{
+            res.send("Something went wrong.");
+        }
+            
     });
 }

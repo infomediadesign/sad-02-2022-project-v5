@@ -139,14 +139,6 @@ const Admin = () => {
           console.log(err);
       }
   };
-  
-  const navbarLinks = [
-      
-      { url: "/", title: "Home" },
-      
-    ];
-      
-      
       async function fetchItems(payload){
         await fetchData()
         const { activePage, itemsPerPage } = payload.pagination;
@@ -167,9 +159,16 @@ const Admin = () => {
       const styles = {
         container: { margin: 'auto', width: 'fit-content' },
       };
+      const reportscreen = ()=>{
+        navigate("/reports");
+      }
   return (
+    
     <div className="adminContainer">
-    <button className="logout" onClick={logOut}>Log out</button>
+    <div class="navBarAdmin">
+    <button className="adminReportButton" onClick={reportscreen}>Reports</button>
+    <button className="adminLogout" onClick={logOut}>Log out</button>
+    </div>
     <div style={styles.container}>
         <div className='addButtonDiv'>
         <div>
@@ -232,7 +231,7 @@ const Admin = () => {
         />
         <Field
           name="email"
-          label="Title"
+          label="Email"
           placeholder="Title"
         />
         <Field
@@ -242,7 +241,7 @@ const Admin = () => {
         />
       </Fields>
       <Pagination
-        itemsPerPage={2}
+        itemsPerPage={7}
         fetchTotalOfItems={payload => fetchTotal(payload)}
       />
 
