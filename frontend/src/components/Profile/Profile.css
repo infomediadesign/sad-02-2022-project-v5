@@ -137,4 +137,9 @@
     width: 20%;
    } 
 
-
+.avatarProfileEdit{
+    width: 30% !important;
+    height: 30% !important;
+    float: unset;
+    margin-left: 34%;
+}

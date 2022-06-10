@@ -28,7 +28,6 @@
         await axios
           .get("http://localhost:5000/api/getmyprofile/", { params: userId })
           .then((response) => {
-            debugger;
             console.log(response);
             getUserProfile(response.data);
             tempData = response.data;

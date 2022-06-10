@@ -22,9 +22,9 @@ const Profile = () => {
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
   const [value, setValue] = React.useState(0)
-  const [profileImage, setImage] = useState("");
+  const [image, setImage] = useState();
   const [userProfile, getUserProfile] = useState([]);
-  const [image, getImage] = useState([]);
+  const [profileImage, getProfileImage] = useState("");
   
   var options = {
     enableHighAccuracy: true,
@@ -49,6 +49,18 @@ const Profile = () => {
   var userId = {
     myid: cookies.userid
   }
+  
+  // const fetchImage = async () => {
+  //   try {
+  //       const response = await axios.get('http://localhost:5000/api/getmypicture/', {
+  //           params: {userId}
+  //       })
+  //       setImage(response.data)
+  //   } catch (error) {
+  //       console.log(error,"no image received")
+  //   }
+  // }
+  
   useEffect(() => {
     async function getProfileData(){
       await axios
@@ -65,20 +77,19 @@ const Profile = () => {
           setPreferredgender(tempData.preferredgender)
           setDistance(tempData.findwithin)
           setAbout(tempData.about)
-          setImage(tempData.profileImage)
          })
          .catch(() => {
            console.log("no data has been received");
          });
      };
      getProfileData();
+    
      async function getmypicture(){
       await axios.get('http://localhost:5000/api/getmypicture/',{params: userId})
       .then((response) => {
-        getImage(response.data);
+        getProfileImage(response.data);
         tempData = response.data;
-        setImage(tempData.img);
-  
+        setImage(tempData);
       }).catch(()=> {
         console.log("picture not received");
       });
@@ -86,6 +97,7 @@ const Profile = () => {
      getmypicture();
 
   },[]);
+  
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,7 +113,7 @@ const Profile = () => {
       form.append("dob", date + "-" + month + "-" + year);
       form.append("location", location);
       form.append("findwithin", distance);
-      form.append("findwithin", distance);
+      // form.append("img", image);
       await axios.post("http://localhost:5000/api/updateprofiledetails", form);
     } catch (err) {
       console.log(err);
@@ -154,19 +166,17 @@ const Profile = () => {
       <div className="upper-container-profile">
         <div className="image-container-profile">
           {/* <img src="/images/img1.jpg" alt="" /> */}
-          <Tabs className='Tabs' value={value} onChange={handlePicture}>
-          <Tab className="sideNavAvatar" icon={<Avatar  alt="User profile" src="/images/img1.jpg"/>}></Tab>
-          </Tabs>
+          <Avatar className="avatarProfileEdit"  alt="User profile" src={`data:image/jpeg;base64,${image}`}/>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
         <section>
-          <label>Choose picture</label>
+          <label>Edit picture</label>
           <input
             className="fileInput"
             type="file"
             name="image"
-            onChange={handleFile}
+            onChange={handlePicture}
           ></input>
           <label htmlFor="first_name"> FullName</label>
           <input
