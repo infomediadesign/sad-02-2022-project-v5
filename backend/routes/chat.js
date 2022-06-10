@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var conversation = require('../models/chat');
+var userProfile = require('../models/profile');
 var cors = require('cors');
 require('dotenv/config');
 module.exports = function(app){
@@ -28,7 +29,29 @@ module.exports = function(app){
     app.get('/api/getmymessages/', async(req, res) => {
         try{
             var myData;
+            var singleMessagesData;
+            var finalDataToSend=[];
+            var image;
             myData = await conversation.find({members:{ $elemMatch: {$eq: req.query.myid} }}).clone();
+            for(var i=0; i<myData.length;i++){
+                if(myData[i].members[0]===req.query.myid){
+                    image = await userProfile.findOne({userid:myData[i].members[0]}).selected({"img":1});
+                    singleMessagesData = {
+                        members:myData[i].members,
+                        messages:myData[i].messages,
+                        image:Buffer.from(image.data).toString('base64')
+                    };
+                }
+                else{
+                    image = await userProfile.findOne({userid:myData[i].members[1]}).selected({"img":1});
+                    singleMessagesData = {
+                        members:myData[i].members,
+                        messages:myData[i].messages,
+                        image:Buffer.from(image.data).toString('base64')
+                    };
+                }
+                finalDataToSend.push(singleMessagesData);
+            }
             res.send(myData);
         }
         catch(er){
