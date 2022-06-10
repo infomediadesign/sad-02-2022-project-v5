@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import './ChatDetails.css'
-import {Avatar} from '@material-ui/core'
+import { Avatar } from '@mui/material';
 import { Cookies } from 'react-cookie'
 import { useCookies } from "react-cookie";
 import { Cookie } from '@mui/icons-material'
