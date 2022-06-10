@@ -163,7 +163,7 @@ function Chat() {
             <InsertEmoticonOutlined />
             <form>
               <input value={typedText}
-                placeholder="Type a message"
+                placeholder="Type a message and hit enter to send messages"
                 onChange={handleTypedText}
                 type="text" />
               <button className='sendbutton' onClick={handleSendMessage}

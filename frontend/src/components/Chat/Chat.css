@@ -96,7 +96,7 @@
     }
     
     .chatdetails_footer > form > button {
-        display: flex;
+        display: none;
         flex: 1;
     }
     
