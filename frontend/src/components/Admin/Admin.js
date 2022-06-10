@@ -85,6 +85,7 @@ const Admin = () => {
             removeCookie("jwt");
             removeCookie("userid");
             navigate("/signin");
+            removeCookie("isAdmin");
           } 
           // else
           //   toast(`Hi ${data.user} 🦄`, {
@@ -97,6 +98,7 @@ const Admin = () => {
     const logOut = () => {
       removeCookie("jwt");
       removeCookie("userid");
+      removeCookie("isAdmin");
       navigate("/");
     };
       const [values,setValues] = useState({
@@ -167,6 +169,7 @@ const Admin = () => {
       };
   return (
     <div className="adminContainer">
+    <button className="logout" onClick={logOut}>Log out</button>
     <div style={styles.container}>
         <div className='addButtonDiv'>
         <div>

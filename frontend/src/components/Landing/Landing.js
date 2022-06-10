@@ -23,7 +23,7 @@ function home() {
         imageSrc={travel_02}
         title={"Single today? Not tomorrow! "}
         subtitle={
-          "some quirky line for the description"
+          "Find matches, go on coffee and blind dates"
         }
       />
       <Slider
