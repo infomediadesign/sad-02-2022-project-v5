@@ -23,6 +23,7 @@ export default function App(){
       <Route exact path="/home" element={<Home/>}/>
       <Route exact path="/test" element={<Test/>}/>
       <Route exact path="/profile" element={<ProfileDetails/>}/>
+      <Route exact path="/admin" element={<Admin/>}/>
     </Routes>
   </BrowserRouter>
   );
