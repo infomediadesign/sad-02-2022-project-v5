@@ -51,6 +51,20 @@ const handleErrors = (err) => {
                 res.json({ errors, created: false });
             }
     });
+    app.post('/api/registeradmin', async(req, res) => {
+        
+        try {
+        console.log(req.body.userData.email)
+        const { email, password, isAdmin } = req.body.userData;
+        const user = await usermodel.create({ email, password, isAdmin });
+        //after user is created
+        res.send("Admin added");
+            } catch (err) {
+                console.log(err);
+                const errors = handleErrors(err);
+                res.json({ errors, created: false });
+            }
+    });
     app.post('/api/signin', async(req, res) => {
         try {
             
