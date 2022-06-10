@@ -153,11 +153,9 @@ module.exports = function(app) {
     app.post('/api/postcoffeedateuserdisliked', async(req, res) =>{
         try{
             var myData;
-            console.log(req.body)
             myData = await coffeeDateProfile.findOne({userid:req.body.dislikedData.myid}).select({ "disliked": 1}).clone();
             myData.disliked.push(req.body.dislikedData.profileid);
             await coffeeDateProfile.updateOne({$and:[{userid: req.body.dislikedData.myid},{disliked:{$ne:req.body.dislikedData.profileid }}]},myData).clone()
-            console.log("User disliked")
             res.send("User disliked")
         }
         catch(er){

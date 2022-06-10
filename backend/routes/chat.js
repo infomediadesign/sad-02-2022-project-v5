@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var conversation = require('../models/chat');
+var userProfile = require('../models/profile');
 var cors = require('cors');
 require('dotenv/config');
 module.exports = function(app){
@@ -26,13 +27,32 @@ module.exports = function(app){
 
     })
     app.get('/api/getmymessages/', async(req, res) => {
-        try{
             var myData;
+            var singleMessagesData;
+            var finalDataToSend=[];
+            var images;
+            var image;
             myData = await conversation.find({members:{ $elemMatch: {$eq: req.query.myid} }}).clone();
-            res.send(myData);
-        }
-        catch(er){
-            res.send("Something went wrong.");
-        }
+            for(var i=0; i<myData.length;i++){
+                image = null;
+                console.log(myData[i].members[0])
+                if(myData[i].members[0]===req.query.myid){
+                    images = await userProfile.findOne({userid:myData[i].members[1]}).select({"img":1});
+                    singleMessagesData = {
+                        members:myData[i].members,
+                        messages:myData[i].messages,
+                        image:Buffer.from(images.img.data).toString('base64')
+                    };
+                }
+                else{
+                    image = await userProfile.findOne({userid:myData[i].members[0]}).select({"img":1});
+                    singleMessagesData = {
+                        members:myData[i].members,
+                        messages:myData[i].messages,
+                        image:Buffer.from(image.img.data).toString('base64')
+                    };                }
+                finalDataToSend.push(singleMessagesData);
+            }
+            res.send(finalDataToSend);
     });
 }

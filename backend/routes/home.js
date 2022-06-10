@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser');
 var userProfile = require('../models/profile');
 var conversation = require('../models/chat');
+var report = require('../models/reports');
 
 require('dotenv/config');
 module.exports = function(app) {
@@ -119,4 +120,29 @@ module.exports = function(app) {
             res.send("Something went wrong.");
         }
     });
+    app.post('/api/reportuser', async(req, res)=>{
+        try{
+            console.log(req.body.id)
+            var user;
+            var userdataStore;
+            var userid = req.body.id;
+            user = await report.findOne({userid:req.body.id})
+            if(!user){
+                userdataStore = {
+                    userid:req.body.id,
+                    count:1
+                }
+                console.log(userdataStore)
+                await report.create(userdataStore);
+            }
+            else{
+                user.count=user.count+1;
+                await report.findOneAndUpdate({userid:req.body.id},user)
+            }
+            res.send("User Reported")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+    })
 }

@@ -48,13 +48,18 @@ function Chat() {
             userInfo = {
               name: response.data[i].members[0],
               message: response.data[i].messages,
+              image: response.data[i].image
             }
           }
           else {
             userInfo = {
               name: response.data[i].members[1],
               message: response.data[i].messages,
+              image: response.data[i].image
             }
+          }
+          if(i==0){
+            getChatDetails(userInfo)
           }
           var found = tempdata.some(el => el.name === userInfo.name);
           if (!found)
@@ -76,7 +81,6 @@ function Chat() {
     }
   };
   const getChatDetails = (data) => {
-    console.log(data)
     setChatData(data);
   }
 
@@ -99,15 +103,16 @@ function Chat() {
             userInfo = {
               name: response.data[i].members[0],
               message: response.data[i].messages,
+              image: response.data[i].image
             }
           }
           else {
             userInfo = {
               name: response.data[i].members[1],
               message: response.data[i].messages,
+              image: response.data[i].image
             }
           }
-          debugger
           if(userInfo.name===chatData.name){
             getChatDetails(userInfo)
           }
@@ -130,6 +135,8 @@ function Chat() {
           {data.map((object, i) => <div key={i} onClick={() => getChatDetails(object)} className='sidebarchat_container'>
             <div className='sidebarchat_innercontainer'>
               <div className='sidebarchat_info'>
+                
+            <Avatar src={`data:image/jpeg;base64,${object.image}`}/>
                 <h3>{object.name}</h3>
               </div>
             </div>
@@ -138,7 +145,7 @@ function Chat() {
         </div>
         <div className='chat_details'>
           <div className='chatdetails_header'>
-            <Avatar />
+            <Avatar src={`data:image/jpeg;base64,${chatData.image}`}/>
 
             <div className='chatdetails_headerInfo'>
               <h3>{chatData.name}</h3>
