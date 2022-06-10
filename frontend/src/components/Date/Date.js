@@ -25,15 +25,22 @@ const Date = () => {
         if (!data.status) {
           removeCookie("jwt");
           removeCookie("userid");
+          removeCookie("isAdmin");
           navigate("/signin");
         } 
       }
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-
+  const logOut = () => {
+    removeCookie("jwt");
+    removeCookie("userid");
+    removeCookie("isAdmin");
+    navigate("/");
+  };
   return (
     <div className="container">
+    <button className="logout" onClick={logOut}>Log out</button>
         <div className="sidenav">
             <Sidenav/>
         </div>
