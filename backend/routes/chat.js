@@ -37,19 +37,21 @@ module.exports = function(app){
             for(var i=0; i<myData.length;i++){
                 image = null;
                 if(myData[i].members[0]===req.query.myid){
-                    images = await userProfile.findOne({userid:myData[i].members[1]}).select({"img":1});
+                    images = await userProfile.findOne({userid:myData[i].members[1]}).select({"img":1,"name":1});
                     singleMessagesData = {
                         members:myData[i].members,
                         messages:myData[i].messages,
-                        image:Buffer.from(images.img.data).toString('base64')
+                        image:Buffer.from(images.img.data).toString('base64'),
+                        profilename:images.name
                     };
                 }
                 else{
-                    image = await userProfile.findOne({userid:myData[i].members[0]}).select({"img":1});
+                    image = await userProfile.findOne({userid:myData[i].members[0]}).select({"img":1,"name":1});
                     singleMessagesData = {
                         members:myData[i].members,
                         messages:myData[i].messages,
-                        image:Buffer.from(image.img.data).toString('base64')
+                        image:Buffer.from(image.img.data).toString('base64'),
+                        profilename:image.name
                     };                }
                 finalDataToSend.push(singleMessagesData);
             }
