@@ -153,7 +153,7 @@ const Admin = () => {
         return Promise.resolve(tasks.length);
     }
     async function deleteUser (data) {
-        await Axios.post('http://localhost:5000/api/deleteuser',{id:data.id,email:data.email,isAdmin:data.isAdmin});
+        await Axios.post('http://localhost:5000/api/deleteuser',{ params: {myid:data.userid} });
     };
       
       const styles = {
