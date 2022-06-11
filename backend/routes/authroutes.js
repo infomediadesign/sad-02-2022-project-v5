@@ -43,6 +43,7 @@ const handleErrors = (err) => {
             maxAge: maxAge * 1000,
         });
         res.cookie("userid", email);
+        res.cookie("isAdmin", false);
         res.status(201).json({ user: user._id, created: true });
         console.log("All working")
             } catch (err) {
