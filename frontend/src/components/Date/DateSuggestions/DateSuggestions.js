@@ -37,6 +37,18 @@ const Suggestions = () => {
       setMyloc(response.data.mylocation.coordinates);
       mylocat = response.data.mylocation.coordinates;
       showfirstprofile();
+
+      if(response.data.data.length==0)
+                    {
+                        document.getElementById("card_div").style.display="none";
+                        document.getElementById("likebutton").style.display="none";
+                        document.getElementById("dislikebutton").style.display="none";
+                        document.getElementById("reportbutton").style.display="none";
+                        document.getElementById("lastcard_div").style.display="flex";
+                        
+
+                    }
+
     });
   }, []);
 
@@ -69,6 +81,14 @@ const Suggestions = () => {
 
       setDistancefromme(dist);
     } else {
+
+      
+      document.getElementById("card_div").style.display="none";
+      document.getElementById("likebutton").style.display="none";
+      document.getElementById("dislikebutton").style.display="none";
+      document.getElementById("reportbutton").style.display="none";
+      document.getElementById("lastcard_div").style.display="flex";
+
     }
   }
   function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -124,6 +144,26 @@ const Suggestions = () => {
       });
     });
   };
+
+
+  const handlereportbutton = () => {
+    setIsToggled(!isToggled)
+    showprofile()
+    setOncount(oncount + 1);
+    console.log(oncount)
+    var reporteddata = {
+            myid: cookies.userid,
+            profileid: data.userid
+        }
+        console.log(reporteddata)
+    Axios.post('http://localhost:5000/api/reportuser',{reporteddata}).then((response)=>{
+        toast(`${response.data} 🦄`, {
+                theme: "dark",
+              });
+        
+});
+};    
+
 
   const handlelikebutton2 = () => {
     setIsToggled2(!isToggled2);
@@ -212,7 +252,7 @@ const Suggestions = () => {
         )}
       </motion.div>
       <ToastContainer />
-      <button className="button" onClick={handlelikebutton}>
+      <button id="likebutton" className="button" onClick={handlelikebutton}>
         <img alt="likebutton" className="icons" src={require("./like.png")} />
       </button>
       {isToggled && (
@@ -222,7 +262,15 @@ const Suggestions = () => {
           className="animation_like"
         />
       )}
-      <button className="button2" onClick={handlelikebutton2}>
+
+<button id="reportbutton"  className="button3" onClick={handlereportbutton}>
+                  < img className="icons3" src={require('./ad.png')} />
+            </button>
+            {isToggled && <img
+                src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
+
+
+      <button id="dislikebutton" className="button2" onClick={handlelikebutton2}>
         <img
           alt="dislikebutton"
           className="icons2"
@@ -236,7 +284,22 @@ const Suggestions = () => {
           className="animation_like"
         />
       )}
+
+      
+<motion.div id="lastcard_div" transition={{ layout: { duration: 1, type: "spring" } }} layout onClick={() => setIsOpen(!isOpen)} className="lastcard">
+               
+               
+               <h1>Hello</h1>
+
+               <h2>You are all caught up for now!</h2>
+
+               <h2 className="buttonstonav">but you can always look <br>
+               </br>into events</h2>
+               
+            </motion.div>
     </div>
+
+    
   );
 };
 
