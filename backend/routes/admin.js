@@ -44,7 +44,7 @@ module.exports = function(app){
     });
     app.post('/api/deleteuser', async(req, res) => {
         try{
-            console.log(req.body.params.myid)
+            
             await usercredentials.deleteOne({email: req.body.params.myid});
             await userProfile.deleteOne({userid: req.body.params.myid})
             await reportedUsers.deleteOne({userid: req.body.params.myid})
