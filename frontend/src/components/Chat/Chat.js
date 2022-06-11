@@ -141,7 +141,7 @@ function Chat() {
               <div className='sidebarchat_info'>
                 
             <Avatar src={`data:image/jpeg;base64,${object.image}`}/>
-                <h3>{object.name}</h3>
+                <h3>{object.profileName}</h3>
               </div>
             </div>
           </div>)}
@@ -152,7 +152,7 @@ function Chat() {
             <Avatar src={`data:image/jpeg;base64,${chatData.image}`}/>
 
             <div className='chatdetails_headerInfo'>
-              <h3>{chatData.name}</h3>
+              <h3>{chatData.profileName}</h3>
               <div className='chatheader_timestamp'>
                 <p>Last seen at: </p>
                 <span>{new Date().toUTCString()}</span>
