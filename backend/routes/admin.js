@@ -1,4 +1,5 @@
 var usercredentials = require('../models/usermodel');
+var reportedUsers = require('../models/reports');
 var userProfile = require('../models/profile');
 require('dotenv/config');
 module.exports = function(app){
@@ -43,6 +44,16 @@ module.exports = function(app){
         try{
             await usercredentials.deleteOne({_id: req.body.id});
             await userProfile.deleteOne({_id: req.body.id})
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+    });
+    app.get('/api/getreports', async(req, res) => {
+        try{
+            var reportedUsersData;
+            reportedUsersData = await reportedUsers.find();
+            res.send(reportedUsersData)
         }
         catch(er){
             res.send("Something went wrong.");

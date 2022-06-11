@@ -6,6 +6,7 @@ import Profile from './components/Profile/Profile';
 import ProfileDetails from './components/ProfileDetails/ProfileDetails';
 import CoffeeDate from './components/Date/Date';
 import Home from './components/Home/Home';
+import Reports from './components/Reports/Reports';
 import Test from './components/Test/Test';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
@@ -28,6 +29,7 @@ export default function App(){
       <Route exact path="/test" element={<Test/>}/>
       <Route exact path="/profile" element={<ProfileDetails/>}/>
       <Route exact path="/admin" element={<Admin/>}/>
+      <Route exact path="/reports" element={<Reports/>}/>
     </Routes>
   </BrowserRouter>
   );
