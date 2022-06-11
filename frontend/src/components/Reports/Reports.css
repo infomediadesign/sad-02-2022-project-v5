@@ -449,7 +449,7 @@ input {
     font-size: 1.1rem;
 }
 
-button {
+/* button {
     background-color: #75abbc;
     color: white;
     border: none;
@@ -458,7 +458,7 @@ button {
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 0.3rem;
-}
+} */
 
 span a {
     text-decoration: none;

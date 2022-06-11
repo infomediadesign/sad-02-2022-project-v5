@@ -190,28 +190,28 @@ module.exports = function (app) {
   });
   app.post("/api/reportuser", async (req, res) => {
     try {
-      console.log(req.body.id);
+      console.log(req.body);
       var user;
       var userdataStore;
-      var userid = req.body.id;
-      user = await report.findOne({ userid: req.body.id });
+     
+      user = await report.findOne({ userid: req.body.reporteddata.profileid });
       if (!user) {
         userdataStore = {
-          userid: req.body.id,
+          userid: req.body.reporteddata.profileid,
           count: 1,
         };
         console.log(userdataStore);
         await report.create(userdataStore);
       } else {
         user.count = user.count + 1;
-        await report.findOneAndUpdate({ userid: req.body.id }, user);
+        await report.findOneAndUpdate({ userid: req.body.reporteddata.profileid }, user);
       }
       res.send("User Reported");
     } catch (er) {
       res.send("Something went wrong.");
     }
   });
-
+  
   app.get("/api/getuserprofilebyid/", async (req, res) => {
     try {
       var myData;
