@@ -10,7 +10,7 @@
 			"name": "API Tests",
 			"item": [
 				{
-					"name": "get all my messages",
+					"name": "report user",
 					"event": [
 						{
 							"listen": "test",
@@ -28,10 +28,19 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"pranav@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:5000/api/getmymessages?myid=pranav@gmail.com",
+							"raw": "http://localhost:5000/api/reportuser",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -39,13 +48,7 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"getmymessages"
-							],
-							"query": [
-								{
-									"key": "myid",
-									"value": "pranav@gmail.com"
-								}
+								"reportuser"
 							]
 						}
 					},
@@ -418,7 +421,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/getuserprofile?myid=pranav@gmail.com",
+							"raw": "http://localhost:5000/api/getmyprofile?myid=pranav@gmail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -426,7 +429,7 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"getuserprofile"
+								"getmyprofile"
 							],
 							"query": [
 								{
@@ -520,6 +523,68 @@
 									"key": "myid",
 									"value": "pranav@gmail.com"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a single user profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/getuserprofile?myid=pranav@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"getuserprofile"
+							],
+							"query": [
+								{
+									"key": "myid",
+									"value": "pranav@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get reported users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 0.5s\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/getreports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"getreports"
 							]
 						}
 					},
@@ -702,6 +767,38 @@
 					"path": [
 						"api",
 						"postuserdisliked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find single reported user by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"0\":\"pranav@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/getuserprofilebyid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getuserprofilebyid"
 					]
 				}
 			},
