@@ -8,7 +8,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
 
-
 const Profile = () => {
   const [cookies, removeCookie] = useCookies([]);
   const [location, setLocation] = useState([]);
@@ -89,27 +88,28 @@ const Profile = () => {
         });
     }
     getmypicture();
-
-    
   }, []);
 
-  const deleteUser =async()=> {
-    debugger;
+  const deleteUser = async () => {
+    await axios
+      .post("http://localhost:5000/api/deleteuser", { params: userId })
+      .then((response) => {
+        logOut();
 
-    logOut()
-      await axios
-        .post(`http://localhost:5000/api/deleteuser`, { params: userId })
-        .then((response) => {
-        })
-        .catch(() => {
-          console.log("picture not received");
-        });
-    }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const logOut = () => {
     removeCookie("jwt");
     removeCookie("userid");
     removeCookie("isAdmin");
     navigate("/");
+  };
+  const questionnaire = () => {
+    
+    navigate("/profile");
   };
 
   const handleSubmit = async (e) => {
@@ -190,7 +190,6 @@ const Profile = () => {
         <section>
           <label>Edit picture</label>
           <input
-            className="fileInput"
             type="file"
             name="image"
             onChange={handlePicture}
@@ -320,11 +319,14 @@ const Profile = () => {
             onChange={handleAbout}
           />
           <input type="submit" value="Update Profile" />
-          <button className="Delete" onClick={deleteUser}>
+          <button className="profileDelete" onClick={deleteUser}>
             Delete Account
           </button>
-          <button className="logout" onClick={logOut}>
+          <button className="profileLogOut" onClick={logOut}>
             Log out
+          </button>
+          <button className="profileLogOut" onClick={questionnaire}>
+            Edit questionnaire
           </button>
         </section>
       </form>

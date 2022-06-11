@@ -25,13 +25,19 @@ const Date = () => {
         if (!data.status) {
           removeCookie("jwt");
           removeCookie("userid");
+          removeCookie("isAdmin");
           navigate("/signin");
         } 
       }
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-
+  const logOut = () => {
+    removeCookie("jwt");
+    removeCookie("userid");
+    removeCookie("isAdmin");
+    navigate("/");
+  };
   return (
     <div className="container">
         <div className="sidenav">

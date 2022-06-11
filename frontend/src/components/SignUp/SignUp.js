@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom';
 import "./SignUp.css";
@@ -9,6 +9,8 @@ const SignUp = () => {
   //   const [cookies, setCookie, removeCookie] = useCookies(null);
   // let navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const [cookies] = useCookies([]);
   var passionTemp;
   var petTemp;
 
@@ -19,7 +21,6 @@ const SignUp = () => {
   const [selectedPet, setSelectedPet] = useState([]);
   const [selectedSmoking, setSelectedSmoking] = useState("");
   const [selectedSocialMedia, setSelectedSocialMedia] = useState("");
-  const [cookies] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");

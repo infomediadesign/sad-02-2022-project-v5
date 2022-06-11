@@ -1,4 +1,6 @@
-var usercredentials = require('../models/user');
+var usercredentials = require('../models/usermodel');
+var reportedUsers = require('../models/reports');
+var userProfile = require('../models/profile');
 require('dotenv/config');
 module.exports = function(app){
     
@@ -13,7 +15,7 @@ module.exports = function(app){
             });
         }
         catch(er){
-            res.send(er)
+            res.send("Something went wrong.");
         }
         
     });
@@ -35,23 +37,21 @@ module.exports = function(app){
             });
         }
         catch(er){
-            res.send(er)
+            res.send("Something went wrong.");
         }
     });
-    app.post('/api/deleteuser', (req, res) => {
+    app.post('/api/deleteuser', async(req, res) => {
+            await usercredentials.deleteOne({email: req.body.params.myid});
+            await userProfile.deleteOne({userid: req.body.params.myid})
+    });
+    app.get('/api/getreports', async(req, res) => {
         try{
-            usercredentials.deleteOne({_id: req.body.id}, (err, item) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    
-                    res.send("deleted user");
-                }
-            });
+            var reportedUsersData;
+            reportedUsersData = await reportedUsers.find();
+            res.send(reportedUsersData)
         }
         catch(er){
-            res.send(er)
+            res.send("Something went wrong.");
         }
     });
 }

@@ -143,3 +143,9 @@
     float: unset;
     margin-left: 34%;
 }
+.profileDelete{
+    margin-top: 4px;
+}
+.profileLogOut{
+    margin-top: 4px;
+}
