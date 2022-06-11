@@ -163,12 +163,12 @@ const Suggestions = () => {
             showprofile()
             setOncount(oncount + 1);
             console.log(oncount)
-            var likedData = {
+            var reporteddata = {
                     myid: cookies.userid,
                     profileid: data.userid
                 }
-                console.log(likedData)
-            Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
+                console.log(reporteddata)
+            Axios.post('http://localhost:5000/api/reportuser',{reporteddata}).then((response)=>{
                 toast(`${response.data} 🦄`, {
                         theme: "dark",
                       });
