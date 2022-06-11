@@ -48,14 +48,16 @@ function Chat() {
             userInfo = {
               name: response.data[i].members[0],
               message: response.data[i].messages,
-              image: response.data[i].image
+              image: response.data[i].image,
+              profileName: response.data[i].profilename
             }
           }
           else {
             userInfo = {
               name: response.data[i].members[1],
               message: response.data[i].messages,
-              image: response.data[i].image
+              image: response.data[i].image,
+              profileName: response.data[i].profilename
             }
           }
           if(i==0){
@@ -103,14 +105,16 @@ function Chat() {
             userInfo = {
               name: response.data[i].members[0],
               message: response.data[i].messages,
-              image: response.data[i].image
+              image: response.data[i].image,
+              profileName: response.data[i].profilename
             }
           }
           else {
             userInfo = {
               name: response.data[i].members[1],
               message: response.data[i].messages,
-              image: response.data[i].image
+              image: response.data[i].image,
+              profileName: response.data[i].profilename
             }
           }
           if(userInfo.name===chatData.name){
@@ -137,7 +141,7 @@ function Chat() {
               <div className='sidebarchat_info'>
                 
             <Avatar src={`data:image/jpeg;base64,${object.image}`}/>
-                <h3>{object.name}</h3>
+                <h3>{object.profileName}</h3>
               </div>
             </div>
           </div>)}
@@ -148,7 +152,7 @@ function Chat() {
             <Avatar src={`data:image/jpeg;base64,${chatData.image}`}/>
 
             <div className='chatdetails_headerInfo'>
-              <h3>{chatData.name}</h3>
+              <h3>{chatData.profileName}</h3>
               <div className='chatheader_timestamp'>
                 <p>Last seen at: </p>
                 <span>{new Date().toUTCString()}</span>
