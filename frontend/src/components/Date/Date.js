@@ -40,7 +40,6 @@ const Date = () => {
   };
   return (
     <div className="container">
-    <button className="logout" onClick={logOut}>Log out</button>
         <div className="sidenav">
             <Sidenav/>
         </div>
