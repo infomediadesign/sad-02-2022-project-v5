@@ -35,7 +35,7 @@
 }
 .sideNavWelcomeText{
     font-weight:bold;
-    padding:10px 5px 0px 5px;
+    padding:5px 5px 0px 5px;
 }
 .sideNavEventsList{
     padding:5px;
@@ -59,6 +59,27 @@
     left: 0px;
     opacity: 0.5;
 }
+.sideNavHome{
+    position: relative;
+    border-radius:20px;
+    margin-top:10px;
+    cursor: default;
+    background-color:black;
+}
+
+.sideNavHome::before { 
+    content: "";
+    background-image:url("../../../public/images/date1.gif");
+    background-size: cover;
+    position: absolute;
+    border-radius:20px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.5;
+}
+
 .sideNavEventBlind{
     position: relative;
     border-radius:20px;

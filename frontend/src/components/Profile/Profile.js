@@ -1,13 +1,15 @@
-// import { width } from "@mui/system";
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import axios from "axios";
 import Slider from "@mui/material/Slider";
 import { useCookies } from "react-cookie";
+import { Avatar } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-
-  const [cookies] = useCookies([]);
+  const [cookies, removeCookie] = useCookies([]);
   const [location, setLocation] = useState([]);
   const [file, setFile] = useState("");
   const [fullName, setFullName] = useState("");
@@ -19,8 +21,13 @@ const Profile = () => {
   const [distance, setDistance] = useState("");
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
+  const [value, setValue] = React.useState(0);
+  const [image, setImage] = useState();
   const [userProfile, getUserProfile] = useState([]);
-  
+  const [profileImage, getProfileImage] = useState("");
+  const [user, setUser] = useState("");
+  const navigate = useNavigate();
+
   var options = {
     enableHighAccuracy: true,
 
@@ -42,33 +49,69 @@ const Profile = () => {
   navigator.geolocation.getCurrentPosition(success, error, options);
   var tempData;
   var userId = {
-    myid: cookies.userid
-  }
-  useEffect(() => {
-    async function getProfileData(){
-      await axios
-         .get('http://localhost:5000/api/getmyprofile',{params: userId})
-         .then((response) => {
-           getUserProfile(response.data);
-           tempData = response.data;
+    myid: cookies.userid,
+  };
 
-          setFullName(tempData.name)
-          setDobDate(tempData.dob.split("-")[0])
-          setDobMonth(tempData.dob.split("-")[1])
-          setDobYear(tempData.dob.split("-")[2])
-          setSelectedGender(tempData.gender)
-          setPreferredgender(tempData.preferredgender)
-          setDistance(tempData.findwithin)
-          // setFileName(userProfile.name)
-          setAbout(tempData.about)
-         })
-         .catch(() => {
-           console.log("no data has been received");
-         });
-     };
-     getProfileData();
-  },[]);
-  
+  useEffect(() => {
+    async function getProfileData() {
+      await axios
+        .get("http://localhost:5000/api/getmyprofile", { params: userId })
+        .then((response) => {
+          getUserProfile(response.data);
+          tempData = response.data;
+
+          setFullName(tempData.name);
+          setDobDate(tempData.dob.split("-")[0]);
+          setDobMonth(tempData.dob.split("-")[1]);
+          setDobYear(tempData.dob.split("-")[2]);
+          setSelectedGender(tempData.gender);
+          setPreferredgender(tempData.preferredgender);
+          setDistance(tempData.findwithin);
+          setAbout(tempData.about);
+        })
+        .catch(() => {
+          console.log("no data has been received");
+        });
+    }
+    getProfileData();
+
+    async function getmypicture() {
+      await axios
+        .get("http://localhost:5000/api/getmypicture/", { params: userId })
+        .then((response) => {
+          getProfileImage(response.data);
+          tempData = response.data;
+          setImage(tempData);
+        })
+        .catch(() => {
+          console.log("picture not received");
+        });
+    }
+    getmypicture();
+  }, []);
+
+  const deleteUser = async () => {
+    await axios
+      .post("http://localhost:5000/api/deleteuser", { params: userId })
+      .then((response) => {
+        logOut();
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const logOut = () => {
+    removeCookie("jwt");
+    removeCookie("userid");
+    removeCookie("isAdmin");
+    navigate("/");
+  };
+  const questionnaire = () => {
+    
+    navigate("/profile");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -76,19 +119,20 @@ const Profile = () => {
       form.append("userid", cookies.userid);
       form.append("file", file);
       form.append("name", fullName);
-      form.append("about", about);  
+      form.append("about", about);
       form.append("gender", selectedGender);
       form.append("preferredgender", PreferredGender);
       form.append("fileName", fileName);
       form.append("dob", date + "-" + month + "-" + year);
       form.append("location", location);
       form.append("findwithin", distance);
+      // form.append("img", image);
       await axios.post("http://localhost:5000/api/updateprofiledetails", form);
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   const handleDistance = (event, value) => {
     setDistance(value);
   };
@@ -126,23 +170,29 @@ const Profile = () => {
     setFileName(e.target.files[0].name);
   };
 
-  
+  const handlePicture = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className="Profile">
       <div className="upper-container-profile">
         <div className="image-container-profile">
-          <img src="/images/img1.jpg" alt="" />
+          {/* <img src="/images/img1.jpg" alt="" /> */}
+          <Avatar
+            className="avatarProfileEdit"
+            alt="User profile"
+            src={`data:image/jpeg;base64,${image}`}
+          />
         </div>
       </div>
       <form onSubmit={handleSubmit}>
         <section>
-          <label>Choose picture</label>
+          <label>Edit picture</label>
           <input
-            className="fileInput"
             type="file"
             name="image"
-            onChange={handleFile}
+            onChange={handlePicture}
           ></input>
           <label htmlFor="first_name"> FullName</label>
           <input
@@ -235,7 +285,7 @@ const Profile = () => {
               name="gender_interest"
               value="man"
               onChange={handlePreferredGender}
-              checked ={PreferredGender=== "man"}
+              checked={PreferredGender === "man"}
             />
 
             <label htmlFor="man-gender-interest"> Man</label>
@@ -245,7 +295,7 @@ const Profile = () => {
               name="gender_interest"
               value="woman"
               onChange={handlePreferredGender}
-              checked ={PreferredGender=== "woman"}
+              checked={PreferredGender === "woman"}
             />
             <label htmlFor="woman-gender-interest"> woman</label>
             <input
@@ -254,7 +304,7 @@ const Profile = () => {
               name="gender_interest"
               value="everyone"
               onChange={handlePreferredGender}
-              checked ={PreferredGender=== "everyone"}
+              checked={PreferredGender === "everyone"}
             />
             <label htmlFor="everyone-gender-interest"> everyone</label>
           </div>
@@ -269,6 +319,15 @@ const Profile = () => {
             onChange={handleAbout}
           />
           <input type="submit" value="Update Profile" />
+          <button className="profileDelete" onClick={deleteUser}>
+            Delete Account
+          </button>
+          <button className="profileLogOut" onClick={logOut}>
+            Log out
+          </button>
+          <button className="profileLogOut" onClick={questionnaire}>
+            Edit questionnaire
+          </button>
         </section>
       </form>
     </div>

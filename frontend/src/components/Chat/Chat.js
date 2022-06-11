@@ -1,8 +1,9 @@
 import './Chat.css'
 import { Avatar } from '@material-ui/core'
-import { InsertEmoticonOutlined } from '@mui/icons-material';
+import Picker from 'emoji-picker-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import {BsEmojiSmileFill} from 'react-icons/bs'
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -12,7 +13,7 @@ function Chat() {
   const [cookies, removeCookie] = useCookies([]);
   const [chatData, setChatData] = useState([]);
   const [typedText, setTypedText] = useState("");
-
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   var userInfo;
   var tempdata = [];
   var mydata = {
@@ -86,6 +87,16 @@ function Chat() {
     setChatData(data);
   }
 
+ const handleEmojiPickerHideShow = () => {
+  setShowEmojiPicker(!showEmojiPicker);
+ };
+
+ const handleEmojiClick = (event,emoji) =>{
+    let Emessage = typedText;
+    Emessage += emoji.emoji;
+    setTypedText(Emessage);
+ };
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     var sentMsgData = {
@@ -132,6 +143,9 @@ function Chat() {
       console.log(err);
     }
   };
+
+
+
   return (
     <div className='chatContainer'>
       <div className='chatcontainer_body'>
@@ -139,9 +153,8 @@ function Chat() {
           {data.map((object, i) => <div key={i} onClick={() => getChatDetails(object)} className='sidebarchat_container'>
             <div className='sidebarchat_innercontainer'>
               <div className='sidebarchat_info'>
-                
-            <Avatar src={`data:image/jpeg;base64,${object.image}`}/>
-                <h3>{object.profileName}</h3>
+                <Avatar src={`data:image/jpeg;base64,${object.image}`}/>
+                <h3 className='sidebarchat_name'>{object.profileName}</h3>
               </div>
             </div>
           </div>)}
@@ -171,7 +184,8 @@ function Chat() {
 
 
           <div className='chatdetails_footer'>
-            <InsertEmoticonOutlined />
+            <BsEmojiSmileFill onClick={handleEmojiPickerHideShow}/>
+            {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick}/>}
             <form>
               <input value={typedText}
                 placeholder="Type a message and hit enter to send messages"

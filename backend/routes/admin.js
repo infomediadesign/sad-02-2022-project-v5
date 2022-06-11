@@ -41,13 +41,8 @@ module.exports = function(app){
         }
     });
     app.post('/api/deleteuser', async(req, res) => {
-        try{
-            await usercredentials.deleteOne({_id: req.body.id});
-            await userProfile.deleteOne({_id: req.body.id})
-        }
-        catch(er){
-            res.send("Something went wrong.");
-        }
+            await usercredentials.deleteOne({email: req.body.params.myid});
+            await userProfile.deleteOne({userid: req.body.params.myid})
     });
     app.get('/api/getreports', async(req, res) => {
         try{
