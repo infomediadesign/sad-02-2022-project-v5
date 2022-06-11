@@ -156,6 +156,25 @@ const Suggestions = () => {
                 
         });
         };    
+
+        
+        const handlereportbutton = () => {
+            setIsToggled(!isToggled)
+            showprofile()
+            setOncount(oncount + 1);
+            console.log(oncount)
+            var likedData = {
+                    myid: cookies.userid,
+                    profileid: data.userid
+                }
+                console.log(likedData)
+            Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
+                toast(`${response.data} 🦄`, {
+                        theme: "dark",
+                      });
+                
+        });
+        };    
         
 
         const handlelikebutton2 = () => {
@@ -257,6 +276,15 @@ const Suggestions = () => {
             </button>
             {isToggled && <img
                 src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
+
+
+                 <button id="likebutton" className="button3" onClick={handlereportbutton}>
+                  < img className="icons3" src={require('./ad.png')} />
+            </button>
+            {isToggled && <img
+                src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
+
+
             <button id="dislikelikebutton" className="button2"  onClick={handlelikebutton2}><img className="icons2" src={require('./thumb-down.png')} /></button>
             {isToggled2 && <img
                 src="https://i.imgur.com/XqQZ4KR.png" alt="new" className="animation_like" />}
