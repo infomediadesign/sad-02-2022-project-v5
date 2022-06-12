@@ -1,5 +1,8 @@
 var usercredentials = require('../models/usermodel');
+var reportedUsers = require('../models/reports');
 var userProfile = require('../models/profile');
+var coffeeDateUsers = require('../models/coffeeDate');
+var blindDateProfile = require('../models/blindDate');
 require('dotenv/config');
 module.exports = function(app){
     
@@ -41,8 +44,23 @@ module.exports = function(app){
     });
     app.post('/api/deleteuser', async(req, res) => {
         try{
-            await usercredentials.deleteOne({_id: req.body.id});
-            await userProfile.deleteOne({_id: req.body.id})
+            
+            await usercredentials.deleteOne({email: req.body.params.myid});
+            await userProfile.deleteOne({userid: req.body.params.myid})
+            await reportedUsers.deleteOne({userid: req.body.params.myid})
+            await coffeeDateUsers.deleteOne({userid: req.body.params.myid})
+            await blindDateProfile.deleteOne({userid: req.body.params.myid})
+            res.send("account deleted")
+        }
+        catch(er){
+            res.send("Something went wrong.");
+        }
+    });
+    app.get('/api/getreports', async(req, res) => {
+        try{
+            var reportedUsersData;
+            reportedUsersData = await reportedUsers.find();
+            res.send(reportedUsersData)
         }
         catch(er){
             res.send("Something went wrong.");

@@ -28,12 +28,30 @@ const navigate = useNavigate();
             navigate("/coffeedate");
     });
     }
+    const navigateToHome = () => {
+        navigate("/home");
+    }
   return (
     <div className='sideNavContainer'>
         <div className="sideNavWelcomeText">
             Welcome To Events
         </div>
         <div className="sideNavEventsList">
+            <div className="sideNavHome">
+                <div className='sideNavEventHeader'>
+                    Find your soulmate
+                </div>
+                <div className="sideNavEventFooter">
+                    <div>
+                        Find people that best suit you
+                    </div>
+                    <div>
+                        <Button onClick={navigateToHome} className='sideNavEventJoinButton' size="medium">
+                        Home
+                        </Button>
+                    </div>
+                </div>
+            </div>
             <div className="sideNavEvent">
                 <div className='sideNavEventHeader'>
                     Coffee Date

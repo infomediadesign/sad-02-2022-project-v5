@@ -20,7 +20,7 @@ module.exports = function(app) {
     var upload = multer({ storage: storage });
 
     app.post('/api/addprofile', upload.single('file'), (req, res) => {
-        try{
+        try {
             if (!req.file) {
                 console.log("No file uploaded");
             } else {
@@ -33,17 +33,17 @@ module.exports = function(app) {
                         type: "Point",
                         coordinates: [(Number)(locationData[1]), (Number)(locationData[0])]
                     },
-                    findwithin:req.body.findwithin,
-                    passion:req.body.passion.split(','),
-                    bestdrink:req.body.bestdrink,
-                    education:req.body.education,
-                    foodpreferences:req.body.foodpreferences,
-                    bestpets:req.body.bestpets.split(','),
-                    smoking:req.body.smoking,
-                    Socialmedia:req.body.Socialmedia,
-                    gender:req.body.gender,
-                    preferredgender:req.body.preferredgender,
-                    dob:req.body.dob,
+                    findwithin: req.body.findwithin,
+                    passion: req.body.passion.split(','),
+                    bestdrink: req.body.bestdrink,
+                    education: req.body.education,
+                    foodpreferences: req.body.foodpreferences,
+                    bestpets: req.body.bestpets.split(','),
+                    smoking: req.body.smoking,
+                    Socialmedia: req.body.Socialmedia,
+                    gender: req.body.gender,
+                    preferredgender: req.body.preferredgender,
+                    dob: req.body.dob,
                     img: {
                         data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
                         contentType: 'image/png'
@@ -57,10 +57,9 @@ module.exports = function(app) {
                     }
                 });
             }
-        }
-        catch(er){
+        } catch (er) {
             res.send("Something went wrong.");
         }
-        
+
     });
 }

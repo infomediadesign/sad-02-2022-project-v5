@@ -26,6 +26,7 @@ const Home = () => {
         if (!data.status) {
           removeCookie("jwt");
           removeCookie("userid");
+          removeCookie("isAdmin");
           navigate("/signin");
         } 
         // else
@@ -39,11 +40,11 @@ const Home = () => {
   const logOut = () => {
     removeCookie("jwt");
     removeCookie("userid");
+    removeCookie("isAdmin");
     navigate("/");
   };
   return (
     <div className="container">
-        <button className="logout" onClick={logOut}>Log out</button>
         <div className="sidenav">
 
             <Sidenav/>
