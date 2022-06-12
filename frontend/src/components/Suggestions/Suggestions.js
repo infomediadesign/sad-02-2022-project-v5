@@ -56,6 +56,8 @@ const Suggestions = () => {
                         document.getElementById("likebutton").style.display="none";
                         document.getElementById("dislikelikebutton").style.display="none";
                         document.getElementById("lastcard_div").style.display="flex";
+                        document.getElementById("reportbutton").style.display="none";
+
                     }
                     // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
                    
@@ -95,6 +97,7 @@ const Suggestions = () => {
                         document.getElementById("card_div").style.display="none";
                         document.getElementById("likebutton").style.display="none";
                         document.getElementById("dislikelikebutton").style.display="none";
+                        document.getElementById("reportbutton").style.display="none";
                         document.getElementById("lastcard_div").style.display="flex";
                 }
                 // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))  
@@ -150,6 +153,26 @@ const Suggestions = () => {
                 }
                 console.log(likedData)
             Axios.post('http://localhost:5000/api/postuserliked',{likedData}).then((response)=>{
+                toast(`${response.data} 🦄`, {
+                        theme: "dark",
+                      });
+                
+        });
+        };    
+
+        // report button woking 
+        
+        const handlereportbutton = () => {
+            setIsToggled(!isToggled)
+            showprofile()
+            setOncount(oncount + 1);
+            console.log(oncount)
+            var reporteddata = {
+                    myid: cookies.userid,
+                    profileid: data.userid
+                }
+                console.log(reporteddata)
+            Axios.post('http://localhost:5000/api/reportuser',{reporteddata}).then((response)=>{
                 toast(`${response.data} 🦄`, {
                         theme: "dark",
                       });
@@ -257,6 +280,15 @@ const Suggestions = () => {
             </button>
             {isToggled && <img
                 src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
+
+
+                 <button id="reportbutton" className="button3" onClick={handlereportbutton}>
+                  < img className="icons3" src={require('./ad.png')} />
+            </button>
+            {isToggled && <img
+                src="https://i.imgur.com/Zkwj970.png" alt="new" className="animation_like" />}
+
+
             <button id="dislikelikebutton" className="button2"  onClick={handlelikebutton2}><img className="icons2" src={require('./thumb-down.png')} /></button>
             {isToggled2 && <img
                 src="https://i.imgur.com/XqQZ4KR.png" alt="new" className="animation_like" />}
