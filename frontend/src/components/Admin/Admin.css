@@ -199,14 +199,17 @@
 }
 
 .addButtonDiv {
-    height: 60px;
+    height: 80px;
     padding: 10px 0px;
+    margin-bottom: 10px;
+ 
+    justify-content:space-evenly ;
 }
 
 .crud-table-pagination {
     display: block;
     margin-top: 1rem;
-    margin: auto;
+    margin-left: 270px!important;
 }
 
 .crud-table-pagination::before {
@@ -348,7 +351,8 @@
     color: white!important;
     font-size: 16px!important;
     cursor: pointer!important;
-    float: left!important;
+    display:flex;
+
 }
 
 .addAdmin:hover {
@@ -455,4 +459,31 @@ span a {
     padding: 2rem 10rem;
     font-size: 4rem;
     border-radius: 2rem;
+}
+
+.adminReportButton {
+
+    background-color: #75abbc!important;
+    border: none!important;
+    padding: 10px!important;
+    color: white!important;
+    font-size: 16px!important;
+    cursor: pointer!important;
+    display:flex;
+    font-weight: 500;
+    margin-left: 30px!important;
+
+
+}
+
+.adminLogout {
+
+    background-color: #f51010!important;
+    border: none!important;
+    padding: 10px!important;
+    color: white!important;
+    font-size: 16px!important;
+    cursor: pointer!important;
+    display:flex;
+    font-weight: 500;
 }
