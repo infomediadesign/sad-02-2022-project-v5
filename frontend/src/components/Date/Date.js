@@ -9,7 +9,6 @@ const Date = () => {
     const navigate = useNavigate();
   const [cookies,  removeCookie] = useCookies([]);
   useEffect(() => {
-    console.log(cookies.userid)
     const verifyUser = async () => {
       if (!cookies.jwt) {
           console.log("jwt does not exist")
@@ -32,12 +31,6 @@ const Date = () => {
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-  const logOut = () => {
-    removeCookie("jwt");
-    removeCookie("userid");
-    removeCookie("isAdmin");
-    navigate("/");
-  };
   return (
     <div className="container">
         <div className="sidenav">

@@ -1,18 +1,16 @@
 import "./ProfileDetails.css";
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import Sidenav from "../Sidenav/Sidenav";
 import axios from "axios";
 import Questionnaire from "../Questionnaire/Questionnaire";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { toast, ToastContainer } from "react-toastify";
 
 const ProfileDetails = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([]);
+  const [cookies,  removeCookie] = useCookies([]);
   const navigate = useNavigate();
 useEffect(() => {
   
-    console.log(cookies.userid)
     const verifyUser = async () => {
       if (!cookies.jwt) {
           console.log("jwt does not exist")
@@ -38,11 +36,6 @@ useEffect(() => {
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-  const logOut = () => {
-    removeCookie("jwt");
-    removeCookie("userid");
-    navigate("/signin");
-  };
   
 
   return (

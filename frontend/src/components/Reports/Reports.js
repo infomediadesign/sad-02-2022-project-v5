@@ -77,7 +77,6 @@ const Admin = () => {
   const [cookies, removeCookie] = useCookies([]);
 
   useEffect(() => {
-    console.log(cookies.userid);
     const verifyUser = async () => {
       if (!cookies.jwt) {
         console.log("jwt does not exist");
