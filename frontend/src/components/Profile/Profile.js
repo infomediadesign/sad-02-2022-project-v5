@@ -21,11 +21,7 @@ const Profile = () => {
   const [distance, setDistance] = useState("");
   const [fileName, setFileName] = useState("");
   const [about, setAbout] = useState("");
-  const [value, setValue] = React.useState(0);
   const [image, setImage] = useState();
-  const [userProfile, getUserProfile] = useState([]);
-  const [profileImage, getProfileImage] = useState("");
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   var options = {
@@ -47,7 +43,6 @@ const Profile = () => {
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options);
-  var tempData;
   var userId = {
     myid: cookies.userid,
   };
@@ -57,17 +52,14 @@ const Profile = () => {
       await axios
         .get("http://localhost:5000/api/getmyprofile", { params: userId })
         .then((response) => {
-          getUserProfile(response.data);
-          tempData = response.data;
-
-          setFullName(tempData.name);
-          setDobDate(tempData.dob.split("-")[0]);
-          setDobMonth(tempData.dob.split("-")[1]);
-          setDobYear(tempData.dob.split("-")[2]);
-          setSelectedGender(tempData.gender);
-          setPreferredgender(tempData.preferredgender);
-          setDistance(tempData.findwithin);
-          setAbout(tempData.about);
+          setFullName(response.data.name);
+          setDobDate(response.data.dob.split("-")[0]);
+          setDobMonth(response.data.dob.split("-")[1]);
+          setDobYear(response.data.dob.split("-")[2]);
+          setSelectedGender(response.data.gender);
+          setPreferredgender(response.data.preferredgender);
+          setDistance(response.data.findwithin);
+          setAbout(response.data.about);
         })
         .catch(() => {
           console.log("no data has been received");
@@ -79,9 +71,7 @@ const Profile = () => {
       await axios
         .get("http://localhost:5000/api/getmypicture/", { params: userId })
         .then((response) => {
-          getProfileImage(response.data);
-          tempData = response.data;
-          setImage(tempData);
+          setImage(response.data);
         })
         .catch(() => {
           console.log("picture not received");
@@ -128,6 +118,15 @@ const Profile = () => {
       form.append("findwithin", distance);
       // form.append("img", image);
       await axios.post("http://localhost:5000/api/updateprofiledetails", form);
+      
+      await axios
+        .get("http://localhost:5000/api/getmypicture/", { params: userId })
+        .then((response) => {
+          setImage(response.data);
+        })
+        .catch(() => {
+          console.log("picture not received");
+        });
     } catch (err) {
       console.log(err);
     }
@@ -170,9 +169,6 @@ const Profile = () => {
     setFileName(e.target.files[0].name);
   };
 
-  const handlePicture = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <div className="Profile">
@@ -192,7 +188,7 @@ const Profile = () => {
           <input
             type="file"
             name="image"
-            onChange={handlePicture}
+            onChange={handleFile}
           ></input>
           <label htmlFor="first_name"> FullName</label>
           <input

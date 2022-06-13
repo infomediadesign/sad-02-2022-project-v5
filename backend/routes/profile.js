@@ -3,11 +3,9 @@ var userProfile = require('../models/profile');
 var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
-var cors = require('cors');
 require('dotenv/config');
 module.exports = function(app){ 
-    app.use(cors())
-    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     var storage = multer.diskStorage({
         destination: (req, file, cb) => {
