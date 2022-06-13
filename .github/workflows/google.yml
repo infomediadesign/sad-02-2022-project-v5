@@ -24,7 +24,6 @@ env:
   GKE_ZONE: europe-central2-b  
   DEPLOYMENT_NAME: two-souls
   REPOSITORY: dating-repository 
-  IMAGE: two-souls
 
 jobs:
   setup-build-publish-deploy:
@@ -68,7 +67,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |-
-        docker build \
+        docker-compose -f docker-compose.yml up \
           --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
