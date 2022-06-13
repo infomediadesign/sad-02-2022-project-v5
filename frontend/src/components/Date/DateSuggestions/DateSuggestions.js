@@ -65,7 +65,6 @@ const Suggestions = () => {
           mylocat[1]
         ).toFixed(1)
       );
-      console.log(oncount);
     }
   }
   function showprofile() {
@@ -130,12 +129,10 @@ const Suggestions = () => {
     setIsToggled(!isToggled);
     showprofile();
     setOncount(oncount + 1);
-    console.log(oncount);
     var likedData = {
       myid: cookies.userid,
       profileid: data.userid,
     };
-    console.log(likedData);
     Axios.post("http://localhost:5000/api/postcoffeedateuserliked", {
       likedData,
     }).then((response) => {
@@ -150,12 +147,10 @@ const Suggestions = () => {
     setIsToggled(!isToggled)
     showprofile()
     setOncount(oncount + 1);
-    console.log(oncount)
     var reporteddata = {
             myid: cookies.userid,
             profileid: data.userid
         }
-        console.log(reporteddata)
     Axios.post('http://localhost:5000/api/reportuser',{reporteddata}).then((response)=>{
         toast(`${response.data} 🦄`, {
                 theme: "dark",

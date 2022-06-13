@@ -22,7 +22,7 @@ module.exports = function(app) {
     app.post('/api/addprofile', upload.single('file'), (req, res) => {
         try {
             if (!req.file) {
-                console.log("No file uploaded");
+                res.send("No file uploaded");
             } else {
                 var locationData = req.body.location.split(',');
                 var obj = {

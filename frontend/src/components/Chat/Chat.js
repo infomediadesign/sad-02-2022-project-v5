@@ -4,12 +4,10 @@ import Picker from 'emoji-picker-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import {BsEmojiSmileFill} from 'react-icons/bs'
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function Chat() {
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const [chatData, setChatData] = useState([]);
   const [typedText, setTypedText] = useState("");
@@ -22,26 +20,6 @@ function Chat() {
   }
 
   useEffect(() => {
-    const verifyUser = async () => {
-      if (!cookies.jwt) {
-        console.log("jwt does not exist")
-        navigate("/signin");
-      } else {
-        const { data } = await axios.post(
-          "http://localhost:5000",
-          { cookies },
-          {
-            withCredentials: true,
-          }
-        );
-        if (!data.status) {
-          removeCookie("jwt");
-          removeCookie("userid");
-          navigate("/signin");
-        }
-      }
-    };
-    verifyUser();
     axios.get('http://localhost:5000/api/getmymessages/', { params: mydata }).then((response) => {
       if (response.data != undefined) {
         for (var i = 0; i < response.data.length; i++) {
@@ -70,9 +48,8 @@ function Chat() {
         }
       }
       setData(tempdata);
-      console.log(tempdata)
     });
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, removeCookie]);
 
 
   const handleTypedText = async (e) => {

@@ -1,7 +1,5 @@
   // import Nav from '../components/Nav'
   import { useState, useEffect } from "react";
-  // import {useCookies} from 'react-cookie'
-  import { useNavigate } from "react-router-dom";
   import axios from 'axios'
   import "./Questionnaire.css";
   import { useCookies } from "react-cookie";
@@ -28,17 +26,16 @@
         await axios
           .get("http://localhost:5000/api/getmyprofile/", { params: userId })
           .then((response) => {
-            console.log(response);
             getUserProfile(response.data);
             tempData = response.data;
-
+            debugger
             setSelectedPassions(tempData.passion);
             setSelectedFood(tempData.foodpreferences);
             setSelectedPet(tempData.bestpets);
             setSelectedDrink(tempData.bestdrink);
             setSelectedEducation(tempData.education);
             setSelectedSmoking(tempData.smoking);
-            setSelectedSocialMedia(tempData.Socialmedia);
+            setSelectedSocialMedia(tempData.socialmedia);
           })
           .catch(() => {
             console.log("no data has been received");
@@ -103,7 +100,6 @@
    
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log('i am clicked',e);
       try {
         var questionaireForm = {
           passion:selectedPassions,
@@ -123,7 +119,7 @@
     };
 
     function getpassiondefaultchecks(value) {
-      if (userProfile.passion != undefined) {
+      if (userProfile.passion !== undefined) {
         if (userProfile.passion.includes(value))
         return true;
         else return false;
@@ -131,14 +127,12 @@
     }
 
     function getpetsdefaultchecks(value) {
-      if (userProfile.bestpets != undefined) {
+      if (userProfile.bestpets !== undefined) {
         if (userProfile.bestpets.includes(value)) {
           return true;
         } else return false;
       }
     }
-
-    const [user, setUser] = useState(null);
 
     return (
       <div className="Questionnaire">

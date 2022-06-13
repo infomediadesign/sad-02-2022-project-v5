@@ -12,7 +12,6 @@ const navigate = useNavigate();
   const [cookies] = useCookies([]);
   var myid = cookies.userid;
     const joinBlindDate = ()=>{
-        console.log("here")
         axios.post('http://localhost:5000/api/getblinddate',{myid}).then((response)=>{
             toast( {response} , {
                     theme: "dark",
@@ -20,7 +19,6 @@ const navigate = useNavigate();
     });
     }
     const joinCoffeeDate = ()=>{
-        console.log("here")
         axios.post('http://localhost:5000/api/joincoffeedate',{myid}).then((response)=>{
             toast( {response} , {
                     theme: "dark",

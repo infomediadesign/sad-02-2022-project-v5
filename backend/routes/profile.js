@@ -3,11 +3,9 @@ var userProfile = require('../models/profile');
 var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
-var cors = require('cors');
 require('dotenv/config');
 module.exports = function(app){ 
-    app.use(cors())
-    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     var storage = multer.diskStorage({
         destination: (req, file, cb) => {
@@ -34,7 +32,7 @@ module.exports = function(app){
                 foodpreferences:myData.foodpreferences,
                 bestpets:myData.bestpets,
                 smoking:myData.smoking,
-                Socialmedia:myData.Socialmedia,
+                socialmedia:myData.socialmedia,
                 gender:myData.gender,
                 preferredgender:myData.preferredgender,
                 dob:myData.dob,
@@ -94,7 +92,6 @@ module.exports = function(app){
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
         try{
-            console.log(req.body);
                 var obj = {
                     passion:req.body.passion,
                     bestdrink:req.body.bestdrink,
