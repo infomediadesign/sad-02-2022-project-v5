@@ -138,10 +138,14 @@
    } 
 
 .avatarProfileEdit{
-    width: 30% !important;
-    height: 30% !important;
+    vertical-align: middle;
+  width: 100px!important;
+  height: 100px!important;
+  border-radius: 50%;
     float: unset;
-    margin-left: 34%;
+    
+    margin-left: 37%;
+    box-shadow: 0px 10px 30px rgb(0 0 0 / 50%);;
 }
 .profileDelete{
     margin-top: 4px;
