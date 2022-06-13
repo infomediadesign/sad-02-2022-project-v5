@@ -10,6 +10,7 @@ module.exports = function (app) {
 
   var likedUserData;
   app.post("/api/postuserliked", async (req, res) => {
+      
     try {
       var myData;
       myData = await userProfile
@@ -56,8 +57,8 @@ module.exports = function (app) {
         };
         var createdAlready = await conversation.findOne({
           $and: [
-            { members: req.body.data.profileid },
-            { members: req.body.data.myid },
+            { members: req.body.likedData.myid },
+            { members: req.body.likedData.profileid },
           ],
         });
         if (!createdAlready) {
@@ -80,10 +81,9 @@ module.exports = function (app) {
           .clone();
         console.log(" User liked");
         res.send("User liked");
+      }} catch (er) {
+        res.send("Something went wrong.");
       }
-    } catch (er) {
-      res.send("Something went wrong.");
-    }
   });
 
   app.post("/api/postuserdisliked", async (req, res) => {

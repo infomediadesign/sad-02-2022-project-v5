@@ -40,7 +40,7 @@ module.exports = function(app) {
                     foodpreferences: req.body.foodpreferences,
                     bestpets: req.body.bestpets.split(','),
                     smoking: req.body.smoking,
-                    Socialmedia: req.body.Socialmedia,
+                    socialmedia: req.body.Socialmedia,
                     gender: req.body.gender,
                     preferredgender: req.body.preferredgender,
                     dob: req.body.dob,

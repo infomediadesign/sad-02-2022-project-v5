@@ -129,7 +129,7 @@ module.exports = function(app) {
             myData.liked.push(req.body.likedData.profileid);
             await coffeeDateProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }},{matches:{$ne:req.body.likedData.profileid }}]},myData).clone()
             var obj = {members:[req.body.likedData.myid,req.body.likedData.profileid],messages:[]}
-            var createdAlready = await conversation.findOne({$and:[{members:req.body.data.profileid},{members:req.body.data.myid }]})
+            var createdAlready = await conversation.findOne({$and:[{members:req.body.likedData.myid},{members:req.body.likedData.profileid}]})
             if(!createdAlready){
                 await conversation.create(obj);
             }
