@@ -70,7 +70,6 @@ function Chat() {
         }
       }
       setData(tempdata);
-      console.log(tempdata)
     });
   }, [cookies, navigate, removeCookie]);
 
