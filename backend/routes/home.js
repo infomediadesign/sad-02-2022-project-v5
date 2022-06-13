@@ -64,7 +64,6 @@ module.exports = function (app) {
         if (!createdAlready) {
           await conversation.create(obj);
         }
-        console.log(obj);
         res.send("User matched");
       } else {
         myData.liked.push(req.body.likedData.profileid);
@@ -79,7 +78,6 @@ module.exports = function (app) {
             myData
           )
           .clone();
-        console.log(" User liked");
         res.send("User liked");
       }} catch (er) {
         res.send("Something went wrong.");
@@ -89,7 +87,6 @@ module.exports = function (app) {
   app.post("/api/postuserdisliked", async (req, res) => {
     try {
       var myData;
-      console.log(req.body);
       myData = await userProfile
         .findOne({ userid: req.body.dislikedData.myid })
         .select({ disliked: 1 })
@@ -106,7 +103,6 @@ module.exports = function (app) {
           myData
         )
         .clone();
-      console.log("User disliked");
       res.send("User disliked");
     } catch (er) {
       res.send("Something went wrong.");
@@ -117,7 +113,6 @@ module.exports = function (app) {
       var myData;
       var myId = req.query.myid;
       var genderPrefference;
-      console.log(req.query.myid);
       myData = await userProfile
         .findOne({ userid: req.query.myid })
         .select({
@@ -190,7 +185,6 @@ module.exports = function (app) {
   });
   app.post("/api/reportuser", async (req, res) => {
     try {
-      console.log(req.body);
       var user;
       var userdataStore;
      
@@ -200,7 +194,6 @@ module.exports = function (app) {
           userid: req.body.reporteddata.profileid,
           count: 1,
         };
-        console.log(userdataStore);
         await report.create(userdataStore);
       } else {
         user.count = user.count + 1;
@@ -215,7 +208,6 @@ module.exports = function (app) {
   app.get("/api/getuserprofilebyid/", async (req, res) => {
     try {
       var myData;
-      console.log(req.query[0]);
       myData = await userProfile.findOne({ userid: req.query[0] });
       if (myData) {
         var obj = {

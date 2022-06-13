@@ -32,7 +32,6 @@ const handleErrors = (err) => {
     app.post('/api/register', async(req, res) => {
         
         try {
-        console.log(req.body.userData.email)
         const { email, password } = req.body.userData;
         const user = await usermodel.create({ email, password });
         //after user is created
@@ -45,7 +44,7 @@ const handleErrors = (err) => {
         res.cookie("userid", email);
         res.cookie("isAdmin", false);
         res.status(201).json({ user: user._id, created: true });
-        console.log("All working")
+        res.send("All working")
             } catch (err) {
                 console.log(err);
                 const errors = handleErrors(err);
@@ -55,7 +54,6 @@ const handleErrors = (err) => {
     app.post('/api/registeradmin', async(req, res) => {
         
         try {
-        console.log(req.body.userData.email)
         const { email, password, isAdmin } = req.body.userData;
         const user = await usermodel.create({ email, password, isAdmin });
         //after user is created

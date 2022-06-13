@@ -34,7 +34,7 @@ module.exports = function(app){
                 }
                 else {
                     //userProfile.save();
-                    console.log("Admin Created")
+                    res.send("Admin Created")
                 }
             });
         }

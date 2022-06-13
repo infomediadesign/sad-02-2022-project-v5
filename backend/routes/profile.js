@@ -34,7 +34,7 @@ module.exports = function(app){
                 foodpreferences:myData.foodpreferences,
                 bestpets:myData.bestpets,
                 smoking:myData.smoking,
-                Socialmedia:myData.Socialmedia,
+                socialmedia:myData.socialmedia,
                 gender:myData.gender,
                 preferredgender:myData.preferredgender,
                 dob:myData.dob,
@@ -94,7 +94,6 @@ module.exports = function(app){
     });
     app.post('/api/updateprofilequestionaire',  async(req, res) => {
         try{
-            console.log(req.body);
                 var obj = {
                     passion:req.body.passion,
                     bestdrink:req.body.bestdrink,
