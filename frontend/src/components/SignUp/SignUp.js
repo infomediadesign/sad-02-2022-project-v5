@@ -153,7 +153,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       var form = new FormData();
-      debugger
+      
       form.append("file", file);
       form.append("name", fullName);
       form.append("about", about);
@@ -193,7 +193,7 @@ const SignUp = () => {
                 className="fileInput"
                 type="file"
                 name="image"
-                onChange={handleFile}woman
+                onChange={handleFile}
                 required
               ></input>
               <label htmlFor="first_name"> FullName</label>
