@@ -119,7 +119,6 @@ module.exports = function(app) {
     app.post('/api/postcoffeedateuserliked', async(req, res)=>{
         try{
             var myData;
-        console.log(req.body.likedData)
         myData = await coffeeDateProfile.findOne({userid:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         likedUserData = await coffeeDateProfile.findOne({userid:req.body.likedData.profileid,liked:req.body.likedData.myid}).select({ "liked": 1, "matches":1}).clone();
         if(likedUserData){
@@ -129,17 +128,15 @@ module.exports = function(app) {
             myData.liked.push(req.body.likedData.profileid);
             await coffeeDateProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }},{matches:{$ne:req.body.likedData.profileid }}]},myData).clone()
             var obj = {members:[req.body.likedData.myid,req.body.likedData.profileid],messages:[]}
-            var createdAlready = await conversation.findOne({$and:[{members:req.body.data.profileid},{members:req.body.data.myid }]})
+            var createdAlready = await conversation.findOne({$and:[{members:req.body.likedData.myid},{members:req.body.likedData.profileid}]})
             if(!createdAlready){
                 await conversation.create(obj);
             }
-            console.log(obj)
             res.send("User matched")
         }
         else{
             myData.liked.push(req.body.likedData.profileid);
             await coffeeDateProfile.findOneAndUpdate({$and:[{userid: req.body.likedData.myid},{liked:{$ne:req.body.likedData.profileid }}]},myData).clone()
-            console.log(" User liked")
             res.send("User liked")
         }
         }
@@ -169,7 +166,6 @@ module.exports = function(app) {
             var myData;
             var myId = req.query.myid;
             var genderPrefference
-            console.log(req.query.myid)
             myData = await coffeeDateProfile.findOne({userid:req.query.myid}).select({"disliked": 1, "liked": 1,"findwithin":1,"preferredgender":1,"location":1}).clone();
             if(myData.preferredgender === 'everyone'){
                 genderPrefference = ['man','other','woman']

@@ -24,6 +24,7 @@ module.exports = function(app) {
             if (!req.file) {
                 console.log("No file uploaded");
             } else {
+                console.log(req.body.Socialmedia)
                 var locationData = req.body.location.split(',');
                 var obj = {
                     name: req.body.name,
@@ -40,7 +41,7 @@ module.exports = function(app) {
                     foodpreferences: req.body.foodpreferences,
                     bestpets: req.body.bestpets.split(','),
                     smoking: req.body.smoking,
-                    Socialmedia: req.body.Socialmedia,
+                    socialmedia: req.body.Socialmedia,
                     gender: req.body.gender,
                     preferredgender: req.body.preferredgender,
                     dob: req.body.dob,

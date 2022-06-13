@@ -10,7 +10,8 @@ export default function Register(){
     const [cookies] = useCookies(["cookie-name"]);
     const navigate = useNavigate();
     useEffect(() => {
-        if (cookies.jwt) {
+        debugger
+        if (cookies.jwt && cookies.jwt!=="undefined") {
           navigate("/signup");
         }
       }, [cookies, navigate]);
