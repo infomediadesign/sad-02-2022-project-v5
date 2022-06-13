@@ -153,7 +153,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       var form = new FormData();
-
+      debugger
       form.append("file", file);
       form.append("name", fullName);
       form.append("about", about);
@@ -173,18 +173,7 @@ const SignUp = () => {
       form.append("userid", myid)
      
       await axios.post("http://localhost:5000/api/addprofile", form)
-      // .then( () => {
-      //   debugger;
-      //   // navigate("/signin")
-      // }
-     
-      // )
-      // .catch(
-      //   (err) => {
-      //     console.log(err);
-      //   }
-      // )
-      
+      navigate("/signin");
     } catch (err) {
       console.log(err);
     }
@@ -330,7 +319,6 @@ const SignUp = () => {
               />
            
               <input type="submit"  />  
-              <button><Link to = "/signin" > Create Account </Link> </button>
 
           
             </section>

@@ -28,17 +28,16 @@
         await axios
           .get("http://localhost:5000/api/getmyprofile/", { params: userId })
           .then((response) => {
-            console.log(response);
             getUserProfile(response.data);
             tempData = response.data;
-
+            debugger
             setSelectedPassions(tempData.passion);
             setSelectedFood(tempData.foodpreferences);
             setSelectedPet(tempData.bestpets);
             setSelectedDrink(tempData.bestdrink);
             setSelectedEducation(tempData.education);
             setSelectedSmoking(tempData.smoking);
-            setSelectedSocialMedia(tempData.Socialmedia);
+            setSelectedSocialMedia(tempData.socialmedia);
           })
           .catch(() => {
             console.log("no data has been received");
@@ -103,7 +102,6 @@
    
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log('i am clicked',e);
       try {
         var questionaireForm = {
           passion:selectedPassions,

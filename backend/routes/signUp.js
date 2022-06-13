@@ -24,6 +24,7 @@ module.exports = function(app) {
             if (!req.file) {
                 console.log("No file uploaded");
             } else {
+                console.log(req.body.Socialmedia)
                 var locationData = req.body.location.split(',');
                 var obj = {
                     name: req.body.name,
