@@ -1,7 +1,5 @@
   // import Nav from '../components/Nav'
   import { useState, useEffect } from "react";
-  // import {useCookies} from 'react-cookie'
-  import { useNavigate } from "react-router-dom";
   import axios from 'axios'
   import "./Questionnaire.css";
   import { useCookies } from "react-cookie";
@@ -121,7 +119,7 @@
     };
 
     function getpassiondefaultchecks(value) {
-      if (userProfile.passion != undefined) {
+      if (userProfile.passion !== undefined) {
         if (userProfile.passion.includes(value))
         return true;
         else return false;
@@ -129,14 +127,12 @@
     }
 
     function getpetsdefaultchecks(value) {
-      if (userProfile.bestpets != undefined) {
+      if (userProfile.bestpets !== undefined) {
         if (userProfile.bestpets.includes(value)) {
           return true;
         } else return false;
       }
     }
-
-    const [user, setUser] = useState(null);
 
     return (
       <div className="Questionnaire">

@@ -48,7 +48,6 @@ function Chat() {
         }
       }
       setData(tempdata);
-      console.log(tempdata)
     });
   }, [cookies, removeCookie]);
 
