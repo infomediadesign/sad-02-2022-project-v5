@@ -151,8 +151,8 @@ const Admin = () => {
         await fetchData()
         return Promise.resolve(tasks.length);
     }
-    async function deleteUser (data) {
-        await Axios.post('http://localhost:5000/api/deleteuser',{ params: {myid:data.userid} });
+  async function deleteUser (data) {
+        await Axios.post('http://localhost:5000/api/deleteuser',{ params: {myid:data.email} });
     };
       
       const styles = {

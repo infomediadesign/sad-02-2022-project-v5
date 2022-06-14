@@ -13,6 +13,9 @@ export default function Signin() {
     if (cookies.jwt) {
       navigate("/home");
     }
+    else if(cookies.isAdmin === true){
+      navigate("/admin");
+    }
   }, [cookies, navigate]);
   const [values, setValues] = useState({
     email: "",
@@ -46,7 +49,9 @@ export default function Signin() {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
-          if (cookies.isAdmin) navigate("/admin");
+          debugger
+          if (data.isAdmin) {
+            navigate("/admin");}
           else navigate("/home");
         }
       }

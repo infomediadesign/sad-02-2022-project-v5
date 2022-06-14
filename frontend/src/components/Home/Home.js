@@ -11,10 +11,15 @@ const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
     const verifyUser = async () => {
-      if (!cookies.jwt) {
+      debugger
+      if (!cookies.jwt ) {
           console.log("jwt does not exist")
         navigate("/signin");
-      } else {
+      } 
+      else if (cookies.isAdmin==="true") {
+        navigate("/admin");
+      } 
+      else {
         const { data } = await axios.post(
           "http://localhost:5000",
           {cookies},
