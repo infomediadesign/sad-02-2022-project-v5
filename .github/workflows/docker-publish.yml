@@ -27,5 +27,5 @@ jobs:
       - name: Build and push Docker image
         run: |
             docker-compose build 
-            docker tag 2souls:latest pranavjayanayak/2souls:latest
+            docker tag sad-02-2022-project-v5_frontend:latest pranavjayanayak/2souls:latest
             docker push pranavjayanayak/2souls:latest
