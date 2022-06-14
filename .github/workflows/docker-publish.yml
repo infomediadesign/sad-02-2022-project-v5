@@ -34,10 +34,10 @@ jobs:
             docker push pranavjayanayak/2souls:latest
         working-directory: ${{env.client}}
 
-      - name: Build and push backend Docker image
-        run: |
-            docker build 
-            docker tag sad-02-2022-project-v5_backend:latest pranavjayanayak/2souls:latest
-            docker push pranavjayanayak/2souls:latest
-        working-directory: ${{env.server}}
+      # - name: Build and push backend Docker image
+      #   run: |
+      #       docker build 
+      #       docker tag sad-02-2022-project-v5_backend:latest pranavjayanayak/2souls:latest
+      #       docker push pranavjayanayak/2souls:latest
+      #   working-directory: ${{env.server}}
     
