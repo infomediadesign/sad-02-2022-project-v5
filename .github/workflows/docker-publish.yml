@@ -34,7 +34,7 @@ jobs:
 
     - name: Build and push
       run: |
-            docker-compose build
+            docker-compose pull
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
             echo "login success"
             docker tag app sad-02-2022-project-v5/twosouls
