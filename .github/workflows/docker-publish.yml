@@ -26,7 +26,7 @@ jobs:
       run: |
             docker-compose build
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
-            docker tag pranavjayanayak/2souls
+            docker tag app pranavjayanayak/2souls
             docker push pranavjayanayak/2souls:latest
 #       working-directory: ${{env.server}}
       
