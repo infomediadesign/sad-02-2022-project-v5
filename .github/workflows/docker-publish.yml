@@ -5,9 +5,11 @@ on:
     branches: [ "master" ]
 
 jobs:
-  push_to_registry:
+  push_to_registry_frontend:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    env:
+        client: ./frontend
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -29,3 +31,4 @@ jobs:
             docker-compose build 
             docker tag sad-02-2022-project-v5_frontend:latest pranavjayanayak/2souls:latest
             docker push pranavjayanayak/2souls:latest
+        working-directory: ${{env.client}}
