@@ -77,7 +77,7 @@ const handleErrors = (err) => {
             });
             res.cookie("userid", email);
             res.cookie("isAdmin", user.isAdmin);
-            res.status(200).json({ user: user._id, created: true });
+            res.status(200).json({ user: user._id, created: true, isAdmin: user.isAdmin });
         } catch (err) {
             console.log(err);
             const errors = handleErrors(err);

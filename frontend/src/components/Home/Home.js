@@ -14,7 +14,11 @@ const Home = () => {
       if (!cookies.jwt) {
           console.log("jwt does not exist")
         navigate("/signin");
-      } else {
+      } 
+      else if (cookies.isAdmin) {
+        navigate("/admin");
+      } 
+      else {
         const { data } = await axios.post(
           "http://localhost:5000",
           {cookies},
