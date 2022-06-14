@@ -51,11 +51,9 @@ const Suggestions = () => {
         document.getElementById("lastcard_div").style.display = "flex";
         document.getElementById("reportbutton").style.display = "none";
       }
-      // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]))
     });
   }, []);
 
-  //   console.log(getDistanceFromLatLonInKm(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
 
   function showfirstprofile() {
     if (oncount < firstData.length) {
@@ -92,7 +90,6 @@ const Suggestions = () => {
       document.getElementById("reportbutton").style.display = "none";
       document.getElementById("lastcard_div").style.display = "flex";
     }
-    // setDistancefromme(getDistanceFromLatLonInKm(data.location.coordinates[0],data.location.coordinates[1],response.data.mylocation.coordinates[0],response.data.mylocation.coordinates[1]).toFixed(1))
   }
   function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
@@ -159,6 +156,8 @@ const Suggestions = () => {
       }
     );
   };
+
+  // dislike button woking
 
   const handlelikebutton2 = () => {
     setIsToggled2(!isToggled2);
