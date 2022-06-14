@@ -45,7 +45,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: ./docker-compose.yaml
+        file: ./frontend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/sad-02-2022-project-v5:latest
 
