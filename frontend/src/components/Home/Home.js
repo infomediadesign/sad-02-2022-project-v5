@@ -11,11 +11,12 @@ const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
     const verifyUser = async () => {
-      if (!cookies.jwt|| cookies.jwt===undefined) {
+      debugger
+      if (!cookies.jwt ) {
           console.log("jwt does not exist")
         navigate("/signin");
       } 
-      else if (cookies.isAdmin) {
+      else if (cookies.isAdmin==="true") {
         navigate("/admin");
       } 
       else {
