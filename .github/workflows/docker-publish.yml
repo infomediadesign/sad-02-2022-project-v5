@@ -24,16 +24,16 @@ jobs:
 
     - name: Build and push backend
       run: |
-            docker build
+            docker-compose build
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
             docker tag pranavjayanayak/2souls
             docker push pranavjayanayak/2souls:latest
-      working-directory: ${{env.server}}
+#       working-directory: ${{env.server}}
       
-    - name: Build and push frontend
-      run: |
-            docker build
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
-            docker tag pranavjayanayak/2souls
-            docker push pranavjayanayak/2souls:latest
-      working-directory: ${{env.client}}
+#     - name: Build and push frontend
+#       run: |
+#             docker build
+#             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+#             docker tag pranavjayanayak/2souls
+#             docker push pranavjayanayak/2souls:latest
+#       working-directory: ${{env.client}}
