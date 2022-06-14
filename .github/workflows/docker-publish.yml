@@ -36,4 +36,3 @@ jobs:
 #             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
 #             docker tag pranavjayanayak/2souls
 #             docker push pranavjayanayak/2souls:latest
-#       working-directory: ${{env.client}}
