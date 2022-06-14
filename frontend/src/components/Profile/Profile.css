@@ -137,19 +137,13 @@
     width: 20%;
 }
 
-<<<<<<< HEAD
 .avatarProfileEdit{
     vertical-align: middle;
   width: 100px!important;
   height: 100px!important;
   border-radius: 50%;
-=======
-.avatarProfileEdit {
-    width: 30% !important;
-    height: 30% !important;
->>>>>>> development
     float: unset;
-    
+    object-fit: cover!important;
     margin-left: 37%;
     box-shadow: 0px 10px 30px rgb(0 0 0 / 50%);;
 }
