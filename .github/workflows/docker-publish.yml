@@ -49,5 +49,4 @@ jobs:
       - name: Build and push Docker image
         run: |
             docker-compose build 
-            docker image tag myimage pranavjayanayak/2souls:latest
             docker push pranavjayanayak/2souls:latest
