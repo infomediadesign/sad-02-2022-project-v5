@@ -24,7 +24,7 @@ jobs:
 
     - name: Build and push backend
       run: |
-            docker-compose build
+            docker-compose build -t app
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
             docker tag app pranavjayanayak/2souls
             docker push pranavjayanayak/2souls:latest
