@@ -357,12 +357,14 @@
 .reportBody{
     display:flex;
 }
-.navBarAdmin{
+.navBarAdmin2{
     place-content: space-between;
     display:flex;
     margin:auto;
     width:90%;
     flex-direction:row;
+    margin-top: 5px;
+    
 }
 .expandReportProfile {
     width: 25rem;
@@ -484,4 +486,9 @@ span a {
     padding: 2rem 10rem;
     font-size: 4rem;
     border-radius: 2rem;
+}
+
+.reporteddata {
+    margin-left: 79px;
+    margin-bottom: 5px;
 }

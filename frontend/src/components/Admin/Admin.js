@@ -165,13 +165,14 @@ const Admin = () => {
     
     <div className="adminContainer">
     <div class="navBarAdmin">
-    <button className="adminReportButton" onClick={reportscreen}>Reports</button>
-    <button className="adminLogout" onClick={logOut}>Log out</button>
+   
     </div>
     <div style={styles.container}>
         <div className='addButtonDiv'>
         <div>
       <Button className="addAdmin" onClick={handleOpen}>Add Admin</Button>
+      <Button className="adminReportButton" onClick={reportscreen}>Reports</Button>
+    <Button className="adminLogout" onClick={logOut}>Log out</Button>
       <Modal
         open={open}
         onClose={handleClose}

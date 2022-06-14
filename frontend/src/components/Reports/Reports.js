@@ -4,7 +4,7 @@ import "./Reports.css";
 import { motion } from "framer-motion";
 import "../Date/DateSuggestions/DateSuggestions.css";
 import Box from "@mui/material/Box";
-
+import Button from '@mui/material/Button';
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -161,9 +161,9 @@ const Admin = () => {
   return (
     <div className="adminContainer">
       
-    <div class="navBarAdmin">
-    <button className="adminReportButton" onClick={reportscreen}>All users</button>
-    <button className="adminLogout" onClick={logOut}>Log out</button>
+    <div class="navBarAdmin2">
+    <Button className="adminReportButton" onClick={reportscreen}>All users</Button>
+    <Button className="adminLogout" onClick={logOut}>Log out</Button>
     </div>
     <div className="reportBody">
       <div style={styles.container}>
@@ -191,6 +191,7 @@ const Admin = () => {
         <CRUDTable
           caption="Reports"
           fetchItems={(payload) => fetchItems(payload)}
+
         >
           <Fields onClick="handleOpen">
             <Field name="userid" label="userid" placeholder="Title" />
@@ -217,8 +218,9 @@ const Admin = () => {
           />
         </CRUDTable>
       </div>
-      <div className="reportedUserprofiles">
+      <div id="reportedUserprofiles" className="reportedUserprofiles">
         <input
+          className="reporteddata"
           value={searchUserProfile}
           placeholder="ENTER USER ID"
           onChange={handleTypedText}
