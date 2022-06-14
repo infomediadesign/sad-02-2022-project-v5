@@ -11,7 +11,7 @@ const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
     const verifyUser = async () => {
-      if (!cookies.jwt) {
+      if (!cookies.jwt|| cookies.jwt===undefined) {
           console.log("jwt does not exist")
         navigate("/signin");
       } 
