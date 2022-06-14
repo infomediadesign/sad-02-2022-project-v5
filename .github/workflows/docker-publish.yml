@@ -42,7 +42,7 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     env:
-        CLIENT: ./frontend
+        CLIENT: frontend
     steps:
     
     - name: Build and push Dockerfile for frontend
