@@ -33,22 +33,23 @@
 #             docker-compose build 
 #             docker tag app pranavjayanayak/2souls
 #             docker push pranavjayanayak/2souls:latest
-      
-name: Docker Image CI
-
+name: Docker Container CI/CD
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
 
 jobs:
-
-  build:
-
+  frontend:
     runs-on: ubuntu-latest
-
+    env:
+        CLIENT: ./frontend
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
+    
+    - name: Build and push Dockerfile for frontend
       run: |
-        docker-compose build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:$GITHUB_SHA
-        docker push docker.io/${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:$GITHUB_SHA
+             docker build -t app .
+             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+             docker tag app pranavjayanayak/2souls
+             docker push pranavjayanayak/2souls:latest
+      working-directory: ${{env.CLIENT}}    
+  
